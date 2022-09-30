@@ -13,6 +13,7 @@ public abstract class Character : MonoBehaviour
 
     protected Vector2 direction;
     protected bool isAttacking = false;
+    protected bool isCasting = false;
     //protected Coroutine attackCoroutine;
     public bool isMoving
     {
@@ -22,7 +23,7 @@ public abstract class Character : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -50,8 +51,26 @@ public abstract class Character : MonoBehaviour
 
     public void HandleLayers()
     {
+        //If player is attacking while moving, then animate player attack and move
+        if (isMoving && isAttacking)
+        {
+            ActivateLayers("Attack_Layer");
+
+            //Sets the animation parameter so that he faces the correct direction
+            anim.SetFloat("x", direction.x);
+            anim.SetFloat("y", direction.y);
+        }
+        //If player is attacking while moving, then animate player attack and move
+        else if (isMoving && isCasting)
+        {
+            ActivateLayers("Cast_Layer");
+
+            //Sets the animation parameter so that he faces the correct direction
+            anim.SetFloat("x", direction.x);
+            anim.SetFloat("y", direction.y);
+        }
         //If player is moving, then animate player movement
-        if (isMoving)
+        else if (isMoving)
         {
             ActivateLayers("Walk_Layer");
 
@@ -59,9 +78,15 @@ public abstract class Character : MonoBehaviour
             anim.SetFloat("x", direction.x);
             anim.SetFloat("y", direction.y);
         }
+        //If player is attacking, then animate player attack
         else if (isAttacking)
         {
             ActivateLayers("Attack_Layer");
+        }
+        //If player is attacking, then animate player attack
+        else if (isCasting)
+        {
+            ActivateLayers("Cast_Layer");
         }
         else
         {
@@ -81,11 +106,17 @@ public abstract class Character : MonoBehaviour
 
     public void StopAttack()
     {
+        isAttacking = false;
+        anim.SetBool("attack", isAttacking);
         //if(attackCoroutine != null)
         //{
-            //StopCoroutine(attackCoroutine);
-            isAttacking = false;
-            anim.SetBool("attack", isAttacking);
+        //StopCoroutine(attackCoroutine);
+
         //}
+    }
+    public void StopCast()
+    {
+        isCasting = false;
+        anim.SetBool("cast", isCasting);
     }
 }
