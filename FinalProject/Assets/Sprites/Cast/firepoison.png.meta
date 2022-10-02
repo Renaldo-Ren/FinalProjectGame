@@ -116,15 +116,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: firepoison_0
+      name: firepoison_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 381
+        y: 390
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -137,15 +137,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firepoison_1
+      name: firepoison_3
       rect:
         serializedVersion: 2
-        x: 195
-        y: 381
+        x: 0
+        y: 585
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -158,15 +158,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firepoison_2
+      name: firepoison_4
       rect:
         serializedVersion: 2
-        x: 390
-        y: 381
+        x: 0
+        y: 765
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -179,15 +179,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firepoison_3
+      name: firepoison_6
       rect:
         serializedVersion: 2
-        x: 585
-        y: 381
+        x: 195
+        y: 195
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -200,15 +200,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firepoison_4
+      name: firepoison_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 186
+        y: 195
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -221,15 +221,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firepoison_5
+      name: firepoison_0
       rect:
         serializedVersion: 2
-        x: 195
-        y: 186
+        x: 0
+        y: 0
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -242,15 +242,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firepoison_6
+      name: firepoison_5
       rect:
         serializedVersion: 2
-        x: 390
-        y: 186
+        x: 195
+        y: 0
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -266,12 +266,12 @@ TextureImporter:
       name: firepoison_7
       rect:
         serializedVersion: 2
-        x: 585
-        y: 186
+        x: 195
+        y: 390
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -294,14 +294,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      firepoison_1: 1290984244
-      firepoison_3: -1225590501
-      firepoison_2: -1909136973
-      firepoison_5: -1134975788
-      firepoison_0: 1014202248
-      firepoison_4: 956667504
+      firepoison_1: 956667504
+      firepoison_3: 1290984244
+      firepoison_2: 1014202248
+      firepoison_5: 389607112
+      firepoison_0: -1134975788
+      firepoison_4: -1909136973
       firepoison_7: -927959892
-      firepoison_6: 389607112
+      firepoison_6: -1225590501
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
