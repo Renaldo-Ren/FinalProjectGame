@@ -9,12 +9,12 @@ public class Player : Character
 
     [SerializeField]
     private Stat mana;
-
+    
     private float initHP = 100;
     private float initMP = 50;
 
-    [SerializeField]
-    private GameObject[] castPrefab;
+    //[SerializeField]
+    //private GameObject[] castPrefab;
 
     [SerializeField]
     private Block[] blocks;
@@ -24,11 +24,15 @@ public class Player : Character
 
     private int exitIndex =2;
 
+    private SkillSet skillSet;
+
     public Transform myTarget { get; set; }
+    public bool isCoolDown = false;
 
     // Start is called before the first frame update
     protected override void Start()
     {
+        skillSet = GetComponent<SkillSet>();
         health.Initialize(initHP, initHP);
         mana.Initialize(initMP, initMP);
 
@@ -100,16 +104,26 @@ public class Player : Character
     }
     private IEnumerator Cast(int skillIndex)
     {
+        Cast newSkill = skillSet.castSkill(skillIndex);
         isCasting = true;
         anim.SetBool("cast", isCasting); //Start cast animation
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(newSkill.myCastTime);
+        if (skillIndex == 0)
+        {
+            Instantiate(newSkill.myCastPrefab, exitPoints[exitIndex].position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(newSkill.myCastPrefab, transform.position, Quaternion.identity);
+        }
         
-        Instantiate(castPrefab[skillIndex], exitPoints[exitIndex].position, Quaternion.identity);
         StopCast();
     }
 
     public void Casting(int skillIndex)
     {
+        //Cast checkCD = skillSet.castSkill(skillIndex);
         Block();
         if (myTarget != null && !isCasting && InLineofSight())
         {
@@ -137,4 +151,9 @@ public class Player : Character
         }
         blocks[exitIndex].Active();
     }
+    //public override void StopCast()
+    //{
+    //    skillSet.StopCasting();
+    //    base.StopCast();
+    //}
 }

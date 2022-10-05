@@ -1,27 +1,49 @@
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class Cast : MonoBehaviour
+[Serializable]
+public class Cast
 {
-    private Rigidbody2D Rb;
+    [SerializeField]
+    private string name;
+
+    [SerializeField]
+    private int damage;
+
+    [SerializeField]
+    private Sprite icon;
+
     [SerializeField]
     private float speed;
 
-    private Transform target;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Rb = GetComponent<Rigidbody2D>();
-        target = GameObject.Find("Target").transform; //just for debugging
-    }
+    [SerializeField]
+    private float castTime;
+
+    [SerializeField]
+    private float castCD;
+
+    [SerializeField]
+    private bool checkCD;
+
+    [SerializeField]
+    private GameObject castPrefab;
+
+    [SerializeField]
+    private Color barColor;
+
+    public string myName { get => name; }
+    public int myDamage { get => damage; }
+    public Sprite myIcon { get => icon; }
+    public float mySpeed { get => speed; }
+    public float myCastTime { get => castTime; }
+    public float myCastCD { get => castCD; }
+    public bool myCheckCD { get => checkCD; set => checkCD = value; }
+    public GameObject myCastPrefab { get => castPrefab; }
+    public Color myBarColor { get => barColor; }
     
-    // Update is called once per frame
-    void Update()
-    {
-        Vector2 dir = target.position - transform.position;
-        Rb.velocity = dir.normalized * speed;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
 }
+

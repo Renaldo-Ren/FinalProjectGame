@@ -14,7 +14,7 @@ public abstract class Character : MonoBehaviour
     protected Vector2 direction;
     protected bool isAttacking = false;
     protected bool isCasting = false;
-    //protected Coroutine attackCoroutine;
+    protected Coroutine attackCoroutine;
     public bool isMoving
     {
         get
@@ -114,9 +114,13 @@ public abstract class Character : MonoBehaviour
 
         //}
     }
-    public void StopCast()
+    public virtual void StopCast()
     {
         isCasting = false;
         anim.SetBool("cast", isCasting);
+        //if (attackCoroutine != null)
+        //{
+        //    StopCoroutine(attackCoroutine);
+        //}
     }
 }
