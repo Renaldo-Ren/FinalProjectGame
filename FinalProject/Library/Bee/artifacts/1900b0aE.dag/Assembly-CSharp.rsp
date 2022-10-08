@@ -374,7 +374,8 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
-"Assets/DeathBehaviour.cs"
+"Assets/Behaviour/DeathBehaviour.cs"
+"Assets/Behaviour/SpellBehaviour.cs"
 "Assets/Scripts/Block.cs"
 "Assets/Scripts/Cast.cs"
 "Assets/Scripts/CastScript.cs"
@@ -387,7 +388,6 @@
 "Assets/Scripts/SkillSet.cs"
 "Assets/Scripts/Stat.cs"
 "Assets/Scripts/UIManage.cs"
-"Assets/SpellBehaviour.cs"
 -langversion:9.0
 
 /deterministic

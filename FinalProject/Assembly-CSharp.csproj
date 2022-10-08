@@ -56,9 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Behaviour\DeathBehaviour.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\CastScript.cs" />
-    <Compile Include="Assets\SpellBehaviour.cs" />
+    <Compile Include="Assets\Behaviour\SpellBehaviour.cs" />
     <Compile Include="Assets\Scripts\SkillSet.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\GameManage.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Cast.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
-    <Compile Include="Assets\DeathBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

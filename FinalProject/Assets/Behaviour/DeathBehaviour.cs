@@ -17,7 +17,7 @@ public class DeathBehaviour : StateMachineBehaviour
         timePass += Time.deltaTime;
         if(timePass >= 5)
         {
-            Destroy(animator.gameObject);
+            animator.GetComponent<NPC>().OnCharacterRemoved();
         }
     }
 

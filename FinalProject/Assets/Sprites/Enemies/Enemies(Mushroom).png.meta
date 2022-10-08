@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 59155446b1d6d4641b6ee230adfbbf0b
+guid: 270f7cece5d0e7e4ebaeda64b28b50a0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e6ffb934f80f344ba71ff28fd48478a
-      internalID: -1832863600
+      spriteID: b9f17c3397c671542abc38bdc4d86aa7
+      internalID: 783785616
       vertices: []
       indices: 
       edges: []
@@ -151,8 +151,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb28208fe5f544641b23d06268482877
-      internalID: -750327789
+      spriteID: 01fe28a7f610adf459fbfe8b4c9fdcad
+      internalID: -171467862
       vertices: []
       indices: 
       edges: []
@@ -172,8 +172,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95b41c6c95e985b468941c53b9dd5ced
-      internalID: -1830781767
+      spriteID: b3a2efd9d433d5c47b7bfbbac35cc429
+      internalID: 489818021
       vertices: []
       indices: 
       edges: []
@@ -193,8 +193,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68bf85f2b31185d4a98c82f025244f3e
-      internalID: -1429442115
+      spriteID: c911bb3b652d86c4c93498737047b77c
+      internalID: -1520140271
       vertices: []
       indices: 
       edges: []
@@ -214,8 +214,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1af89517386eb994186db384b5dfbb8d
-      internalID: -1687458512
+      spriteID: 14ef594f9c329184caede604aedeeb59
+      internalID: -1332985518
       vertices: []
       indices: 
       edges: []
@@ -235,8 +235,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b064e0f8017a7b4fb6ba8ef96e4eeda
-      internalID: 1836329738
+      spriteID: 174b001cebf756346a1da2df21cd411f
+      internalID: -135398881
       vertices: []
       indices: 
       edges: []
@@ -256,8 +256,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67f0869ee01da644b8dbebd16f0ac9af
-      internalID: -146878967
+      spriteID: 90080150592cb7842b4ca4b3db45b8d8
+      internalID: -357113193
       vertices: []
       indices: 
       edges: []
@@ -277,8 +277,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e65e641f752c5c49a470cd945265532
-      internalID: -692516314
+      spriteID: d5120e0cb6642b64d86eef09cb802ca8
+      internalID: 1168601671
       vertices: []
       indices: 
       edges: []
@@ -298,8 +298,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d2238bbc674bd04885f4f93503f5348
-      internalID: -531052853
+      spriteID: 704e67b63be5e094dac1a9cf7038bc75
+      internalID: -1892171994
       vertices: []
       indices: 
       edges: []
@@ -319,8 +319,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d305099c9fecc994abb04c26a6e86b43
-      internalID: -1255001864
+      spriteID: ca6bf3b2454e81e459daf167a4c3ca8d
+      internalID: 157416051
       vertices: []
       indices: 
       edges: []
@@ -340,8 +340,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 260c2aa204e216044a9429f0906c8c6e
-      internalID: 649437655
+      spriteID: e8dcc82529f09944ea1592d5a3a72c59
+      internalID: -926836088
       vertices: []
       indices: 
       edges: []
@@ -361,8 +361,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81db42511cccf784ea5d71c67172121e
-      internalID: 1726331800
+      spriteID: 571f7bf2a31bcff499da5da0f336999e
+      internalID: 1136339681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies(Mushroom)_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eaea7b614089f74ab7bba8a40b315e7
+      internalID: -174568767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies(Mushroom)_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03166f1842327554ba89e441276060b1
+      internalID: 354123473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies(Mushroom)_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfc0284ce6146b64cb8d49595b2df646
+      internalID: 1316336507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies(Mushroom)_15
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9181956f122479418ce6c12196a1ff1
+      internalID: 1194104306
       vertices: []
       indices: 
       edges: []
@@ -378,18 +462,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Enemies(Mushroom)_4: -1687458512
-      Enemies(Mushroom)_8: -531052853
-      Enemies(Mushroom)_2: -1830781767
-      Enemies(Mushroom)_3: -1429442115
-      Enemies(Mushroom)_6: -146878967
-      Enemies(Mushroom)_7: -692516314
-      Enemies(Mushroom)_11: 1726331800
-      Enemies(Mushroom)_1: -750327789
-      Enemies(Mushroom)_10: 649437655
-      Enemies(Mushroom)_0: -1832863600
-      Enemies(Mushroom)_5: 1836329738
-      Enemies(Mushroom)_9: -1255001864
+      Enemies(Mushroom)_4: -1332985518
+      Enemies(Mushroom)_15: 1194104306
+      Enemies(Mushroom)_8: -1892171994
+      Enemies(Mushroom)_2: 489818021
+      Enemies(Mushroom)_3: -1520140271
+      Enemies(Mushroom)_6: -357113193
+      Enemies(Mushroom)_7: 1168601671
+      Enemies(Mushroom)_12: -174568767
+      Enemies(Mushroom)_11: 1136339681
+      Enemies(Mushroom)_13: 354123473
+      Enemies(Mushroom)_1: -171467862
+      Enemies(Mushroom)_14: 1316336507
+      Enemies(Mushroom)_10: -926836088
+      Enemies(Mushroom)_0: 783785616
+      Enemies(Mushroom)_5: -135398881
+      Enemies(Mushroom)_9: 157416051
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

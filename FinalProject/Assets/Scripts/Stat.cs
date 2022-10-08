@@ -62,7 +62,12 @@ public class Stat : MonoBehaviour
     }
     public void Initialize(float curVal, float maxVal)
     {
+        if(content == null)
+        {
+            content = GetComponent<Image>();
+        }
         MyMaxVal = maxVal;
         MyCurrentValue = curVal;
+        content.fillAmount = MyCurrentValue / MyMaxVal; //for the hp will immediately start at full hp without lerp to 1 when change target
     }
 }

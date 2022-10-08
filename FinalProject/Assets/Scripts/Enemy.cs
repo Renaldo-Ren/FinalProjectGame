@@ -17,4 +17,9 @@ public class Enemy : NPC
         HPgroup.alpha = 0;
         base.DeSelect();
     }
+    public override void TakeDmg(float dmg)
+    {
+        base.TakeDmg(dmg);
+        OnHealthChanged(health.MyCurrentValue);
+    }
 }
