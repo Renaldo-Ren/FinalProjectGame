@@ -15,6 +15,15 @@ public abstract class Character : MonoBehaviour
     protected bool isAttacking = false;
     protected bool isCasting = false;
     protected Coroutine attackCoroutine;
+
+    [SerializeField]
+    protected Transform Hitbox;
+
+    [SerializeField]
+    protected Stat health;
+
+    [SerializeField]
+    private float initHP;
     public bool isMoving
     {
         get
@@ -27,6 +36,7 @@ public abstract class Character : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        health.Initialize(initHP, initHP);
     }
 
     // Update is called once per frame
@@ -122,5 +132,13 @@ public abstract class Character : MonoBehaviour
         //{
         //    StopCoroutine(attackCoroutine);
         //}
+    }
+    public virtual void TakeDmg(float dmg)
+    {
+        health.MyCurrentValue -= dmg;
+        if(health.MyCurrentValue <= 0)
+        {
+            anim.SetTrigger("die");
+        }
     }
 }

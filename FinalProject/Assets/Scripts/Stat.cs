@@ -37,8 +37,11 @@ public class Stat : MonoBehaviour
                 curVal = value;
             }
             currentFill = curVal / MyMaxVal;
-
-            statVal.text = curVal + "/" + MyMaxVal;
+            if (statVal != null)
+            {
+                statVal.text = curVal + "/" + MyMaxVal;
+            }
+            
         }
     }
     

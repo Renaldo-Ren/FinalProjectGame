@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3574340523988745353}
   - component: {fileID: 8864977923674896868}
   - component: {fileID: 1725891109092027154}
+  - component: {fileID: -442452003647818481}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -97,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1825582517786945920}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d5f2364935185a40aaf7feeff01e6af, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3d782993df1d5cd45a24a283e500a69b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -141,3 +142,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!70 &-442452003647818481
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825582517786945920}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.036830414, y: -0.0007111177}
+  m_Size: {x: 0.23996359, y: 0.15317297}
+  m_Direction: 1

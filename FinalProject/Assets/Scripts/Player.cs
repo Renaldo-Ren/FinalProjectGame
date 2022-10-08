@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField]
-    private Stat health;
+    //[SerializeField]
+    //private Stat health;
 
     [SerializeField]
     private Stat mana;
     
-    private float initHP = 100;
+    
     private float initMP = 50;
 
     //[SerializeField]
@@ -33,7 +33,7 @@ public class Player : Character
     protected override void Start()
     {
         skillSet = GetComponent<SkillSet>();
-        health.Initialize(initHP, initHP);
+        
         mana.Initialize(initMP, initMP);
 
         base.Start();
@@ -111,7 +111,11 @@ public class Player : Character
         yield return new WaitForSeconds(newSkill.myCastTime);
         if (skillIndex == 0)
         {
-            Instantiate(newSkill.myCastPrefab, exitPoints[exitIndex].position, Quaternion.identity);
+            if(myTarget != null && InLineofSight())
+            {
+                CastScript s = Instantiate(newSkill.myCastPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<CastScript>();
+                s.Initialize(myTarget, newSkill.myDamage);
+            }
         }
         else
         {
@@ -134,12 +138,15 @@ public class Player : Character
     }
     private bool InLineofSight()
     {
-        Vector3 targetDir = (myTarget.transform.position - transform.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDir, Vector2.Distance(transform.position, myTarget.transform.position), 128);
-        //If raycast didn't hit blocks then it's true in sight
-        if(hit.collider == null)
+        if(myTarget != null)
         {
-            return true;
+            Vector3 targetDir = (myTarget.transform.position - transform.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDir, Vector2.Distance(transform.position, myTarget.transform.position), 128);
+            //If raycast didn't hit blocks then it's true in sight
+            if (hit.collider == null)
+            {
+                return true;
+            }
         }
         return false;
     }
