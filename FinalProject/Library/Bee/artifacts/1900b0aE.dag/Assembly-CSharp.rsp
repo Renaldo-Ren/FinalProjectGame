@@ -383,10 +383,13 @@
 "Assets/Scripts/Character.cs"
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/GameManage.cs"
+"Assets/Scripts/LayerCollide.cs"
 "Assets/Scripts/NPC.cs"
+"Assets/Scripts/Obstacle.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/SkillSet.cs"
 "Assets/Scripts/Stat.cs"
+"Assets/Scripts/TreeTile.cs"
 "Assets/Scripts/UIManage.cs"
 -langversion:9.0
 
