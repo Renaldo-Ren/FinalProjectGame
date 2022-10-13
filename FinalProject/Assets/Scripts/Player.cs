@@ -99,7 +99,7 @@ public class Player : Character
     {
         isAttacking = true;
         anim.SetBool("attack", isAttacking); //Start attack animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         StopAttack();
     }
     private IEnumerator Cast(int skillIndex)

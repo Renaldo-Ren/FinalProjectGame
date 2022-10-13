@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : NPC
 {
     [SerializeField]
-    private CanvasGroup HPgroup;
+    public CanvasGroup HPgroup;
 
     public override Transform Select()
     {

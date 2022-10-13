@@ -12,7 +12,7 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
     // Start is called before the first frame update
     void Start()
     {
-        //MySpriteRenderer = GetComponent<SpriteRenderer>();
+        MySpriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = MySpriteRenderer.color;
         fadedColor = defaultColor;
         fadedColor.a = 0.7f;
