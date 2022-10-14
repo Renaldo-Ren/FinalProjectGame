@@ -123,9 +123,9 @@ public abstract class Character : MonoBehaviour
     {
         isAttacking = false;
         anim.SetBool("attack", isAttacking);
-        //if(attackCoroutine != null)
+        //if (attackCoroutine != null)
         //{
-        //StopCoroutine(attackCoroutine);
+        //    StopCoroutine(attackCoroutine);
 
         //}
     }
@@ -140,6 +140,7 @@ public abstract class Character : MonoBehaviour
     }
     public virtual void TakeDmg(float dmg)
     {
+        anim.SetTrigger("hit");
         health.MyCurrentValue -= dmg;
         if(health.MyCurrentValue <= 0)
         {

@@ -12,6 +12,7 @@ public class CastScript : MonoBehaviour
     public Transform myTarget { get; private set;  }
 
     private int damage;
+    public float thrust = 50f;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +44,13 @@ public class CastScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Vector3 parentPos = gameObject.GetComponentInParent<Transform>().position;
+        Vector2 dir = (Vector2)(collision.gameObject.transform.position - parentPos).normalized;
+        Vector3 knockback = dir * thrust;
         if (collision.tag == "HitBox" && collision.transform == myTarget)
         {
             speed = 0;
-            collision.GetComponentInParent<Enemy>().TakeDmg(damage);
+            collision.GetComponentInParent<Enemy>().TakeDmg(damage, knockback);
             GetComponent<Animator>().SetTrigger("impact");
             Rb.velocity = Vector2.zero;
             myTarget = null;

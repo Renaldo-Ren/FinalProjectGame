@@ -381,6 +381,7 @@
 "Assets/Scripts/CastScript.cs"
 "Assets/Scripts/CastScriptStay.cs"
 "Assets/Scripts/Character.cs"
+"Assets/Scripts/DetectionArea.cs"
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/GameManage.cs"
 "Assets/Scripts/Knockback.cs"
