@@ -26,6 +26,8 @@ public class Player : Character
 
     private SkillSet skillSet;
 
+    private Vector3 min, max;
+
     public Transform myTarget { get; set; }
     public bool isCoolDown = false;
 
@@ -43,7 +45,7 @@ public class Player : Character
     protected override void Update()
     {
         GetInput();
-
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }
     
@@ -81,7 +83,7 @@ public class Player : Character
             exitIndex = 1;
             direction += Vector2.right;
         }
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetMouseButtonDown(0))
         {
             if (!isAttacking && !isMoving)
             {
@@ -93,6 +95,12 @@ public class Player : Character
         {
             
         }
+    }
+
+    public void SetLimits(Vector3 min, Vector3 max)
+    {
+        this.min = min;
+        this.max = max;
     }
 
     private IEnumerator Attack()

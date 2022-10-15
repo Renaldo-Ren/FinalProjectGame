@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\TreeTile.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\SwordHit.cs" />
+    <Compile Include="Assets\Scripts\DetectionArea.cs" />
     <Compile Include="Assets\Scripts\CastScript.cs" />
     <Compile Include="Assets\Behaviour\SpellBehaviour.cs" />
     <Compile Include="Assets\Scripts\SkillSet.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Cast.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
-    <Compile Include="Assets\Scripts\DetectionArea.cs" />
+    <Compile Include="Assets\Scripts\CameraFollow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

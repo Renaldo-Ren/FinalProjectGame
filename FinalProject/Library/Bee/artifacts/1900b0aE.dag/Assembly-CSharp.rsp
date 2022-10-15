@@ -377,6 +377,7 @@
 "Assets/Behaviour/DeathBehaviour.cs"
 "Assets/Behaviour/SpellBehaviour.cs"
 "Assets/Scripts/Block.cs"
+"Assets/Scripts/CameraFollow.cs"
 "Assets/Scripts/Cast.cs"
 "Assets/Scripts/CastScript.cs"
 "Assets/Scripts/CastScriptStay.cs"
