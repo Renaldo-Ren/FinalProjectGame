@@ -11,7 +11,24 @@ public class Enemy : NPC
     public float thrust = 2000f;
     public Collider2D collide;
     private float moveSpeed = 10f;
+
+    
     public DetectionArea detectArea;
+
+    private Transform target;
+    private IState curState;
+
+    public Transform Target { get => target; set => target = value; }
+
+    protected void Awake()
+    {
+        ChangeState(new IdleState());
+    }
+    protected override void Update()
+    {
+        curState.Update();
+        base.Update();
+    }
 
     //private void FixedUpdate()
     //{
@@ -80,4 +97,15 @@ public class Enemy : NPC
     //        collision.GetComponentInParent<Player>().PlayerTakeForce(knockback);
     //    }
     //}
+
+    
+    public void ChangeState(IState newState)
+    {
+        if(curState != null)
+        {
+            curState.Exit();
+        }
+        curState = newState;
+        curState.Enter(this);
+    }
 }

@@ -11,7 +11,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
 
-    protected Vector2 direction;
+    private Vector2 direction;
     protected bool isAttacking = false;
     protected bool isCasting = false;
     protected Coroutine attackCoroutine;
@@ -33,9 +33,13 @@ public abstract class Character : MonoBehaviour
     {
         get
         {
-            return direction.x != 0 || direction.y != 0;
+            return Direction.x != 0 || Direction.y != 0;
         }
     }
+
+    public Vector2 Direction { get => direction; set => direction = value; }
+    public float Speed { get => speed; set => speed = value; }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -58,7 +62,7 @@ public abstract class Character : MonoBehaviour
     public void Move()
     {
         //Frame Rate Independent
-        rb.velocity = direction.normalized * speed;
+        rb.velocity = Direction.normalized * Speed;
 
         //Frame Rate Dependent
         //transform.Translate(direction * speed * Time.deltaTime);
@@ -72,8 +76,8 @@ public abstract class Character : MonoBehaviour
             ActivateLayers("Attack_Layer");
 
             //Sets the animation parameter so that he faces the correct direction
-            anim.SetFloat("x", direction.x);
-            anim.SetFloat("y", direction.y);
+            anim.SetFloat("x", Direction.x);
+            anim.SetFloat("y", Direction.y);
         }
         //If player is attacking while moving, then animate player attack and move
         else if (isMoving && isCasting)
@@ -81,8 +85,8 @@ public abstract class Character : MonoBehaviour
             ActivateLayers("Cast_Layer");
 
             //Sets the animation parameter so that he faces the correct direction
-            anim.SetFloat("x", direction.x);
-            anim.SetFloat("y", direction.y);
+            anim.SetFloat("x", Direction.x);
+            anim.SetFloat("y", Direction.y);
         }
         //If player is moving, then animate player movement
         else if (isMoving)
@@ -90,8 +94,8 @@ public abstract class Character : MonoBehaviour
             ActivateLayers("Walk_Layer");
 
             //Sets the animation parameter so that he faces the correct direction
-            anim.SetFloat("x", direction.x);
-            anim.SetFloat("y", direction.y);
+            anim.SetFloat("x", Direction.x);
+            anim.SetFloat("y", Direction.y);
         }
         //If player is attacking, then animate player attack
         else if (isAttacking)
