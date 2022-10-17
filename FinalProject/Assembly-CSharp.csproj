@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\LayerCollide.cs" />
     <Compile Include="Assets\Scripts\Knockback.cs" />
+    <Compile Include="Assets\Scripts\EnemyState\FollowState.cs" />
     <Compile Include="Assets\Behaviour\DeathBehaviour.cs" />
     <Compile Include="Assets\Scripts\TreeTile.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
@@ -75,11 +76,11 @@
     <Compile Include="Assets\Scripts\CastScriptStay.cs" />
     <Compile Include="Assets\Scripts\Stat.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\EnemyState\IState.cs" />
     <Compile Include="Assets\Scripts\Cast.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
-    <Compile Include="Assets\Scripts\EnemyState\IState.cs" />
     <Compile Include="Assets\Scripts\EnemyState\IdleState.cs" />
-    <Compile Include="Assets\Scripts\EnemyState\FollowState.cs" />
+    <Compile Include="Assets\Scripts\EnemyState\AttackState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

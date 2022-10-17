@@ -384,6 +384,7 @@
 "Assets/Scripts/Character.cs"
 "Assets/Scripts/DetectionArea.cs"
 "Assets/Scripts/Enemy.cs"
+"Assets/Scripts/EnemyState/AttackState.cs"
 "Assets/Scripts/EnemyState/FollowState.cs"
 "Assets/Scripts/EnemyState/IdleState.cs"
 "Assets/Scripts/EnemyState/IState.cs"

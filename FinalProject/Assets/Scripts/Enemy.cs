@@ -18,10 +18,12 @@ public class Enemy : NPC
     private Transform target;
     private IState curState;
 
+    public float EnemyAttRange { get; set; }
     public Transform Target { get => target; set => target = value; }
 
     protected void Awake()
     {
+        EnemyAttRange = 2;
         ChangeState(new IdleState());
     }
     protected override void Update()

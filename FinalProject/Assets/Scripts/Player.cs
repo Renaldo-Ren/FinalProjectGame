@@ -91,9 +91,10 @@ public class Player : Character
             }
             //attackCoroutine = StartCoroutine(Attack());
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (isMoving)
         {
-            
+            StopAttack();
+            StopCast();
         }
     }
 
@@ -139,7 +140,7 @@ public class Player : Character
         Block();
         if (myTarget != null && !isCasting && InLineofSight())
         {
-            StartCoroutine(Cast(skillIndex));
+            attackCoroutine = StartCoroutine(Cast(skillIndex));
         }
         //attackCoroutine = StartCoroutine(Cast());
         
@@ -179,4 +180,24 @@ public class Player : Character
     //    skillSet.StopCasting();
     //    base.StopCast();
     //}
+    public void StopAttack()
+    {
+        isAttacking = false;
+        anim.SetBool("attack", isAttacking);
+        //if (attackCoroutine != null)
+        //{
+        //    StopCoroutine(attackCoroutine);
+
+        //}
+    }
+    public void StopCast()
+    {
+        //skillSet.StopCasting(); //Stop the skillset  from casting
+        isCasting = false; //Makes sure that we are not attacking
+        anim.SetBool("cast", isCasting); //Stops the cast animation
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+        }
+    }
 }

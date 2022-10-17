@@ -123,25 +123,17 @@ public abstract class Character : MonoBehaviour
         anim.SetLayerWeight(anim.GetLayerIndex(layername), 1);
     }
 
-    public void StopAttack()
-    {
-        isAttacking = false;
-        anim.SetBool("attack", isAttacking);
-        //if (attackCoroutine != null)
-        //{
-        //    StopCoroutine(attackCoroutine);
+    //public void StopAttack()
+    //{
+    //    isAttacking = false;
+    //    anim.SetBool("attack", isAttacking);
+    //    //if (attackCoroutine != null)
+    //    //{
+    //    //    StopCoroutine(attackCoroutine);
 
-        //}
-    }
-    public virtual void StopCast()
-    {
-        isCasting = false;
-        anim.SetBool("cast", isCasting);
-        //if (attackCoroutine != null)
-        //{
-        //    StopCoroutine(attackCoroutine);
-        //}
-    }
+    //    //}
+    //}
+   
     public virtual void TakeDmg(float dmg)
     {
         anim.SetTrigger("hit");
