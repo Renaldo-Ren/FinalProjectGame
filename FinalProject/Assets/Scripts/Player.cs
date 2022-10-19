@@ -85,7 +85,7 @@ public class Player : Character
         }
         if (Input.GetMouseButtonDown(0))
         {
-            if (!isAttacking && !isMoving)
+            if (!IsAttacking && !isMoving)
             {
                 StartCoroutine(Attack());
             }
@@ -106,8 +106,8 @@ public class Player : Character
 
     private IEnumerator Attack()
     {
-        isAttacking = true;
-        anim.SetBool("attack", isAttacking); //Start attack animation
+        IsAttacking = true;
+        MyAnim.SetBool("attack", IsAttacking); //Start attack animation
         yield return new WaitForSeconds(0.2f);
         StopAttack();
     }
@@ -115,7 +115,7 @@ public class Player : Character
     {
         Cast newSkill = skillSet.castSkill(skillIndex);
         isCasting = true;
-        anim.SetBool("cast", isCasting); //Start cast animation
+        MyAnim.SetBool("cast", isCasting); //Start cast animation
         //yield return new WaitForSeconds(0.2f);
         yield return new WaitForSeconds(newSkill.myCastTime);
         if (skillIndex == 0)
@@ -138,7 +138,7 @@ public class Player : Character
     {
         //Cast checkCD = skillSet.castSkill(skillIndex);
         Block();
-        if (myTarget != null && !isCasting && InLineofSight())
+        if (myTarget != null && !isCasting && InLineofSight() && IsAlive)
         {
             attackCoroutine = StartCoroutine(Cast(skillIndex));
         }
@@ -172,6 +172,10 @@ public class Player : Character
         Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();
         //base.TakeDmg(dmg);
         //OnHealthChanged(health.MyCurrentValue);
+        if (health.MyCurrentValue <= 0)
+        {
+            knockback = Vector2.zero;
+        }
         PlayerRb.AddForce(knockback);
         //Debug.Log("Force" + knockback);
     }
@@ -182,8 +186,8 @@ public class Player : Character
     //}
     public void StopAttack()
     {
-        isAttacking = false;
-        anim.SetBool("attack", isAttacking);
+        IsAttacking = false;
+        MyAnim.SetBool("attack", IsAttacking);
         //if (attackCoroutine != null)
         //{
         //    StopCoroutine(attackCoroutine);
@@ -194,7 +198,7 @@ public class Player : Character
     {
         //skillSet.StopCasting(); //Stop the skillset  from casting
         isCasting = false; //Makes sure that we are not attacking
-        anim.SetBool("cast", isCasting); //Stops the cast animation
+        MyAnim.SetBool("cast", isCasting); //Stops the cast animation
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);

@@ -193,7 +193,7 @@ Animator:
   m_GameObject: {fileID: 1102747389705694764}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f4221994b80fd2645828cdca43a03163, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4ad089c8688cddb42b9ad660b714efe9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -241,9 +241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbd6caa19cb47a45b19bff463c22000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  anim: {fileID: 1102747389705694755}
-  rb: {fileID: 1102747389705694759}
+  speed: 0.8
+  MyAnim: {fileID: 1102747389705694755}
+  MyRb: {fileID: 1102747389705694759}
   Hitbox: {fileID: 1102747389861327331}
   health: {fileID: 1102747389613027811}
   initHP: 50
@@ -485,13 +485,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102747391047311474}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cacc40c6fbf5b64fa2fd46a109beb8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionObj: []
-  Areacollide: {fileID: 1102747391047311472}
 --- !u!58 &1102747391047311472
 CircleCollider2D:
   m_ObjectHideFlags: 0

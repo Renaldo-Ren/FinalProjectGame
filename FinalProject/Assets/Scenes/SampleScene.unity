@@ -12074,8 +12074,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.8
-  anim: {fileID: 185646431}
-  rb: {fileID: 185646428}
+  MyAnim: {fileID: 0}
+  MyRb: {fileID: 0}
   Hitbox: {fileID: 1622705257}
   health: {fileID: 1757268546}
   initHP: 50
@@ -14526,8 +14526,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.8
-  anim: {fileID: 862882136}
-  rb: {fileID: 862882133}
+  MyAnim: {fileID: 0}
+  MyRb: {fileID: 0}
   Hitbox: {fileID: 10981098}
   health: {fileID: 378062948}
   initHP: 50
@@ -15753,6 +15753,11 @@ Transform:
   m_Father: {fileID: 185646433}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1559822996 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 1102747389705694759, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
+  m_PrefabInstance: {fileID: 1102747389578999355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1622705256
 GameObject:
   m_ObjectHideFlags: 0
@@ -32482,8 +32487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  anim: {fileID: 1846554783}
-  rb: {fileID: 1846554787}
+  MyAnim: {fileID: 1846554783}
+  MyRb: {fileID: 1846554787}
   Hitbox: {fileID: 0}
   health: {fileID: 1080587302}
   initHP: 100
@@ -33182,21 +33187,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1102747389705694755, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 4ad089c8688cddb42b9ad660b714efe9, type: 2}
     - target: {fileID: 1102747389705694758, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
-      propertyPath: speed
-      value: 0.8
-      objectReference: {fileID: 0}
+      propertyPath: EnemyRb
+      value: 
+      objectReference: {fileID: 1559822996}
     - target: {fileID: 1102747389705694764, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
       propertyPath: m_Name
       value: Enemy (Mushroom)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102747391047311479, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}

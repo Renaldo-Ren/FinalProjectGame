@@ -19,6 +19,7 @@ public class Enemy : NPC
     private IState curState;
 
     public float EnemyAttRange { get; set; }
+    public float EnemyAttTime { get; set; }
     public Transform Target { get => target; set => target = value; }
 
     protected void Awake()
@@ -28,8 +29,16 @@ public class Enemy : NPC
     }
     protected override void Update()
     {
-        curState.Update();
-        base.Update();
+        if (IsAlive)
+        {
+            if (!IsAttacking)
+            {
+                EnemyAttTime += Time.deltaTime;
+            }
+
+            curState.Update();
+        }
+        base.Update(); //Make sure in outside if alive so the enemy can use handlelayer function to make it death layer when die
     }
 
     //private void FixedUpdate()
@@ -68,7 +77,13 @@ public class Enemy : NPC
         Rigidbody2D EnemyRb = GetComponent<Rigidbody2D>();
         base.TakeDmg(dmg);
         OnHealthChanged(health.MyCurrentValue);
+        if (health.MyCurrentValue <=0)
+        {
+            knockback = Vector2.zero;
+        }
         EnemyRb.AddForce(knockback);
+        
+        
         //Debug.Log("Force" + knockback);
     }
     private void OnCollisionEnter2D(Collision2D collision)

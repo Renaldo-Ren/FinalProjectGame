@@ -7,12 +7,13 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
-    protected Animator anim;
+    public Animator MyAnim;
     [SerializeField]
-    private Rigidbody2D rb;
+    private Rigidbody2D MyRb;
 
     private Vector2 direction;
-    protected bool isAttacking = false;
+    
+    public bool IsAttacking { get; set; }
     protected bool isCasting = false;
     protected Coroutine attackCoroutine;
 
@@ -39,12 +40,18 @@ public abstract class Character : MonoBehaviour
 
     public Vector2 Direction { get => direction; set => direction = value; }
     public float Speed { get => speed; set => speed = value; }
-
+    public bool IsAlive
+    {
+        get
+        {
+            return health.MyCurrentValue > 0;
+        }
+    }
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+        MyAnim = GetComponent<Animator>();
+        MyRb = GetComponent<Rigidbody2D>();
         health.Initialize(initHP, initHP);
     }
 
@@ -61,66 +68,77 @@ public abstract class Character : MonoBehaviour
 
     public void Move()
     {
-        //Frame Rate Independent
-        rb.velocity = Direction.normalized * Speed;
+        if (IsAlive)
+        {
+            //Frame Rate Independent
+            MyRb.velocity = Direction.normalized * Speed;
 
-        //Frame Rate Dependent
-        //transform.Translate(direction * speed * Time.deltaTime);
+            //Frame Rate Dependent
+            //transform.Translate(direction * speed * Time.deltaTime);
+        }
+
     }
 
     public void HandleLayers()
     {
-        //If player is attacking while moving, then animate player attack and move
-        if (isMoving && isAttacking)
+        if (IsAlive)
         {
-            ActivateLayers("Attack_Layer");
+            //If player is attacking while moving, then animate player attack and move
+            if (isMoving && IsAttacking)
+            {
+                ActivateLayers("Attack_Layer");
 
-            //Sets the animation parameter so that he faces the correct direction
-            anim.SetFloat("x", Direction.x);
-            anim.SetFloat("y", Direction.y);
-        }
-        //If player is attacking while moving, then animate player attack and move
-        else if (isMoving && isCasting)
-        {
-            ActivateLayers("Cast_Layer");
+                //Sets the animation parameter so that he faces the correct direction
+                MyAnim.SetFloat("x", Direction.x);
+                MyAnim.SetFloat("y", Direction.y);
+            }
+            //If player is attacking while moving, then animate player attack and move
+            else if (isMoving && isCasting)
+            {
+                ActivateLayers("Cast_Layer");
 
-            //Sets the animation parameter so that he faces the correct direction
-            anim.SetFloat("x", Direction.x);
-            anim.SetFloat("y", Direction.y);
-        }
-        //If player is moving, then animate player movement
-        else if (isMoving)
-        {
-            ActivateLayers("Walk_Layer");
+                //Sets the animation parameter so that he faces the correct direction
+                MyAnim.SetFloat("x", Direction.x);
+                MyAnim.SetFloat("y", Direction.y);
+            }
+            //If player is moving, then animate player movement
+            else if (isMoving)
+            {
+                ActivateLayers("Walk_Layer");
 
-            //Sets the animation parameter so that he faces the correct direction
-            anim.SetFloat("x", Direction.x);
-            anim.SetFloat("y", Direction.y);
-        }
-        //If player is attacking, then animate player attack
-        else if (isAttacking)
-        {
-            ActivateLayers("Attack_Layer");
-        }
-        //If player is attacking, then animate player attack
-        else if (isCasting)
-        {
-            ActivateLayers("Cast_Layer");
+                //Sets the animation parameter so that he faces the correct direction
+                MyAnim.SetFloat("x", Direction.x);
+                MyAnim.SetFloat("y", Direction.y);
+            }
+            //If player is attacking, then animate player attack
+            else if (IsAttacking)
+            {
+                ActivateLayers("Attack_Layer");
+            }
+            //If player is attacking, then animate player attack
+            else if (isCasting)
+            {
+                ActivateLayers("Cast_Layer");
+            }
+            else
+            {
+                //Else, back to idle animation
+                ActivateLayers("Idle_Layer");
+            }
         }
         else
         {
-            //Else, back to idle animation
-            ActivateLayers("Idle_Layer");
+            ActivateLayers("Death_Layer");
         }
     }
 
     public void ActivateLayers(string layername)
     {
-        for (int i=0; i < anim.layerCount; i++)
+        for (int i=0; i < MyAnim.layerCount; i++)
         {
-            anim.SetLayerWeight(i, 0);
+            MyAnim.SetLayerWeight(i, 0);
         }
-        anim.SetLayerWeight(anim.GetLayerIndex(layername), 1);
+        MyAnim.SetLayerWeight(MyAnim.GetLayerIndex(layername), 1);
     }
 
     //public void StopAttack()
@@ -136,11 +154,13 @@ public abstract class Character : MonoBehaviour
    
     public virtual void TakeDmg(float dmg)
     {
-        anim.SetTrigger("hit");
+        MyAnim.SetTrigger("hit");
         health.MyCurrentValue -= dmg;
         if(health.MyCurrentValue <= 0)
         {
-            anim.SetTrigger("die");
+            Direction = Vector2.zero;
+            MyRb.velocity = Direction;
+            MyAnim.SetTrigger("die");
         }
     }
 }

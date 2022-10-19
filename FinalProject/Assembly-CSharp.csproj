@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Behaviour\SpellBehaviour.cs" />
     <Compile Include="Assets\Scripts\SkillSet.cs" />
+    <Compile Include="Assets\Scripts\EnemyState\AttackState.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\GameManage.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
@@ -80,7 +81,6 @@
     <Compile Include="Assets\Scripts\Cast.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\EnemyState\IdleState.cs" />
-    <Compile Include="Assets\Scripts\EnemyState\AttackState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
