@@ -16,24 +16,24 @@ class FollowState : IState
 
     public void Update()
     {
-        if(parent.Target != null)
+        if(parent.myTarget != null)
         {
             //Find the target's direction
-            parent.Direction = (parent.Target.transform.position - parent.transform.position).normalized;
+            parent.Direction = (parent.myTarget.transform.position - parent.transform.position).normalized;
 
             //Enemy moves towards the target
-            parent.transform.position = Vector2.MoveTowards(parent.transform.position, parent.Target.position, parent.Speed * Time.deltaTime);
+            parent.transform.position = Vector2.MoveTowards(parent.transform.position, parent.myTarget.position, parent.Speed * Time.deltaTime);
 
-            float distance = Vector2.Distance(parent.Target.position, parent.transform.position);
+            float distance = Vector2.Distance(parent.myTarget.position, parent.transform.position);
             if(distance <= parent.EnemyAttRange) //target enter the enemy attack range
             {
                 parent.ChangeState(new AttackState());
                 
             }
         }
-        else
+        if (!parent.inRange) //if Player is not in enemy range, then back to evade state/back to start position
         {
-            parent.ChangeState(new IdleState());
+            parent.ChangeState(new EvadeState());
         }
 
     }

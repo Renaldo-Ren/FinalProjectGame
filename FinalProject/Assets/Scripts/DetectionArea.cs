@@ -24,7 +24,7 @@ public class DetectionArea : MonoBehaviour
         //}
         if(collision.tag == "Player")
         {
-            parent.Target = collision.transform;
+            parent.setTarget(collision.transform); //set the player as the target when enter the detection area
         }
         
     }
@@ -34,9 +34,9 @@ public class DetectionArea : MonoBehaviour
         //{
         //    detectionObj.Remove(collision);
         //}
-        if (collision.tag == "Player")
-        {
-            parent.Target = null;
-        }
+        //if (collision.tag == "Player")
+        //{
+        //    parent.myTarget = null;
+        //}
     }
 }

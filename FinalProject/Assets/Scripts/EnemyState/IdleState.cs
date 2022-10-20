@@ -10,6 +10,7 @@ class IdleState : IState
     public void Enter(Enemy parent)
     {
         this.parent = parent;
+        this.parent.ResetEnemy();
     }
 
     public void Exit()
@@ -20,7 +21,7 @@ class IdleState : IState
     public void Update()
     {
         //Chane into follow state if the player is close
-        if (parent.Target != null) //If have target, then follow it
+        if (parent.myTarget != null) //If have target, then follow it
         {
             parent.ChangeState(new FollowState());
         }

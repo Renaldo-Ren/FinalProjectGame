@@ -26,10 +26,10 @@ public class AttackState : IState
             parent.StartCoroutine(Attack());
         }
 
-        if(parent.Target != null) //If have the target
+        if(parent.myTarget != null) //If have the target
         {
             //calculates the distance between the target and the enemy
-            float distance = Vector2.Distance(parent.Target.position, parent.transform.position);
+            float distance = Vector2.Distance(parent.myTarget.position, parent.transform.position);
             if(distance >= parent.EnemyAttRange+extraRange && !parent.IsAttacking)
             {
                 //Follow the target

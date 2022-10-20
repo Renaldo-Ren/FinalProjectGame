@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\Cast.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\EnemyState\IdleState.cs" />
+    <Compile Include="Assets\Scripts\EnemyState\EvadeState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

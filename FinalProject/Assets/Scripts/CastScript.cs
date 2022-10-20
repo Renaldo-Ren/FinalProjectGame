@@ -10,6 +10,7 @@ public class CastScript : MonoBehaviour
 
     private Transform target;
     public Transform myTarget { get; private set;  }
+    private Transform source;
 
     private int damage;
     public float thrust = 50f;
@@ -18,10 +19,11 @@ public class CastScript : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
     }
-    public void Initialize(Transform target, int damage)
+    public void Initialize(Transform target, int damage, Transform source)
     {
         this.myTarget = target;
         this.damage = damage;
+        this.source = source;
     }
     // Update is called once per frame
     void Update()
@@ -49,8 +51,10 @@ public class CastScript : MonoBehaviour
         Vector3 knockback = dir * thrust;
         if (collision.tag == "HitBox" && collision.transform == myTarget)
         {
+            //Character c = collision.GetComponentInParent<Character>();
             speed = 0;
-            collision.GetComponentInParent<Enemy>().TakeDmg(damage, knockback);
+            //c.TakeDmg(damage, source);
+            collision.GetComponentInParent<Enemy>().TakeDmg(damage, source, knockback);
             GetComponent<Animator>().SetTrigger("impact");
             Rb.velocity = Vector2.zero;
             myTarget = null;

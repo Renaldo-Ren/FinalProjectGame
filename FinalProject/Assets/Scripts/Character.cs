@@ -23,6 +23,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     protected Stat health;
 
+    public Transform myTarget { get; set; }
+
     public Stat MyHealth
     {
         get { return health; }
@@ -152,8 +154,12 @@ public abstract class Character : MonoBehaviour
     //    //}
     //}
    
-    public virtual void TakeDmg(float dmg)
+    public virtual void TakeDmg(float dmg, Transform source)
     {
+        //if(myTarget == null)
+        //{
+        //    myTarget = source;
+        //}
         MyAnim.SetTrigger("hit");
         health.MyCurrentValue -= dmg;
         if(health.MyCurrentValue <= 0)

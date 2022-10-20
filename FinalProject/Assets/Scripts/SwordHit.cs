@@ -8,10 +8,12 @@ public class SwordHit : MonoBehaviour
     private Player player;
 
     public float thrust = 1200f;
+    private Transform source;
     // Start is called before the first frame update
     void Start()
     {
         //anim = GetComponent<Animator>();
+        this.source = player.transform;
         
     }
 
@@ -32,7 +34,7 @@ public class SwordHit : MonoBehaviour
         
         if (collision.tag == "HitBox")
         {
-            collision.GetComponentInParent<Enemy>().TakeDmg(3, knockback);
+            collision.GetComponentInParent<Enemy>().TakeDmg(3, source, knockback);
             collision.GetComponentInParent<Enemy>().HPgroup.alpha = 1;
             //collision.GetComponentInParent<Enemy>().TakeForce(knockback);
         }

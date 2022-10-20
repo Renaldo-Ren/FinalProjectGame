@@ -28,7 +28,7 @@ public class Player : Character
 
     private Vector3 min, max;
 
-    public Transform myTarget { get; set; }
+    //public Transform myTarget { get; set; }
     public bool isCoolDown = false;
 
     // Start is called before the first frame update
@@ -123,7 +123,7 @@ public class Player : Character
             if(myTarget != null && InLineofSight())
             {
                 CastScript s = Instantiate(newSkill.myCastPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<CastScript>();
-                s.Initialize(myTarget, newSkill.myDamage);
+                s.Initialize(myTarget, newSkill.myDamage, transform);
             }
         }
         else
@@ -138,7 +138,7 @@ public class Player : Character
     {
         //Cast checkCD = skillSet.castSkill(skillIndex);
         Block();
-        if (myTarget != null && !isCasting && InLineofSight() && IsAlive)
+        if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !isCasting && InLineofSight() && !isMoving && IsAlive)
         {
             attackCoroutine = StartCoroutine(Cast(skillIndex));
         }
