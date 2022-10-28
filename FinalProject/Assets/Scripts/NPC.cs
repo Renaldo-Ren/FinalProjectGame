@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public delegate void HealthChanged(float health);
 public delegate void CharacterRemoved();
 
-public class NPC : Character
+public class NPC : Character, IInteractable
 {
     public event HealthChanged hpChanged;
     public event CharacterRemoved charRemoved;
@@ -41,5 +41,15 @@ public class NPC : Character
             charRemoved();
         }
         Destroy(gameObject);
+    }
+
+    public virtual void Interact()
+    {
+        
+    }
+
+    public virtual void StopInteract()
+    {
+        
     }
 }

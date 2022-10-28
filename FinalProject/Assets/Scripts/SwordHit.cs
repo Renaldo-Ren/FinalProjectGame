@@ -6,7 +6,6 @@ public class SwordHit : MonoBehaviour
 {
     [SerializeField]
     private Player player;
-
     public float thrust = 1200f;
     private Transform source;
     // Start is called before the first frame update
@@ -14,7 +13,7 @@ public class SwordHit : MonoBehaviour
     {
         //anim = GetComponent<Animator>();
         this.source = player.transform;
-        
+
     }
 
     // Update is called once per frame
@@ -31,11 +30,12 @@ public class SwordHit : MonoBehaviour
         Vector2 dir = (Vector2)(collision.gameObject.transform.position - parentPos).normalized;
         //knockback is in direction of swordCollider towards collider
         Vector3 knockback = dir * thrust;
-        
+
         if (collision.tag == "HitBox")
         {
             collision.GetComponentInParent<Enemy>().TakeDmg(3, source, knockback);
             collision.GetComponentInParent<Enemy>().HPgroup.alpha = 1;
+            //collision.GetComponentInParent<Enemy>().IsHit = false;
             //collision.GetComponentInParent<Enemy>().TakeForce(knockback);
         }
     }

@@ -15,6 +15,8 @@ public class Player : Character
 
     //[SerializeField]
     //private GameObject[] castPrefab;
+    [SerializeField]
+    private Enemy enemy;
 
     [SerializeField]
     private Block[] blocks;
@@ -23,6 +25,9 @@ public class Player : Character
     private Transform[] exitPoints;
 
     private int exitIndex =2;
+
+    private IInteractable interactable;
+    private bool inRangeInteract = false;
 
     private SkillSet skillSet;
 
@@ -85,11 +90,18 @@ public class Player : Character
         }
         if (Input.GetMouseButtonDown(0))
         {
-            if (!IsAttacking && !isMoving)
+            if (!IsAttacking && !isMoving && !UIManage.isPaused)
             {
                 StartCoroutine(Attack());
             }
             //attackCoroutine = StartCoroutine(Attack());
+        }
+        if (Input.GetKey(KeyCode.F))
+        {
+            if (inRangeInteract)
+            {
+                Interact();
+            }
         }
         if (isMoving)
         {
@@ -138,7 +150,7 @@ public class Player : Character
     {
         //Cast checkCD = skillSet.castSkill(skillIndex);
         Block();
-        if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !isCasting && InLineofSight() && !isMoving && IsAlive)
+        if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !isCasting && InLineofSight() && !isMoving && IsAlive && !UIManage.isPaused)
         {
             attackCoroutine = StartCoroutine(Cast(skillIndex));
         }
@@ -188,6 +200,7 @@ public class Player : Character
     {
         IsAttacking = false;
         MyAnim.SetBool("attack", IsAttacking);
+        enemy.IsHit = false;
         //if (attackCoroutine != null)
         //{
         //    StopCoroutine(attackCoroutine);
@@ -198,10 +211,39 @@ public class Player : Character
     {
         //skillSet.StopCasting(); //Stop the skillset  from casting
         isCasting = false; //Makes sure that we are not attacking
+        enemy.IsHit = false;
         MyAnim.SetBool("cast", isCasting); //Stops the cast animation
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
         }
     }
+    public void Interact()
+    {
+        if(interactable != null)
+        {
+            interactable.Interact();
+        }
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy" || collision.tag =="Interactable")
+        {
+            interactable = collision.GetComponent<IInteractable>();
+            inRangeInteract = true;
+        }
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy" || collision.tag == "Interactable")
+        {
+            if(interactable != null)
+            {
+                interactable.StopInteract();
+                interactable = null;
+                inRangeInteract = false;
+            }
+        }
+    }
+
 }

@@ -35,6 +35,9 @@ public class UIManage : MonoBehaviour
     [SerializeField]
     private Text eneName;
 
+    [SerializeField]
+    private CanvasGroup pauseMenu;
+    public static bool isPaused = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +65,10 @@ public class UIManage : MonoBehaviour
         {
             ActionButtonClicked(2);
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OpenCloseMenu();
+        }
     }
 
     private void ActionButtonClicked(int btnIndex)
@@ -85,5 +92,12 @@ public class UIManage : MonoBehaviour
     public void UpdateTargetFrame(float hp)
     {
         hpStat.MyCurrentValue = hp;
+    }
+    public void OpenCloseMenu()
+    {
+        pauseMenu.alpha = pauseMenu.alpha > 0 ? 0 : 1;
+        pauseMenu.blocksRaycasts = pauseMenu.blocksRaycasts == true ? false : true;
+        Time.timeScale = Time.timeScale > 0 ? 0 : 1;
+        isPaused = isPaused == false ? true : false;
     }
 }

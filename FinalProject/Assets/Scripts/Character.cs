@@ -15,6 +15,8 @@ public abstract class Character : MonoBehaviour
     
     public bool IsAttacking { get; set; }
     protected bool isCasting = false;
+    public bool IsHit { get; set; }
+    //protected bool isHit = false;
     protected Coroutine attackCoroutine;
 
     [SerializeField]
@@ -103,6 +105,10 @@ public abstract class Character : MonoBehaviour
                 MyAnim.SetFloat("x", Direction.x);
                 MyAnim.SetFloat("y", Direction.y);
             }
+            else if (IsHit)
+            {
+                ActivateLayers("Hit_Layer");
+            }
             //If player is moving, then animate player movement
             else if (isMoving)
             {
@@ -122,6 +128,7 @@ public abstract class Character : MonoBehaviour
             {
                 ActivateLayers("Cast_Layer");
             }
+            
             else
             {
                 //Else, back to idle animation
@@ -160,6 +167,7 @@ public abstract class Character : MonoBehaviour
         //{
         //    myTarget = source;
         //}
+        IsHit = true;
         MyAnim.SetTrigger("hit");
         health.MyCurrentValue -= dmg;
         if(health.MyCurrentValue <= 0)
@@ -168,5 +176,6 @@ public abstract class Character : MonoBehaviour
             MyRb.velocity = Direction;
             MyAnim.SetTrigger("die");
         }
+        //isHit = false;
     }
 }

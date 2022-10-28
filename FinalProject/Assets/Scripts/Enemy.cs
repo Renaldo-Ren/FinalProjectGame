@@ -117,6 +117,7 @@ public class Enemy : NPC
         {
             collision.collider.GetComponentInParent<Player>().TakeDmg(3, transform); //player get 3 dmg from the enemy itself when collide
             collision.collider.GetComponentInParent<Player>().PlayerTakeForce(knockback);
+            collision.collider.GetComponentInParent<Player>().IsHit = false;
         }
     }
     //private void OnTriggerEnter2D(Collider2D collision)
@@ -161,5 +162,14 @@ public class Enemy : NPC
         this.EneAggroRange = initAggroRange;
         this.MyHealth.MyCurrentValue = this.MyHealth.MyMaxVal;
         OnHealthChanged(health.MyCurrentValue); //need also to reset the health frame so it will always keep track/same with the actual health value
+    }
+    public override void Interact()
+    {
+       // base.Interact();
+    }
+    public override void StopInteract()
+    {
+        //base.StopInteract();
+
     }
 }
