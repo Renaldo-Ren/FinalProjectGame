@@ -5,10 +5,36 @@ using UnityEngine.EventSystems;
 
 public class GameManage : MonoBehaviour
 {
+    private static GameManage instance;
     [SerializeField]
     private Player player;
 
     private NPC curTarget;
+
+    private HashSet<Vector3Int> blocked = new HashSet<Vector3Int>();
+    public static GameManage MyInstance 
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<GameManage>();
+            }
+            return instance;
+        } 
+    }
+    public HashSet<Vector3Int> Blocked
+    {
+        get
+        {
+            return blocked;
+        }
+        set
+        {
+            blocked = value;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

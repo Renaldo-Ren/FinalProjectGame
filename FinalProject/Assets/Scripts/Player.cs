@@ -31,6 +31,12 @@ public class Player : Character
 
     private SkillSet skillSet;
 
+    private Stack<Vector3> path;
+    private Vector3 destination;
+    private Vector3 goal;
+    [SerializeField]
+    private AStar astar;
+
     private Vector3 min, max;
 
     //public Transform myTarget { get; set; }
@@ -50,6 +56,7 @@ public class Player : Character
     protected override void Update()
     {
         GetInput();
+        ClickToMove();
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }
@@ -223,6 +230,32 @@ public class Player : Character
         if(interactable != null)
         {
             interactable.Interact();
+        }
+    }
+
+    public void GetPath(Vector3 goal)
+    {
+        path = astar.Algorithm(transform.position, goal);
+        destination = path.Pop();
+        this.goal = goal;
+    }
+    private void ClickToMove()
+    {
+        if (path != null)
+        {
+            transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, Speed * Time.deltaTime);
+            float distance = Vector2.Distance(destination, transform.parent.position);
+            if(distance <= 0f)
+            {
+                if(path.Count > 0)
+                {
+                    destination = path.Pop();
+                }
+                else
+                {
+                    path = null;
+                }
+            }
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)

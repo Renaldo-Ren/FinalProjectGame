@@ -12,7 +12,9 @@ public class Enemy : NPC
     public Collider2D collide;
     private float moveSpeed = 10f;
 
-    
+    [SerializeField]
+    private AStar astar;
+
     public DetectionArea detectArea;
 
     //private Transform target;
@@ -34,6 +36,9 @@ public class Enemy : NPC
             return Vector2.Distance(transform.position, myTarget.position) < EneAggroRange;
         }
     }
+
+    public AStar EneAstar { get => astar; }
+
     //public Transform Target { get => target; set => target = value; }
 
     protected void Awake()
@@ -138,12 +143,12 @@ public class Enemy : NPC
     
     public void ChangeState(IState newState)
     {
-        if(curState != null)
+        if(curState != null) //Make sure have a state before call exit
         {
             curState.Exit();
         }
-        curState = newState;
-        curState.Enter(this);
+        curState = newState; //Sets the new state
+        curState.Enter(this); //Call enter on the new state
     }
     public void setTarget(Transform target)
     {

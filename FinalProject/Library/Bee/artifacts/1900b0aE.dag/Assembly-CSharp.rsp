@@ -390,12 +390,14 @@
 "Assets/Scripts/EnemyState/FollowState.cs"
 "Assets/Scripts/EnemyState/IdleState.cs"
 "Assets/Scripts/EnemyState/IState.cs"
+"Assets/Scripts/EnemyState/PathState.cs"
 "Assets/Scripts/GameManage.cs"
 "Assets/Scripts/Guider.cs"
 "Assets/Scripts/IInteractable.cs"
 "Assets/Scripts/Knockback.cs"
 "Assets/Scripts/LayerCollide.cs"
 "Assets/Scripts/Node.cs"
+"Assets/Scripts/NoDiagonalTile.cs"
 "Assets/Scripts/NPC.cs"
 "Assets/Scripts/Obstacle.cs"
 "Assets/Scripts/Player.cs"
@@ -404,6 +406,7 @@
 "Assets/Scripts/SwordHit.cs"
 "Assets/Scripts/TreeTile.cs"
 "Assets/Scripts/UIManage.cs"
+"Assets/Scripts/WaterTile.cs"
 -langversion:9.0
 
 /deterministic
