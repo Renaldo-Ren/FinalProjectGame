@@ -41,6 +41,21 @@ public class Player : Character
 
     //public Transform myTarget { get; set; }
     public bool isCoolDown = false;
+    private static Player instance;
+    public static Player MyInstance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<Player>();
+            }
+            return instance;
+        }
+    }
+    private List<Enemy> attackers = new List<Enemy>();
+
+    public List<Enemy> MyAttackers { get => attackers; set => attackers = value; }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -60,7 +75,10 @@ public class Player : Character
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }
-    
+    protected void FixedUpdate()
+    {
+        Move();
+    }
     private void GetInput()
     {
         Direction = Vector2.zero;
@@ -225,6 +243,13 @@ public class Player : Character
             StopCoroutine(attackCoroutine);
         }
     }
+    public void AddAttacker(Enemy enemy)
+    {
+        if (!MyAttackers.Contains(enemy))
+        {
+            MyAttackers.Add(enemy);
+        }
+    }
     public void Interact()
     {
         if(interactable != null)
@@ -255,6 +280,16 @@ public class Player : Character
                 {
                     path = null;
                 }
+            }
+        }
+    }
+    public void Move()
+    {
+        if(path == null)
+        {
+            if (IsAlive)
+            {
+                MyRb.velocity = Direction.normalized * Speed;
             }
         }
     }

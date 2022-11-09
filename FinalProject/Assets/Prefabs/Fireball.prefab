@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  thrust: 3000
+  thrust: 1000
 --- !u!50 &1725891109092027154
 Rigidbody2D:
   serializedVersion: 4

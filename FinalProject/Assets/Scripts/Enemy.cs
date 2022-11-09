@@ -98,14 +98,19 @@ public class Enemy : NPC
         if(!(curState is EvadeState)) //if the enemy current state is not in evade state, then it will not take damage
         {
             Rigidbody2D EnemyRb = GetComponent<Rigidbody2D>();
-            setTarget(source); //when take damage, set the target based on the source who damage it
-            base.TakeDmg(dmg, source);
-            OnHealthChanged(health.MyCurrentValue);
-            if (health.MyCurrentValue <= 0)
+            if (IsAlive)
             {
-                knockback = Vector2.zero;
+                setTarget(source); //when take damage, set the target based on the source who damage it
+                base.TakeDmg(dmg, source);
+                OnHealthChanged(health.MyCurrentValue);
+                if (health.MyCurrentValue <= 0)
+                {
+                    Player.MyInstance.MyAttackers.Remove(this); //Remove this enemy as player attacker
+                    knockback = Vector2.zero;
+                }
+                EnemyRb.AddForce(knockback);
             }
-            EnemyRb.AddForce(knockback);
+            
         }
         
         //Debug.Log("Force" + knockback);
@@ -116,7 +121,7 @@ public class Enemy : NPC
         Vector2 dir = (Vector2)(collision.gameObject.transform.position - transform.position).normalized;
         
         //knockback is in direction of swordCollider towards collider
-        Vector3 knockback = dir * thrust;
+        Vector3 knockback = dir * thrust*0;
 
         if (collision.collider.tag == "Player")
         {

@@ -26,6 +26,7 @@ public class AStar : MonoBehaviour
     private List<Vector3Int> waterTiles = new List<Vector3Int>();
 
     public static HashSet<Vector3Int> NoDiagonalTiles { get => noDiagonalTiles; }
+    public Tilemap MyTilemap { get => tilemap; /*set => tilemap = value;*/ }
 
     // Start is called before the first frame update
     void Start()

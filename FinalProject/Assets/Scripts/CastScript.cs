@@ -48,7 +48,7 @@ public class CastScript : MonoBehaviour
     {
         Vector3 parentPos = gameObject.GetComponentInParent<Transform>().position;
         Vector2 dir = (Vector2)(collision.gameObject.transform.position - parentPos).normalized;
-        Vector3 knockback = dir * thrust;
+        Vector3 knockback = dir * thrust*0;
         if (collision.tag == "HitBox" && collision.transform == myTarget)
         {
             //Character c = collision.GetComponentInParent<Character>();

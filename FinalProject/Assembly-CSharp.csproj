@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\TreeTile.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\SwordHit.cs" />
+    <Compile Include="Assets\Scripts\NoDiagonalTile.cs" />
     <Compile Include="Assets\Scripts\AStar.cs" />
     <Compile Include="Assets\Scripts\DetectionArea.cs" />
     <Compile Include="Assets\Scripts\CastScript.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\Behaviour\SpellBehaviour.cs" />
     <Compile Include="Assets\Scripts\SkillSet.cs" />
     <Compile Include="Assets\Scripts\EnemyState\AttackState.cs" />
+    <Compile Include="Assets\Scripts\WaterTile.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\GameManage.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
@@ -83,12 +85,12 @@
     <Compile Include="Assets\Scripts\EnemyState\EvadeState.cs" />
     <Compile Include="Assets\Scripts\IInteractable.cs" />
     <Compile Include="Assets\Scripts\Cast.cs" />
+    <Compile Include="Assets\Scripts\EnemyState\PathState.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\EnemyState\IdleState.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
-    <Compile Include="Assets\Scripts\EnemyState\PathState.cs" />
-    <Compile Include="Assets\Scripts\NoDiagonalTile.cs" />
-    <Compile Include="Assets\Scripts\WaterTile.cs" />
+    <Compile Include="Assets\Scripts\GrassTile.cs" />
+    <Compile Include="Assets\Scripts\CurrentTileScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

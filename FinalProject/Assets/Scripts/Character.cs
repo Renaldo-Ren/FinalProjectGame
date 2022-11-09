@@ -9,7 +9,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     public Animator MyAnim;
     [SerializeField]
-    private Rigidbody2D MyRb;
+    protected Rigidbody2D MyRb;
 
     private Vector2 direction;
     
@@ -26,6 +26,8 @@ public abstract class Character : MonoBehaviour
     protected Stat health;
 
     public Transform myTarget { get; set; }
+
+    public Transform myCurrentTile { get; set; } //this is a tile that the player currently standing
 
     public Stat MyHealth
     {
@@ -65,23 +67,23 @@ public abstract class Character : MonoBehaviour
         HandleLayers();
     }
 
-    private void FixedUpdate()
-    {
-        Move();
-    }
+    //private void FixedUpdate()
+    //{
+    //    Move();
+    //}
 
-    public void Move()
-    {
-        if (IsAlive)
-        {
-            //Frame Rate Independent
-            MyRb.velocity = Direction.normalized * Speed;
+    //public void Move()
+    //{
+    //    if (IsAlive)
+    //    {
+    //        //Frame Rate Independent
+    //        MyRb.velocity = Direction.normalized * Speed;
 
-            //Frame Rate Dependent
-            //transform.Translate(direction * speed * Time.deltaTime);
-        }
+    //        //Frame Rate Dependent
+    //        //transform.Translate(direction * speed * Time.deltaTime);
+    //    }
 
-    }
+    //}
 
     public void HandleLayers()
     {

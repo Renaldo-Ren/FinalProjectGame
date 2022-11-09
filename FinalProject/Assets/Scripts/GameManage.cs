@@ -12,6 +12,8 @@ public class GameManage : MonoBehaviour
     private NPC curTarget;
 
     private HashSet<Vector3Int> blocked = new HashSet<Vector3Int>();
+    private int targetIndex = 0;
+
     public static GameManage MyInstance 
     {
         get
@@ -45,6 +47,7 @@ public class GameManage : MonoBehaviour
     void Update()
     {
         ClickTarget();
+        NextTarget();
     }
 
     private void ClickTarget()
@@ -54,17 +57,10 @@ public class GameManage : MonoBehaviour
             //Makes a raycast from the mouse position into the game world
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 256);
 
-            if(hit.collider != null) //if we hit something
+            if(hit.collider != null && hit.collider.tag == "Enemy") //if we hit something
             {
-                if(curTarget != null) //if we have current target
-                {
-                    curTarget.DeSelect(); //deselect the current target
-                }
-                curTarget = hit.collider.GetComponent<NPC>(); //selects the new target
-
-                player.myTarget = curTarget.Select(); //gives the player the new target
-
-                UIManage.myInstance.ShowTargetFrame(curTarget);
+                DeSelectTarget();
+                SelectTarget(hit.collider.GetComponent<Enemy>());
                 //if(hit.collider.tag == "Enemy")
                 //{
                 //    player.myTarget = hit.transform.GetChild(0);
@@ -73,13 +69,39 @@ public class GameManage : MonoBehaviour
             else //deselect the target
             {
                 UIManage.myInstance.HideTargetFrame();
-                if(curTarget != null) //if we have a current target
-                {
-                    curTarget.DeSelect(); //we deselect it
-                }
+                DeSelectTarget();
                 curTarget = null;
                 player.myTarget = null;
             }
         }
+    }
+    private void NextTarget()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            DeSelectTarget();
+            if (Player.MyInstance.MyAttackers.Count > 0)
+            {
+                SelectTarget(Player.MyInstance.MyAttackers[targetIndex]);
+                targetIndex++;
+                if(targetIndex >= Player.MyInstance.MyAttackers.Count)
+                {
+                    targetIndex = 0;
+                }
+            }
+        }
+    }
+    private void DeSelectTarget()
+    {
+        if (curTarget != null) //if we have current target
+        {
+            curTarget.DeSelect(); //deselect the current target
+        }
+    }
+    private void SelectTarget(Enemy enemy)
+    {
+        curTarget = enemy; //selects the new target
+        player.myTarget = curTarget.Select(); //gives the player the new target
+        UIManage.myInstance.ShowTargetFrame(curTarget);
     }
 }
