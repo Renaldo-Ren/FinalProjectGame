@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PathState : IState
 {
-    private Stack<Vector3> path;
+    //private Stack<Vector3> path;
     private Vector3 destination;
     private Vector3 current;
     private Vector3 goal;
@@ -18,12 +18,12 @@ public class PathState : IState
         targetPos = Player.MyInstance.myCurrentTile.position; //will be used to keep check player current tile position
         if(targetPos != parent.myCurrentTile.position) //if the player current tile is different with enemy current tile
         {
-            path = parent.EneAstar.Algorithm(parent.myCurrentTile.position, targetPos);
+            parent.MyPath = parent.EneAstar.Algorithm(parent.myCurrentTile.position, targetPos);
         }
-        if(path != null)
+        if(parent.MyPath != null)
         {
-            current = path.Pop();
-            destination = path.Pop();
+            current = parent.MyPath.Pop();
+            destination = parent.MyPath.Pop();
             //this.goal = parent.myCurrentTile.position;
         }
         else
@@ -35,12 +35,12 @@ public class PathState : IState
 
     public void Exit()
     {
-        path = null;
+        parent.MyPath = null;
     }
 
     public void Update()
     {
-        if(path != null)
+        if(parent.MyPath != null)
         {
             transform.position = Vector2.MoveTowards(transform.position, destination, 2 * Time.deltaTime);
             Vector3Int dest = parent.EneAstar.MyTilemap.WorldToCell(destination);
@@ -76,13 +76,20 @@ public class PathState : IState
             //        parent.Direction = Vector2.right;
             //    }
             //}
-
+            if(totalDistance <= parent.EnemyAttRange)
+            {
+                parent.ChangeState(new AttackState());
+            }
+            else if (Player.MyInstance.myCurrentTile.position == parent.myCurrentTile.position) //if enemy and player stand in same tile
+            {
+                parent.ChangeState(new FollowState()); //then start follow
+            }
             if(distance <= 0f)
             {
-                if(path.Count > 0)
+                if(parent.MyPath.Count > 0)
                 {
                     current = destination;
-                    destination = path.Pop();
+                    destination = parent.MyPath.Pop();
 
                     if(targetPos != Player.MyInstance.myCurrentTile.position) //if target position is different with the player position, then the player has moved to other tile
                     {
@@ -91,7 +98,7 @@ public class PathState : IState
                 }
                 else
                 {
-                    path = null;
+                    parent.MyPath = null;
                     parent.ChangeState(new PathState()); //for in case for weird situation like player teleported or other cases
                 }
             }

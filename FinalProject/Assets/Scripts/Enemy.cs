@@ -15,6 +15,14 @@ public class Enemy : NPC
     [SerializeField]
     private AStar astar;
 
+    [SerializeField]
+    private int damage;
+
+    private bool canDoDamage = true;
+
+    [SerializeField]
+    private LayerMask losMask;
+
     public DetectionArea detectArea;
 
     //private Transform target;
@@ -45,7 +53,7 @@ public class Enemy : NPC
     {
         myStartPos = transform.position; //so the enemy will know where it reset to
         EneAggroRange = initAggroRange;
-        EnemyAttRange = 2;
+        EnemyAttRange = 1;
         ChangeState(new IdleState());
     }
     protected override void Update()
@@ -58,6 +66,11 @@ public class Enemy : NPC
             }
 
             curState.Update();
+
+            if(myTarget != null && !Player.MyInstance.IsAlive)
+            {
+                ChangeState(new EvadeState());
+            }
         }
         base.Update(); //Make sure in outside if alive so the enemy can use handlelayer function to make it death layer when die
     }
@@ -115,6 +128,20 @@ public class Enemy : NPC
         
         //Debug.Log("Force" + knockback);
     }
+
+    public void DoDamage()
+    {
+        if (canDoDamage)
+        {
+            Player.MyInstance.TakeDmg(damage, transform);
+            canDoDamage = false;
+        }
+    }
+    public void AbleToDamage()
+    {
+        canDoDamage = true; //used to reset back to can do dmg
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //offset for collision detection changes the direction where the force comes from
@@ -181,5 +208,15 @@ public class Enemy : NPC
     {
         //base.StopInteract();
 
+    }
+    public bool CanSeePlayer()
+    {
+        Vector3 targetDirection = (myTarget.transform.position - transform.position).normalized;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, myTarget.transform.position), losMask);
+        if(hit.collider != null) //if the raycast not null
+        {
+            return false; //then cannot see player
+        }
+        return true;
     }
 }

@@ -40,7 +40,7 @@ public class GameManage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Player.MyInstance.SetDefaultValues();
     }
 
     // Update is called once per frame
@@ -103,5 +103,9 @@ public class GameManage : MonoBehaviour
         curTarget = enemy; //selects the new target
         player.myTarget = curTarget.Select(); //gives the player the new target
         UIManage.myInstance.ShowTargetFrame(curTarget);
+    }
+    public void OnKillConfirmed(Character character)
+    {
+        Destroy(character.transform.GetChild(0).gameObject);
     }
 }

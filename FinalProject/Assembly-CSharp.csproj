@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\AStar.cs" />
     <Compile Include="Assets\Scripts\DetectionArea.cs" />
     <Compile Include="Assets\Scripts\CastScript.cs" />
+    <Compile Include="Assets\Scripts\GrassTile.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Behaviour\SpellBehaviour.cs" />
     <Compile Include="Assets\Scripts\SkillSet.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\UIManage.cs" />
     <Compile Include="Assets\Scripts\Guider.cs" />
     <Compile Include="Assets\Scripts\NPC.cs" />
+    <Compile Include="Assets\Scripts\CurrentTileScript.cs" />
     <Compile Include="Assets\Scripts\CastScriptStay.cs" />
     <Compile Include="Assets\Scripts\Stat.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
@@ -89,8 +91,7 @@
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\EnemyState\IdleState.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
-    <Compile Include="Assets\Scripts\GrassTile.cs" />
-    <Compile Include="Assets\Scripts\CurrentTileScript.cs" />
+    <Compile Include="Assets\Behaviour\RespawnBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

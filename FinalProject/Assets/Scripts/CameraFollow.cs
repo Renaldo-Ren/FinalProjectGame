@@ -29,7 +29,9 @@ public class CameraFollow : MonoBehaviour
     
     private void LateUpdate()
     {
-        transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), -10);
+        
+            transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), -10);
+        
     }
     private void SetLimits(Vector3 minTile, Vector3 maxTile)
     {

@@ -12,6 +12,7 @@ public class Player : Character
     
     
     private float initMP = 50;
+    private Vector2 initPos;
 
     //[SerializeField]
     //private GameObject[] castPrefab;
@@ -31,7 +32,7 @@ public class Player : Character
 
     private SkillSet skillSet;
 
-    private Stack<Vector3> path;
+    //private Stack<Vector3> path;
     private Vector3 destination;
     private Vector3 goal;
     [SerializeField]
@@ -63,7 +64,7 @@ public class Player : Character
         skillSet = GetComponent<SkillSet>();
         
         mana.Initialize(initMP, initMP);
-
+        initPos = transform.position;
         base.Start();
     }
 
@@ -75,10 +76,11 @@ public class Player : Character
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }
-    protected void FixedUpdate()
+    public void SetDefaultValues()
     {
-        Move();
+        initPos = transform.position;
     }
+
     private void GetInput()
     {
         Direction = Vector2.zero;
@@ -260,39 +262,42 @@ public class Player : Character
 
     public void GetPath(Vector3 goal)
     {
-        path = astar.Algorithm(transform.position, goal);
-        destination = path.Pop();
+        MyPath = astar.Algorithm(transform.position, goal);
+        destination = MyPath.Pop();
         this.goal = goal;
     }
+
+    public IEnumerator Respawn()
+    {
+        MySpriteRenderer.enabled = false;
+        yield return new WaitForSeconds(3f);
+        health.Initialize(initHP, initHP);
+        mana.Initialize(initMP, initMP);
+        transform.position = initPos;
+        MySpriteRenderer.enabled = true;
+        MyAnim.SetTrigger("respawn");
+    }
+
     private void ClickToMove()
     {
-        if (path != null)
+        if (MyPath != null)
         {
             transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, Speed * Time.deltaTime);
             float distance = Vector2.Distance(destination, transform.parent.position);
             if(distance <= 0f)
             {
-                if(path.Count > 0)
+                if(MyPath.Count > 0)
                 {
-                    destination = path.Pop();
+                    destination = MyPath.Pop();
                 }
                 else
                 {
-                    path = null;
+                    MyPath = null;
                 }
             }
         }
     }
-    public void Move()
-    {
-        if(path == null)
-        {
-            if (IsAlive)
-            {
-                MyRb.velocity = Direction.normalized * Speed;
-            }
-        }
-    }
+    
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Enemy" || collision.tag =="Interactable")

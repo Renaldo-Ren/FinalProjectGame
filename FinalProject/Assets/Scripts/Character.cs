@@ -7,9 +7,11 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
-    public Animator MyAnim;
+    private Animator myAnim;
     [SerializeField]
-    protected Rigidbody2D MyRb;
+    private Rigidbody2D myRb;
+    [SerializeField]
+    private SpriteRenderer mySprite;
 
     private Vector2 direction;
     
@@ -26,6 +28,7 @@ public abstract class Character : MonoBehaviour
     protected Stat health;
 
     public Transform myTarget { get; set; }
+    public Stack<Vector3> MyPath { get; set; }
 
     public Transform myCurrentTile { get; set; } //this is a tile that the player currently standing
 
@@ -35,7 +38,7 @@ public abstract class Character : MonoBehaviour
     }
 
     [SerializeField]
-    private float initHP;
+    protected float initHP;
     public bool isMoving
     {
         get
@@ -53,11 +56,16 @@ public abstract class Character : MonoBehaviour
             return health.MyCurrentValue > 0;
         }
     }
+
+    public Rigidbody2D MyRb { get => myRb; }
+    public Animator MyAnim { get => myAnim; }
+    public SpriteRenderer MySpriteRenderer { get => mySprite; }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        MyAnim = GetComponent<Animator>();
-        MyRb = GetComponent<Rigidbody2D>();
+        //MyAnim = GetComponent<Animator>();
+        //MyRb = GetComponent<Rigidbody2D>();
         health.Initialize(initHP, initHP);
     }
 
@@ -66,7 +74,20 @@ public abstract class Character : MonoBehaviour
     {
         HandleLayers();
     }
-
+    public void FixedUpdate()
+    {
+        Move();
+    }
+    public void Move()
+    {
+        if (MyPath == null)
+        {
+            if (IsAlive)
+            {
+                MyRb.velocity = Direction.normalized * Speed;
+            }
+        }
+    }
     //private void FixedUpdate()
     //{
     //    Move();
@@ -107,10 +128,10 @@ public abstract class Character : MonoBehaviour
                 MyAnim.SetFloat("x", Direction.x);
                 MyAnim.SetFloat("y", Direction.y);
             }
-            else if (IsHit)
-            {
-                ActivateLayers("Hit_Layer");
-            }
+            //else if (IsHit)
+            //{
+            //    ActivateLayers("Hit_Layer");
+            //}
             //If player is moving, then animate player movement
             else if (isMoving)
             {
@@ -176,6 +197,7 @@ public abstract class Character : MonoBehaviour
         {
             Direction = Vector2.zero;
             MyRb.velocity = Direction;
+            //GameManage.MyInstance.OnKillConfirmed(this);
             MyAnim.SetTrigger("die");
         }
         //isHit = false;
