@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Knockback.cs" />
     <Compile Include="Assets\Scripts\EnemyState\FollowState.cs" />
     <Compile Include="Assets\Behaviour\DeathBehaviour.cs" />
+    <Compile Include="Assets\Behaviour\RespawnBehaviour.cs" />
     <Compile Include="Assets\Scripts\TreeTile.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\SwordHit.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\EnemyState\IdleState.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
-    <Compile Include="Assets\Behaviour\RespawnBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

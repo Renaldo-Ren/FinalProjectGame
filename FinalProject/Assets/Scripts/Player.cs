@@ -206,6 +206,22 @@ public class Player : Character
         }
         blocks[exitIndex].Active();
     }
+
+    public override void TakeDmg(float dmg, Transform source, Vector2 knockback)
+    {
+            //Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();
+            if (IsAlive)
+            {
+                base.TakeDmg(dmg, source, knockback);
+                if (health.MyCurrentValue <= 0)
+                {
+                    knockback = Vector2.zero;
+                }
+            MyRb.AddForce(knockback);
+            }
+        //Debug.Log("Force" + knockback);
+    }
+
     public void PlayerTakeForce(Vector2 knockback)
     {
         Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();

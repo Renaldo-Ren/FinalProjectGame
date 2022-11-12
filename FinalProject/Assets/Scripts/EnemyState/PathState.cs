@@ -46,7 +46,7 @@ public class PathState : IState
             Vector3Int dest = parent.EneAstar.MyTilemap.WorldToCell(destination);
             Vector3Int cur = parent.EneAstar.MyTilemap.WorldToCell(current);
             float distance = Vector2.Distance(destination, transform.position);
-            float totalDistance = Vector2.Distance(parent.myTarget.position, transform.position);
+            float totalDistance = Vector2.Distance(parent.myTarget.position, parent.transform.position);
 
             if (cur.x > dest.x)
             {

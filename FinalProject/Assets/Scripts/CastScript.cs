@@ -48,13 +48,13 @@ public class CastScript : MonoBehaviour
     {
         Vector3 parentPos = gameObject.GetComponentInParent<Transform>().position;
         Vector2 dir = (Vector2)(collision.gameObject.transform.position - parentPos).normalized;
-        Vector3 knockback = dir * thrust*0;
+        Vector3 knockback = dir * thrust;
         if (collision.tag == "HitBox" && collision.transform == myTarget)
         {
-            //Character c = collision.GetComponentInParent<Character>();
+            Character c = collision.GetComponentInParent<Character>();
             speed = 0;
-            //c.TakeDmg(damage, source);
-            collision.GetComponentInParent<Enemy>().TakeDmg(damage, source, knockback);
+            c.TakeDmg(damage, source, knockback);
+            //collision.GetComponentInParent<Enemy>().TakeDmg(damage, source, knockback);
             GetComponent<Animator>().SetTrigger("impact");
             Rb.velocity = Vector2.zero;
             myTarget = null;

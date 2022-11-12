@@ -184,7 +184,7 @@ public abstract class Character : MonoBehaviour
     //    //}
     //}
    
-    public virtual void TakeDmg(float dmg, Transform source)
+    public virtual void TakeDmg(float dmg, Transform source, Vector2 knockback)
     {
         //if(myTarget == null)
         //{
@@ -192,6 +192,7 @@ public abstract class Character : MonoBehaviour
         //}
         IsHit = true;
         MyAnim.SetTrigger("hit");
+        StartCoroutine(GetHit());
         health.MyCurrentValue -= dmg;
         if(health.MyCurrentValue <= 0)
         {
@@ -201,5 +202,12 @@ public abstract class Character : MonoBehaviour
             MyAnim.SetTrigger("die");
         }
         //isHit = false;
+    }
+    public IEnumerator GetHit()
+    {
+        MySpriteRenderer.color = new Color(1f, 0.3056604f, 0.3056604f, 1f);
+        yield return new WaitForSeconds(.3f);
+        MySpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+        Debug.Log("character: "+ mySprite +", color: "+ MySpriteRenderer.color);
     }
 }

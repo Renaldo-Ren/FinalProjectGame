@@ -101,27 +101,27 @@ public class Enemy : NPC
         HPgroup.alpha = 0;
         base.DeSelect();
     }
-    //public override void TakeDmg(float dmg)
+    //public override void TakeDmg(float dmg, Transform source)
     //{
-    //    base.TakeDmg(dmg);
+    //    base.TakeDmg(dmg, source);
     //    OnHealthChanged(health.MyCurrentValue);
     //}
-    public void TakeDmg(float dmg, Transform source, Vector2 knockback) 
+    public override void TakeDmg(float dmg, Transform source, Vector2 knockback) 
     {
-        if(!(curState is EvadeState)) //if the enemy current state is not in evade state, then it will not take damage
+        if(!(curState is EvadeState)) //if the enemy current state is not in evade state, then it will take damage
         {
-            Rigidbody2D EnemyRb = GetComponent<Rigidbody2D>();
+            //Rigidbody2D EnemyRb = GetComponent<Rigidbody2D>();
             if (IsAlive)
             {
                 setTarget(source); //when take damage, set the target based on the source who damage it
-                base.TakeDmg(dmg, source);
+                base.TakeDmg(dmg, source, knockback);
                 OnHealthChanged(health.MyCurrentValue);
                 if (health.MyCurrentValue <= 0)
                 {
                     Player.MyInstance.MyAttackers.Remove(this); //Remove this enemy as player attacker
                     knockback = Vector2.zero;
                 }
-                EnemyRb.AddForce(knockback);
+                MyRb.AddForce(knockback);
             }
             
         }
@@ -133,7 +133,13 @@ public class Enemy : NPC
     {
         if (canDoDamage)
         {
-            Player.MyInstance.TakeDmg(damage, transform);
+            //offset for collision detection changes the direction where the force comes from
+            Vector2 dir = (Vector2)(myTarget.transform.position - transform.position).normalized;
+
+            //knockback is in direction of swordCollider towards collider
+            Vector3 knockback = dir * thrust;
+
+            Player.MyInstance.TakeDmg(damage, transform, knockback);
             canDoDamage = false;
         }
     }
@@ -148,12 +154,12 @@ public class Enemy : NPC
         Vector2 dir = (Vector2)(collision.gameObject.transform.position - transform.position).normalized;
         
         //knockback is in direction of swordCollider towards collider
-        Vector3 knockback = dir * thrust*0;
+        Vector3 knockback = dir * thrust;
 
         if (collision.collider.tag == "Player")
         {
-            collision.collider.GetComponentInParent<Player>().TakeDmg(3, transform); //player get 3 dmg from the enemy itself when collide
-            collision.collider.GetComponentInParent<Player>().PlayerTakeForce(knockback);
+            collision.collider.GetComponentInParent<Player>().TakeDmg(3, transform, knockback); //player get 3 dmg from the enemy itself when collide
+            //collision.collider.GetComponentInParent<Player>().PlayerTakeForce(knockback);
             collision.collider.GetComponentInParent<Player>().IsHit = false;
         }
     }

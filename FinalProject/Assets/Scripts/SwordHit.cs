@@ -33,7 +33,8 @@ public class SwordHit : MonoBehaviour
 
         if (collision.tag == "HitBox")
         {
-            collision.GetComponentInParent<Enemy>().TakeDmg(3, source, knockback);
+            Character c = collision.GetComponentInParent<Character>();
+            c.TakeDmg(3, source, knockback);
             collision.GetComponentInParent<Enemy>().HPgroup.alpha = 1;
             //collision.GetComponentInParent<Enemy>().IsHit = false;
             //collision.GetComponentInParent<Enemy>().TakeForce(knockback);
