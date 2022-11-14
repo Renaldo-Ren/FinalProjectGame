@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 1102747389705694755}
   - component: {fileID: 1102747389705694752}
   - component: {fileID: 1102747389705694758}
-  - component: {fileID: 1102747389705694759}
+  - component: {fileID: 1684083684}
   m_Layer: 8
   m_Name: Enemy (Mushroom)
   m_TagString: Enemy
@@ -243,7 +243,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2071368957
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 783785616, guid: 270f7cece5d0e7e4ebaeda64b28b50a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -313,9 +313,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbd6caa19cb47a45b19bff463c22000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.8
-  MyAnim: {fileID: 1102747389705694755}
-  MyRb: {fileID: 1102747389705694759}
+  speed: 2
+  myAnim: {fileID: 1102747389705694755}
+  myRb: {fileID: 0}
+  mySprite: {fileID: 1102747389705694754}
   Hitbox: {fileID: 1102747389861327331}
   health: {fileID: 1102747389613027811}
   initHP: 50
@@ -323,28 +324,26 @@ MonoBehaviour:
   HPgroup: {fileID: 1102747389853314304}
   thrust: 3000
   collide: {fileID: 0}
+  astar: {fileID: 1684083684}
+  damage: 5
+  losMask:
+    serializedVersion: 2
+    m_Bits: 512
   detectArea: {fileID: 1102747391047311479}
---- !u!50 &1102747389705694759
-Rigidbody2D:
-  serializedVersion: 4
+  initAggroRange: 2
+--- !u!114 &1684083684
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102747389705694764}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6105814c7d2a84db4c6ee02da45e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
 --- !u!1 &1102747389853314305
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +403,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 2071368957
+  m_SortingLayerID: 1565285903
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1102747389853314310
@@ -469,6 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1102747389861327331}
   - component: {fileID: 1102747389861327330}
+  - component: {fileID: 1878979374}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: HitBox
@@ -517,6 +517,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.31601954, y: 0.6200037}
   m_EdgeRadius: 0
+--- !u!114 &1878979374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102747389861327340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12c09bc26b315347b2f64aa575c4a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 1102747389705694758}
 --- !u!1 &1102747391047311474
 GameObject:
   m_ObjectHideFlags: 0

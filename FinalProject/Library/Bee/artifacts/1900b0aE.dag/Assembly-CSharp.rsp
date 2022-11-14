@@ -404,6 +404,7 @@
 "Assets/Scripts/NPC.cs"
 "Assets/Scripts/Obstacle.cs"
 "Assets/Scripts/Player.cs"
+"Assets/Scripts/RangedEnemy.cs"
 "Assets/Scripts/SkillSet.cs"
 "Assets/Scripts/Stat.cs"
 "Assets/Scripts/SwordHit.cs"

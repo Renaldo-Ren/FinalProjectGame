@@ -16,7 +16,7 @@ public class Enemy : NPC
     private AStar astar;
 
     [SerializeField]
-    private int damage;
+    protected int damage;
 
     private bool canDoDamage = true;
 
@@ -28,7 +28,9 @@ public class Enemy : NPC
     //private Transform target;
     private IState curState;
 
-    public float EnemyAttRange { get; set; }
+    [SerializeField]
+    private float attackRange;
+    //public float EnemyAttRange { get; set; }
     public float EnemyAttTime { get; set; }
 
     public Vector3 myStartPos { get; set; }
@@ -46,6 +48,7 @@ public class Enemy : NPC
     }
 
     public AStar EneAstar { get => astar; }
+    public float EnemyAttRange { get => attackRange; set => attackRange = value; }
 
     //public Transform Target { get => target; set => target = value; }
 
@@ -53,9 +56,16 @@ public class Enemy : NPC
     {
         myStartPos = transform.position; //so the enemy will know where it reset to
         EneAggroRange = initAggroRange;
-        EnemyAttRange = 1;
+        //EnemyAttRange = 1;
         ChangeState(new IdleState());
     }
+
+    //protected override void Start()
+    //{
+    //    base.Start();
+    //    MyAnim.SetFloat("y", -1);
+    //}
+
     protected override void Update()
     {
         if (IsAlive)
