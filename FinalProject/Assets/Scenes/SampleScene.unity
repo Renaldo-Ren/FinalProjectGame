@@ -12171,7 +12171,7 @@ MonoBehaviour:
   myAnim: {fileID: 0}
   myRb: {fileID: 0}
   mySprite: {fileID: 0}
-  Hitbox: {fileID: 1622705257}
+  hitbox: {fileID: 0}
   health: {fileID: 1757268546}
   initHP: 50
   name: Mushroom
@@ -15849,6 +15849,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1102747389705694758, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
+      propertyPath: hitbox
+      value: 
+      objectReference: {fileID: 1254246664}
+    - target: {fileID: 1102747389705694758, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
       propertyPath: myAnim
       value: 
       objectReference: {fileID: 1658937562}
@@ -16302,7 +16306,7 @@ MonoBehaviour:
   myAnim: {fileID: 0}
   myRb: {fileID: 0}
   mySprite: {fileID: 0}
-  Hitbox: {fileID: 10981098}
+  hitbox: {fileID: 0}
   health: {fileID: 378062948}
   initHP: 50
   name: Mushroom
@@ -32885,6 +32889,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 1658937559}
+--- !u!4 &1254246664 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1102747389861327331, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
+  m_PrefabInstance: {fileID: 770295736}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1270981984
 GameObject:
   m_ObjectHideFlags: 0
@@ -34376,6 +34385,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.31601954, y: 0.6200037}
   m_EdgeRadius: 0
+--- !u!4 &1627810363 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3042294867135065543, guid: 6cce784e123a06d4a8a5c754d4de885d, type: 3}
+  m_PrefabInstance: {fileID: 2699303215108607063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1658937557 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1102747389705694764, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
@@ -50873,7 +50887,7 @@ MonoBehaviour:
   myAnim: {fileID: 1846554783}
   myRb: {fileID: 1846554787}
   mySprite: {fileID: 1846554784}
-  Hitbox: {fileID: 0}
+  hitbox: {fileID: 427364873}
   health: {fileID: 1080587302}
   initHP: 100
   mana: {fileID: 1929601593}
@@ -51309,6 +51323,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965783993}
   m_CullTransparentMesh: 1
+--- !u!4 &1970703721 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1102747389861327331, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
+  m_PrefabInstance: {fileID: 1102747389578999355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2063033332
 GameObject:
   m_ObjectHideFlags: 0
@@ -51582,6 +51601,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 20768636}
     - target: {fileID: 1102747389705694758, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
+      propertyPath: hitbox
+      value: 
+      objectReference: {fileID: 1970703721}
+    - target: {fileID: 1102747389705694758, guid: 7dfc1b4ebc9f2f44c8aae58f3cc1af91, type: 3}
       propertyPath: attackRange
       value: 0.8
       objectReference: {fileID: 0}
@@ -51659,5 +51682,9 @@ PrefabInstance:
       propertyPath: myRb
       value: 
       objectReference: {fileID: 768009281}
+    - target: {fileID: 4137024958724803487, guid: 6cce784e123a06d4a8a5c754d4de885d, type: 3}
+      propertyPath: hitbox
+      value: 
+      objectReference: {fileID: 1627810363}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cce784e123a06d4a8a5c754d4de885d, type: 3}

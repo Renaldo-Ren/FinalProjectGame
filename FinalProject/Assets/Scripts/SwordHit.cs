@@ -7,12 +7,12 @@ public class SwordHit : MonoBehaviour
     [SerializeField]
     private Player player;
     public float thrust = 1200f;
-    private Transform source;
+    private Character source;
     // Start is called before the first frame update
     void Start()
     {
         //anim = GetComponent<Animator>();
-        this.source = player.transform;
+        this.source = GetComponentInParent<Character>();
 
     }
 

@@ -43,7 +43,7 @@ public class Enemy : NPC
     {
         get
         {
-            return Vector2.Distance(transform.position, myTarget.position) < EneAggroRange;
+            return Vector2.Distance(transform.position, myTarget.transform.position) < EneAggroRange;
         }
     }
 
@@ -101,7 +101,7 @@ public class Enemy : NPC
     //        }
     //    }
     //}
-    public override Transform Select()
+    public override Character Select()
     {
         HPgroup.alpha = 1;
         return base.Select();
@@ -116,7 +116,7 @@ public class Enemy : NPC
     //    base.TakeDmg(dmg, source);
     //    OnHealthChanged(health.MyCurrentValue);
     //}
-    public override void TakeDmg(float dmg, Transform source, Vector2 knockback) 
+    public override void TakeDmg(float dmg, Character source, Vector2 knockback) 
     {
         if(!(curState is EvadeState)) //if the enemy current state is not in evade state, then it will take damage
         {
@@ -149,7 +149,8 @@ public class Enemy : NPC
             //knockback is in direction of swordCollider towards collider
             Vector3 knockback = dir * thrust;
 
-            Player.MyInstance.TakeDmg(damage, transform, knockback);
+            myTarget.TakeDmg(damage, this, knockback);
+            //Player.MyInstance.TakeDmg(damage, transform, knockback); 
             canDoDamage = false;
         }
     }
@@ -168,7 +169,7 @@ public class Enemy : NPC
 
         if (collision.collider.tag == "Player")
         {
-            collision.collider.GetComponentInParent<Player>().TakeDmg(3, transform, knockback); //player get 3 dmg from the enemy itself when collide
+            collision.collider.GetComponentInParent<Player>().TakeDmg(3, this, knockback); //player get 3 dmg from the enemy itself when collide
             //collision.collider.GetComponentInParent<Player>().PlayerTakeForce(knockback);
             collision.collider.GetComponentInParent<Player>().IsHit = false;
         }
@@ -198,11 +199,11 @@ public class Enemy : NPC
         curState = newState; //Sets the new state
         curState.Enter(this); //Call enter on the new state
     }
-    public void setTarget(Transform target)
+    public void setTarget(Character target)
     {
         if(myTarget == null && !(curState is EvadeState)) //if no have target and not in evade state, then set the target
         {
-            float distance = Vector2.Distance(transform.position, target.position);
+            float distance = Vector2.Distance(transform.position, target.transform.position);
             EneAggroRange = initAggroRange; //this to make sure we set it to start/reset it so when it added by the distance later, it will not get too far
             EneAggroRange += distance;
             myTarget = target;
@@ -216,15 +217,15 @@ public class Enemy : NPC
         this.MyHealth.MyCurrentValue = this.MyHealth.MyMaxVal;
         OnHealthChanged(health.MyCurrentValue); //need also to reset the health frame so it will always keep track/same with the actual health value
     }
-    public override void Interact()
-    {
-       // base.Interact();
-    }
-    public override void StopInteract()
-    {
-        //base.StopInteract();
+    //public override void Interact()
+    //{
+    //   // base.Interact();
+    //}
+    //public override void StopInteract()
+    //{
+    //    //base.StopInteract();
 
-    }
+    //}
     public bool CanSeePlayer()
     {
         Vector3 targetDirection = (myTarget.transform.position - transform.position).normalized;

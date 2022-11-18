@@ -21,9 +21,9 @@ public class NPC : Character, IInteractable
         hpChanged -= new HealthChanged(UIManage.myInstance.UpdateTargetFrame);
         charRemoved -= new CharacterRemoved(UIManage.myInstance.HideTargetFrame);
     }
-    public virtual Transform Select()
+    public virtual Character Select()
     {
-        return Hitbox;
+        return this;
     }
 
     public void OnHealthChanged(float hp)

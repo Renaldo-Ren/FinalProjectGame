@@ -162,7 +162,7 @@ public class Player : Character
             if(myTarget != null && InLineofSight())
             {
                 CastScript s = Instantiate(newSkill.myCastPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<CastScript>();
-                s.Initialize(myTarget, newSkill.myDamage, transform);
+                s.Initialize(myTarget.MyHitbox, newSkill.myDamage, this);
             }
         }
         else
@@ -207,7 +207,7 @@ public class Player : Character
         blocks[exitIndex].Active();
     }
 
-    public override void TakeDmg(float dmg, Transform source, Vector2 knockback)
+    public override void TakeDmg(float dmg, Character source, Vector2 knockback)
     {
             //Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();
             if (IsAlive)

@@ -10,7 +10,7 @@ public class CastScript : MonoBehaviour
 
     private Transform target;
     public Transform myTarget { get; private set;  }
-    private Transform source;
+    private Character source;
 
     private int damage;
     public float thrust = 50f;
@@ -19,7 +19,7 @@ public class CastScript : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
     }
-    public void Initialize(Transform target, int damage, Transform source)
+    public void Initialize(Transform target, int damage, Character source)
     {
         this.myTarget = target;
         this.damage = damage;
@@ -49,7 +49,7 @@ public class CastScript : MonoBehaviour
         Vector3 parentPos = gameObject.GetComponentInParent<Transform>().position;
         Vector2 dir = (Vector2)(collision.gameObject.transform.position - parentPos).normalized;
         Vector3 knockback = dir * thrust;
-        if (collision.tag == "HitBox" && collision.transform == myTarget)
+        if ((collision.tag == "HitBox" || collision.tag == "Player") && collision.transform == myTarget)
         {
             Character c = collision.GetComponentInParent<Character>();
             speed = 0;

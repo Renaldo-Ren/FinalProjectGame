@@ -32,7 +32,7 @@ public class AttackState : IState
         if(parent.myTarget != null) //If have the target then check if can attack or if need to follow it
         {
             //calculates the distance between the target and the enemy
-            float distance = Vector2.Distance(parent.myTarget.position, parent.transform.parent.position);
+            float distance = Vector2.Distance(parent.myTarget.transform.position, parent.transform.parent.position);
             if(distance >= parent.EnemyAttRange+extraRange && !parent.IsAttacking) //if the distance is larger than the attackrange, then need to move
             {
                 if(parent is RangedEnemy)

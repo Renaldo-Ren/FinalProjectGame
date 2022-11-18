@@ -22,12 +22,13 @@ public abstract class Character : MonoBehaviour
     protected Coroutine attackCoroutine;
 
     [SerializeField]
-    protected Transform Hitbox;
+    private Transform hitbox;
 
     [SerializeField]
     protected Stat health;
 
-    public Transform myTarget { get; set; }
+    //public Transform myTarget { get; set; }
+    public Character myTarget { get; set; }
     public Stack<Vector3> MyPath { get; set; }
 
     public Transform myCurrentTile { get; set; } //this is a tile that the player currently standing
@@ -60,6 +61,7 @@ public abstract class Character : MonoBehaviour
     public Rigidbody2D MyRb { get => myRb; }
     public Animator MyAnim { get => myAnim; }
     public SpriteRenderer MySpriteRenderer { get => mySprite; }
+    public Transform MyHitbox { get => hitbox; set => hitbox = value; }
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -184,7 +186,7 @@ public abstract class Character : MonoBehaviour
     //    //}
     //}
    
-    public virtual void TakeDmg(float dmg, Transform source, Vector2 knockback)
+    public virtual void TakeDmg(float dmg, Character source, Vector2 knockback)
     {
         //if(myTarget == null)
         //{
@@ -208,6 +210,6 @@ public abstract class Character : MonoBehaviour
         MySpriteRenderer.color = new Color(1f, 0.3056604f, 0.3056604f, 1f);
         yield return new WaitForSeconds(.3f);
         MySpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-        Debug.Log("character: "+ mySprite +", color: "+ MySpriteRenderer.color);
+        //Debug.Log("character: "+ mySprite +", color: "+ MySpriteRenderer.color);
     }
 }

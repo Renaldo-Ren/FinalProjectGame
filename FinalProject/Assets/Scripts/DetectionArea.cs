@@ -24,7 +24,7 @@ public class DetectionArea : MonoBehaviour
         //}
         if(collision.tag == "Player")
         {
-            parent.setTarget(collision.transform); //set the player as the target when enter the detection area
+            parent.setTarget(collision.GetComponentInParent<Character>()); //set the player as the target when enter the detection area
         }
         
     }
