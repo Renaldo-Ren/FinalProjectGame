@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\CharacterRelated\DetectionArea.cs" />
     <Compile Include="Assets\Scripts\SkillS\CastScript.cs" />
     <Compile Include="Assets\Scripts\Dialog\Dialog.cs" />
+    <Compile Include="Assets\Scripts\SCT\CombatTextManage.cs" />
     <Compile Include="Assets\Scripts\TileScripts\GrassTile.cs" />
     <Compile Include="Assets\Scripts\CharacterRelated\CameraFollow.cs" />
     <Compile Include="Assets\Behaviour\SpellBehaviour.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\Scripts\Chatacters\Character.cs" />
     <Compile Include="Assets\Scripts\EnemyState\IdleState.cs" />
     <Compile Include="Assets\Scripts\PathfindingScripts\Node.cs" />
+    <Compile Include="Assets\Scripts\SCT\CombatText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

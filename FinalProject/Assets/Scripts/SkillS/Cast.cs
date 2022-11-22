@@ -35,6 +35,12 @@ public class Cast
     [SerializeField]
     private Color barColor;
 
+    [SerializeField]
+    private int manaCost;
+
+    [SerializeField]
+    private bool checkManaSufficient;
+
     public string myName { get => name; }
     public int myDamage { get => damage; }
     public Sprite myIcon { get => icon; }
@@ -44,6 +50,7 @@ public class Cast
     public bool myCheckCD { get => checkCD; set => checkCD = value; }
     public GameObject myCastPrefab { get => castPrefab; }
     public Color myBarColor { get => barColor; }
-    
+    public int myManaCost { get => manaCost; set => manaCost = value; }
+    public bool myCheckManaSufficient { get => checkManaSufficient; set => checkManaSufficient = value; }
 }
 

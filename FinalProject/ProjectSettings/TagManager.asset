@@ -49,6 +49,9 @@ TagManager:
   - name: Top_Layer
     uniqueID: 2071368957
     locked: 0
+  - name: SCT
+    uniqueID: 1014380443
+    locked: 0
   - name: UI
     uniqueID: 1565285903
     locked: 0

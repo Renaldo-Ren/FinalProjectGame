@@ -30,7 +30,10 @@ public class PathState : IState
         {
             parent.ChangeState(new EvadeState());
         }
-
+        if (!parent.inRange) //if Player is not in enemy range, then back to evade state/back to start position
+        {
+            parent.ChangeState(new EvadeState());
+        }
     }
 
     public void Exit()

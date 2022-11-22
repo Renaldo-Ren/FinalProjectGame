@@ -33,6 +33,7 @@ public abstract class Character : MonoBehaviour
 
     public Transform myCurrentTile { get; set; } //this is a tile that the player currently standing
 
+    public List<Character> Attackers { get; set; } = new List<Character>();
     public Stat MyHealth
     {
         get { return health; }
@@ -196,7 +197,8 @@ public abstract class Character : MonoBehaviour
         MyAnim.SetTrigger("hit");
         StartCoroutine(GetHit());
         health.MyCurrentValue -= dmg;
-        if(health.MyCurrentValue <= 0)
+        CombatTextManage.MyInstance.CreateText(transform.position, dmg.ToString(), SCTTYPE.DAMAGE, false);
+        if (health.MyCurrentValue <= 0)
         {
             Direction = Vector2.zero;
             MyRb.velocity = Direction;
@@ -205,11 +207,30 @@ public abstract class Character : MonoBehaviour
         }
         //isHit = false;
     }
+
+    public void GetHealth(int health)
+    {
+        MyHealth.MyCurrentValue += health;
+        CombatTextManage.MyInstance.CreateText(transform.position, health.ToString(), SCTTYPE.HEAL, false);
+    }
+
     public IEnumerator GetHit()
     {
         MySpriteRenderer.color = new Color(1f, 0.3056604f, 0.3056604f, 1f);
         yield return new WaitForSeconds(.3f);
         MySpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         //Debug.Log("character: "+ mySprite +", color: "+ MySpriteRenderer.color);
+    }
+    public virtual void AddAttacker(Character attacker)
+    {
+        if (!Attackers.Contains(attacker))
+        {
+            Attackers.Add(attacker);
+        }
+    }
+
+    public virtual void RemoveAttacker(Character attacker)
+    {
+        Attackers.Remove(attacker);
     }
 }

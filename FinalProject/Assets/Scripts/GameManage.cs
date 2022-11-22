@@ -80,11 +80,11 @@ public class GameManage : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             DeSelectTarget();
-            if (Player.MyInstance.MyAttackers.Count > 0)
+            if (Player.MyInstance.Attackers.Count > 0)
             {
-                SelectTarget(Player.MyInstance.MyAttackers[targetIndex]);
+                SelectTarget(Player.MyInstance.Attackers[targetIndex] as Enemy);
                 targetIndex++;
-                if(targetIndex >= Player.MyInstance.MyAttackers.Count)
+                if (targetIndex >= Player.MyInstance.Attackers.Count)
                 {
                     targetIndex = 0;
                 }

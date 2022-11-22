@@ -128,7 +128,7 @@ public class Enemy : NPC
                 OnHealthChanged(health.MyCurrentValue);
                 if (health.MyCurrentValue <= 0)
                 {
-                    Player.MyInstance.MyAttackers.Remove(this); //Remove this enemy as player attacker
+                    source.RemoveAttacker(this); //Remove this enemy as player attacker
                     knockback = Vector2.zero;
                 }
                 MyRb.AddForce(knockback);
@@ -207,6 +207,7 @@ public class Enemy : NPC
             EneAggroRange = initAggroRange; //this to make sure we set it to start/reset it so when it added by the distance later, it will not get too far
             EneAggroRange += distance;
             myTarget = target;
+            target.AddAttacker(this);
         }
     }
 

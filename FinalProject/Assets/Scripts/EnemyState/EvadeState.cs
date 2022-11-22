@@ -8,6 +8,10 @@ public class EvadeState : IState
     public void Enter(Enemy parent)
     {
         this.parent = parent;
+        if(parent.myTarget != null)
+        {
+            parent.myTarget.RemoveAttacker(parent);
+        }
     }
 
     public void Exit()

@@ -403,6 +403,8 @@
 "Assets/Scripts/Knockback.cs"
 "Assets/Scripts/PathfindingScripts/AStar.cs"
 "Assets/Scripts/PathfindingScripts/Node.cs"
+"Assets/Scripts/SCT/CombatText.cs"
+"Assets/Scripts/SCT/CombatTextManage.cs"
 "Assets/Scripts/SkillS/Cast.cs"
 "Assets/Scripts/SkillS/CastScript.cs"
 "Assets/Scripts/SkillS/CastScriptStay.cs"

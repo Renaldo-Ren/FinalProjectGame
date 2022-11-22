@@ -44,7 +44,8 @@ public class Player : Character
     private Vector3 min, max;
 
     //public Transform myTarget { get; set; }
-    public bool isCoolDown = false;
+    //public bool isCoolDown = false;
+    public bool InCombat { get; set; } = false;
     private static Player instance;
     public static Player MyInstance
     {
@@ -57,9 +58,9 @@ public class Player : Character
             return instance;
         }
     }
-    private List<Enemy> attackers = new List<Enemy>();
+    //private List<Enemy> attackers = new List<Enemy>();
 
-    public List<Enemy> MyAttackers { get => attackers; set => attackers = value; }
+    //public List<Enemy> MyAttackers { get => attackers; set => attackers = value; }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -169,26 +170,35 @@ public class Player : Character
             {
                 CastScript s = Instantiate(newSkill.myCastPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<CastScript>();
                 s.Initialize(myTarget.MyHitbox, newSkill.myDamage, this);
+                mana.MyCurrentValue -= newSkill.myManaCost;
             }
         }
         else
         {
             Instantiate(newSkill.myCastPrefab, transform.position, Quaternion.identity);
+            mana.MyCurrentValue -= newSkill.myManaCost;
         }
-        
+        newSkill.myCheckManaSufficient = false;
         StopCast();
     }
 
     public void Casting(int skillIndex)
     {
-        //Cast checkCD = skillSet.castSkill(skillIndex);
+        Cast manaCost = skillSet.castSkill(skillIndex);
         Block();
-        if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !isCasting && InLineofSight() && !isMoving && IsAlive && !UIManage.isPaused)
+        if(manaCost.myManaCost <= mana.MyCurrentValue)
         {
-            attackCoroutine = StartCoroutine(Cast(skillIndex));
+            manaCost.myCheckManaSufficient = true;
+            if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !isCasting && InLineofSight() && !isMoving && IsAlive && !UIManage.isPaused)
+            {
+                attackCoroutine = StartCoroutine(Cast(skillIndex));
+            }
+            //attackCoroutine = StartCoroutine(Cast());
         }
-        //attackCoroutine = StartCoroutine(Cast());
-        
+        else
+        {
+            manaCost.myCheckManaSufficient = false;
+        }
     }
     private bool InLineofSight()
     {
@@ -267,13 +277,13 @@ public class Player : Character
             StopCoroutine(attackCoroutine);
         }
     }
-    public void AddAttacker(Enemy enemy)
-    {
-        if (!MyAttackers.Contains(enemy))
-        {
-            MyAttackers.Add(enemy);
-        }
-    }
+    //public void AddAttacker(Enemy enemy)
+    //{
+    //    if (!MyAttackers.Contains(enemy))
+    //    {
+    //        MyAttackers.Add(enemy);
+    //    }
+    //}
     public void Interact()
     {
         if(interactable != null)
@@ -319,7 +329,30 @@ public class Player : Character
             }
         }
     }
-    
+
+    public override void AddAttacker(Character attacker)
+    {
+        int count = Attackers.Count;
+        base.AddAttacker(attacker);
+        if(count == 0)
+        {
+            InCombat = true;
+            Debug.Log("In Combat");
+            //CombatTextManage.MyInstance.CreateText(transform.position, "+COMBAT", SCTTYPE.TEXT, false);
+        }
+
+    }
+    public override void RemoveAttacker(Character attacker)
+    {
+        base.RemoveAttacker(attacker);
+        if(Attackers.Count == 0)
+        {
+            InCombat = false;
+            Debug.Log("Not In Combat");
+            //CombatTextManage.MyInstance.CreateText(transform.position, "-COMBAT", SCTTYPE.TEXT, false);
+        }
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Enemy" || collision.tag =="Interactable")

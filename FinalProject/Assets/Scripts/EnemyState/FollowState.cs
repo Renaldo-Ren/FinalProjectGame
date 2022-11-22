@@ -6,7 +6,7 @@ class FollowState : IState
     //private Vector3 offset;
     public void Enter(Enemy parent)
     {
-        Player.MyInstance.AddAttacker(parent);
+        //Player.MyInstance.AddAttacker(parent);
         this.parent = parent;
         parent.MyPath = null;
     }
