@@ -37,7 +37,7 @@ public class SkillSet : MonoBehaviour
     {
         
         
-        if(skills[index].myCheckManaSufficient && !player.isMoving)
+        if(skills[index].myCheckManaSufficient && !player.isMoving && player.myTarget.IsAlive)
         {
             skillIcon[index].fillAmount = 0;
             //skillIcon[index].color = skills[index].myBarColor;

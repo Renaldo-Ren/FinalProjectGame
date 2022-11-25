@@ -11,7 +11,7 @@ public class RangedEnemy : Enemy
     private Transform[] exitPoints;
 
     private float fieldOfView = 120;
-    private bool updateDirection = false;
+    //private bool updateDirection = false;
     protected override void Update()
     {
         LookAtTarget();
@@ -51,21 +51,24 @@ public class RangedEnemy : Enemy
         {
             Vector2 directionToTarget = (myTarget.transform.position - transform.position).normalized;
             Vector2 facing = new Vector2(MyAnim.GetFloat("x"), 0f);
-            if(directionToTarget.x >= 0)
+            if (GetComponentInParent<Enemy>().IsAlive) //so when the enemy die, it is not face to where the target is
             {
-                directionToTarget.x = 1;
-            }
-            else
-            {
-                directionToTarget.x = -1;
-            }
-            float angleToTarget = Vector2.Angle(facing, directionToTarget);
-            if (angleToTarget > fieldOfView/2)
-            {
-                MyAnim.SetFloat("x", directionToTarget.x);
-                //MyAnim.SetFloat("y", directionToTarget.y);
+                if (directionToTarget.x >= 0)
+                {
+                    directionToTarget.x = 1;
+                }
+                else
+                {
+                    directionToTarget.x = -1;
+                }
+                float angleToTarget = Vector2.Angle(facing, directionToTarget);
+                if (angleToTarget > fieldOfView / 2)
+                {
+                    MyAnim.SetFloat("x", directionToTarget.x);
+                    //MyAnim.SetFloat("y", directionToTarget.y);
 
-                updateDirection = true;
+                    //updateDirection = true;
+                }
             }
         }
     }

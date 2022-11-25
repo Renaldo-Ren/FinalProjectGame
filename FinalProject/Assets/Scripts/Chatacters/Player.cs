@@ -338,7 +338,7 @@ public class Player : Character
         {
             InCombat = true;
             Debug.Log("In Combat");
-            //CombatTextManage.MyInstance.CreateText(transform.position, "+COMBAT", SCTTYPE.TEXT, false);
+            CombatTextManage.MyInstance.CreateText(transform.position, "+COMBAT", SCTTYPE.TEXT, false);
         }
 
     }
@@ -349,7 +349,7 @@ public class Player : Character
         {
             InCombat = false;
             Debug.Log("Not In Combat");
-            //CombatTextManage.MyInstance.CreateText(transform.position, "-COMBAT", SCTTYPE.TEXT, false);
+            CombatTextManage.MyInstance.CreateText(transform.position, "-COMBAT", SCTTYPE.TEXT, false);
         }
     }
 

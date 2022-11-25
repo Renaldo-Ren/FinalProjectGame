@@ -13595,6 +13595,64 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!1 &558212473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 558212474}
+  - component: {fileID: 558212475}
+  m_Layer: 0
+  m_Name: BodyCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &558212474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558212473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1616593804}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &558212475
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558212473}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.016882896, y: 0.01509729}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8446789, y: 1.3948622}
+  m_EdgeRadius: 0
 --- !u!213 &566896982
 Sprite:
   m_ObjectHideFlags: 0
@@ -35146,7 +35204,8 @@ Transform:
   m_LocalPosition: {x: -6.4702086, y: -0.82848316, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 558212474}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35166,15 +35225,22 @@ MonoBehaviour:
   - name: Root
     parent: 
     answer: 
-    text: Hello, It's a good weather to do exciting adventure, right?
+    text:
+    - Hi, Nice to meet you
+    - It have been a long time since I met a human last time
+    - um.., It's a nice weather today, right?
   - name: Thank You
     parent: Root
     answer: Yes
-    text: DESUWA YO NE~
+    text:
+    - Hehe, Good to hear that
+    - by the way, ...
   - name: Go Away
     parent: Root
     answer: No
-    text: OMAEWA MOU SHINDEIRU~
+    text:
+    - um.., okay
+    - anyway ...
 --- !u!95 &1616593806
 Animator:
   serializedVersion: 4
@@ -51633,7 +51699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1827939057}
   text: {fileID: 1357767444}
-  speed: 0.01
+  speed: 0.08
   btnAnswerPrefab: {fileID: 8605672390228661228, guid: 39b861a6f0698114499c08e4a15d078d, type: 3}
   ansTransform: {fileID: 131512783}
   guider: {fileID: 1616593801}

@@ -15,10 +15,10 @@ public class DialogNode
     private string answer;
 
     [SerializeField]
-    private string text;
+    private string[] text;
 
     public string Name { get => name; set => name = value; }
     public string Parent { get => parent; set => parent = value; }
     public string Answer { get => answer; set => answer = value; }
-    public string Text { get => text; set => text = value; }
+    public string[] Text { get => text; set => text = value; }
 }
