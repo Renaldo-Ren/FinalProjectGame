@@ -52012,7 +52012,7 @@ MonoBehaviour:
     icon: {fileID: 0}
     speed: 2
     castTime: 0.2
-    castCD: 5
+    castCD: 7
     checkCD: 0
     castPrefab: {fileID: 8744664717007204960, guid: 3b6a23193e661bd48ab34beaa47c3da6, type: 3}
     barColor: {r: 0.42830187, g: 0.597999, b: 1, a: 0.49019608}

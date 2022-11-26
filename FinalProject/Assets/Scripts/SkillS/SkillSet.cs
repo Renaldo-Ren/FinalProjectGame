@@ -36,14 +36,15 @@ public class SkillSet : MonoBehaviour
     public Cast castSkill(int index)
     {
         
-        
-        if(skills[index].myCheckManaSufficient && !player.isMoving && player.myTarget.IsAlive)
+        if(player.myTarget != null)
         {
-            skillIcon[index].fillAmount = 0;
-            //skillIcon[index].color = skills[index].myBarColor;
-            skillRoutine = StartCoroutine(Progress(index));
+            if (skills[index].myCheckManaSufficient && !player.isMoving && player.myTarget.IsAlive)
+            {
+                skillIcon[index].fillAmount = 0;
+                //skillIcon[index].color = skills[index].myBarColor;
+                skillRoutine = StartCoroutine(Progress(index));
+            }
         }
-        
         return skills[index];
     }
     private IEnumerator Progress(int index)

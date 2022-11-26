@@ -33,6 +33,8 @@ public class Player : Character
     private IInteractable interactable;
     private bool inRangeInteract = false;
 
+    private bool isInvulnerable = false;
+
     private SkillSet skillSet;
 
     //private Stack<Vector3> path;
@@ -175,13 +177,23 @@ public class Player : Character
         }
         else
         {
-            Instantiate(newSkill.myCastPrefab, transform.position, Quaternion.identity);
+            GameObject shieldClone = Instantiate(newSkill.myCastPrefab, transform.position, Quaternion.identity);
             mana.MyCurrentValue -= newSkill.myManaCost;
+            if(skillIndex == 1)
+            {
+                StartCoroutine(Shield(shieldClone));
+            }
         }
         newSkill.myCheckManaSufficient = false;
         StopCast();
     }
-
+    private IEnumerator Shield(GameObject shieldPrefab)
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(5f);
+        isInvulnerable = false;
+        Destroy(shieldPrefab);
+    }
     public void Casting(int skillIndex)
     {
         Cast manaCost = skillSet.castSkill(skillIndex);
@@ -225,6 +237,12 @@ public class Player : Character
 
     public override void TakeDmg(float dmg, Character source, Vector2 knockback)
     {
+        if (isInvulnerable)
+        {
+            return;
+        }
+        else
+        {
             //Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();
             if (IsAlive)
             {
@@ -233,9 +251,9 @@ public class Player : Character
                 {
                     knockback = Vector2.zero;
                 }
-            MyRb.AddForce(knockback);
+                MyRb.AddForce(knockback);
             }
-        //Debug.Log("Force" + knockback);
+        }
     }
 
     public void PlayerTakeForce(Vector2 knockback)
@@ -338,7 +356,7 @@ public class Player : Character
         {
             InCombat = true;
             Debug.Log("In Combat");
-            CombatTextManage.MyInstance.CreateText(transform.position, "+COMBAT", SCTTYPE.TEXT, false);
+            CombatTextManage.MyInstance.CreateText(transform.position, "IN COMBAT", SCTTYPE.TEXT, false);
         }
 
     }
@@ -349,7 +367,7 @@ public class Player : Character
         {
             InCombat = false;
             Debug.Log("Not In Combat");
-            CombatTextManage.MyInstance.CreateText(transform.position, "-COMBAT", SCTTYPE.TEXT, false);
+            CombatTextManage.MyInstance.CreateText(transform.position, "OUT OF COMBAT", SCTTYPE.TEXT, false);
         }
     }
 
