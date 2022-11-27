@@ -75,7 +75,10 @@ public abstract class Character : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        HandleLayers();
+        if(MyAnim != null)
+        {
+            HandleLayers();
+        }
     }
     public void FixedUpdate()
     {

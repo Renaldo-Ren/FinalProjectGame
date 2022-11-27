@@ -81,7 +81,7 @@ public class Player : Character
         {
             GetInput();
         }
-        ClickToMove();
+        //ClickToMove();
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }
@@ -177,11 +177,15 @@ public class Player : Character
         }
         else
         {
-            GameObject shieldClone = Instantiate(newSkill.myCastPrefab, transform.position, Quaternion.identity);
+            GameObject Clone = Instantiate(newSkill.myCastPrefab, transform.position, Quaternion.identity);
             mana.MyCurrentValue -= newSkill.myManaCost;
             if(skillIndex == 1)
             {
-                StartCoroutine(Shield(shieldClone));
+                StartCoroutine(Shield(Clone));
+            }
+            else if (skillIndex == 2)
+            {
+                StartCoroutine(Booster(Clone));
             }
         }
         newSkill.myCheckManaSufficient = false;
@@ -190,10 +194,19 @@ public class Player : Character
     private IEnumerator Shield(GameObject shieldPrefab)
     {
         isInvulnerable = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6f);
         isInvulnerable = false;
         Destroy(shieldPrefab);
     }
+
+    private IEnumerator Booster(GameObject boosterPrefab)
+    {
+        Speed += 2;
+        yield return new WaitForSeconds(6f);
+        Speed -= 2;
+        Destroy(boosterPrefab);
+    }
+
     public void Casting(int skillIndex)
     {
         Cast manaCost = skillSet.castSkill(skillIndex);
@@ -201,10 +214,21 @@ public class Player : Character
         if(manaCost.myManaCost <= mana.MyCurrentValue)
         {
             manaCost.myCheckManaSufficient = true;
-            if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !isCasting && InLineofSight() && !isMoving && IsAlive && !UIManage.isPaused)
+            if(skillIndex == 0)
             {
-                attackCoroutine = StartCoroutine(Cast(skillIndex));
+                if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !isCasting && InLineofSight() && !isMoving && IsAlive && !UIManage.isPaused)
+                {
+                    attackCoroutine = StartCoroutine(Cast(skillIndex));
+                }
             }
+            else
+            {
+                if (!isCasting && !isMoving && IsAlive && !UIManage.isPaused)
+                {
+                    attackCoroutine = StartCoroutine(Cast(skillIndex));
+                }
+            }
+            
             //attackCoroutine = StartCoroutine(Cast());
         }
         else
@@ -256,18 +280,18 @@ public class Player : Character
         }
     }
 
-    public void PlayerTakeForce(Vector2 knockback)
-    {
-        Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();
-        //base.TakeDmg(dmg);
-        //OnHealthChanged(health.MyCurrentValue);
-        if (health.MyCurrentValue <= 0)
-        {
-            knockback = Vector2.zero;
-        }
-        PlayerRb.AddForce(knockback);
-        //Debug.Log("Force" + knockback);
-    }
+    //public void PlayerTakeForce(Vector2 knockback)
+    //{
+    //    Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();
+    //    //base.TakeDmg(dmg);
+    //    //OnHealthChanged(health.MyCurrentValue);
+    //    if (health.MyCurrentValue <= 0)
+    //    {
+    //        knockback = Vector2.zero;
+    //    }
+    //    PlayerRb.AddForce(knockback);
+    //    //Debug.Log("Force" + knockback);
+    //}
     //public override void StopCast()
     //{
     //    skillSet.StopCasting();
@@ -328,25 +352,25 @@ public class Player : Character
         MyAnim.SetTrigger("respawn");
     }
 
-    private void ClickToMove()
-    {
-        if (MyPath != null)
-        {
-            transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, Speed * Time.deltaTime);
-            float distance = Vector2.Distance(destination, transform.parent.position);
-            if(distance <= 0f)
-            {
-                if(MyPath.Count > 0)
-                {
-                    destination = MyPath.Pop();
-                }
-                else
-                {
-                    MyPath = null;
-                }
-            }
-        }
-    }
+    //private void ClickToMove()
+    //{
+    //    if (MyPath != null)
+    //    {
+    //        transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, Speed * Time.deltaTime);
+    //        float distance = Vector2.Distance(destination, transform.parent.position);
+    //        if(distance <= 0f)
+    //        {
+    //            if(MyPath.Count > 0)
+    //            {
+    //                destination = MyPath.Pop();
+    //            }
+    //            else
+    //            {
+    //                MyPath = null;
+    //            }
+    //        }
+    //    }
+    //}
 
     public override void AddAttacker(Character attacker)
     {

@@ -53,14 +53,14 @@ public class AStar : MonoBehaviour
     //        Algorithm();
     //    }
     //}
-    private void InitiaizedAlgo()
-    {
-        current = GetNode(startPos);
-        openlist = new HashSet<Node>();
-        closedlist = new HashSet<Node>();
-        //Adding start to the open list
-        openlist.Add(current);
-    }
+    //private void InitiaizedAlgo()
+    //{
+    //    current = GetNode(startPos);
+    //    openlist = new HashSet<Node>();
+    //    closedlist = new HashSet<Node>();
+    //    //Adding start to the open list
+    //    openlist.Add(current);
+    //}
     public Stack<Vector3> Algorithm(Vector3 start, Vector3 goal)
     {
         //ClearAStar();
