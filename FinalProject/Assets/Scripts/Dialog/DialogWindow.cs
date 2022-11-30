@@ -22,8 +22,8 @@ public class DialogWindow : MonoBehaviour
     [SerializeField]
     private Transform ansTransform;
 
-    [SerializeField]
-    private Guider guider;
+    //[SerializeField]
+    //private Guider guider;
 
     private int index;
     private bool isAnswering = false;
@@ -49,7 +49,7 @@ public class DialogWindow : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && guider.Isinteracting)
+        if (Input.GetKeyDown(KeyCode.F) && Guider.MyInstance.Isinteracting)
         {
             if (text.text == currentNode.Text[index])
             {
@@ -137,7 +137,7 @@ public class DialogWindow : MonoBehaviour
     private IEnumerator WaitToInteract()
     {
         yield return new WaitForSeconds(0.2f);
-        guider.Isinteracting = false;
+        Guider.MyInstance.Isinteracting = false;
     }
     private void PickAnswer(DialogNode node)
     {

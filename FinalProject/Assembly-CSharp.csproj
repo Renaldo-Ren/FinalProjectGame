@@ -57,10 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CharacterRelated\LayerCollide.cs" />
+    <Compile Include="Assets\Scripts\ExitScene.cs" />
     <Compile Include="Assets\Scripts\CharacterRelated\RangedEnemy.cs" />
     <Compile Include="Assets\Scripts\Knockback.cs" />
     <Compile Include="Assets\Scripts\EnemyState\FollowState.cs" />
     <Compile Include="Assets\Behaviour\DeathBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Entrance.cs" />
     <Compile Include="Assets\Behaviour\RespawnBehaviour.cs" />
     <Compile Include="Assets\Scripts\TileScripts\TreeTile.cs" />
     <Compile Include="Assets\Scripts\CharacterRelated\Block.cs" />

@@ -11,18 +11,18 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private Tilemap tilemap;
 
-    [SerializeField]
-    private Player player;
+    //[SerializeField]
+    //private Player player;
 
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = Player.MyInstance.transform;
         //player = target.GetComponent<Player>();
         Vector3 minTile = tilemap.CellToWorld(tilemap.cellBounds.min);
         Vector3 maxTile = tilemap.CellToWorld(tilemap.cellBounds.max);
         SetLimits(minTile, maxTile);
-        player.SetLimits(minTile, maxTile);
+        Player.MyInstance.SetLimits(minTile, maxTile);
     }
 
     // Update is called once per frame

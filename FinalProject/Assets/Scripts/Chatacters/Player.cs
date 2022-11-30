@@ -9,18 +9,18 @@ public class Player : Character
 
     [SerializeField]
     private Stat mana;
-    
-    
+    public string scenePassword; //store one name when the player leave for another scene
+    [SerializeField]
     private float initMP = 50;
     private Vector2 initPos;
 
     //[SerializeField]
     //private GameObject[] castPrefab;
-    [SerializeField]
-    private Enemy enemy;
+    //[SerializeField]
+    //private Enemy enemy;
 
-    [SerializeField]
-    private Guider guider;
+    //[SerializeField]
+    //private Guider guider;
 
     [SerializeField]
     private Block[] blocks;
@@ -60,6 +60,22 @@ public class Player : Character
             return instance;
         }
     }
+    //private void Awake()
+    //{
+    //    skillSet = SkillSet.MyInstance.GetComponent<SkillSet>();
+    //    if (instance == null)
+    //    {
+    //        instance = this;
+    //    }
+    //    else
+    //    {
+    //        if(instance != this)
+    //        {
+    //            Destroy(gameObject);
+    //        }
+    //    }
+    //    DontDestroyOnLoad(gameObject);
+    //}
     //private List<Enemy> attackers = new List<Enemy>();
 
     //public List<Enemy> MyAttackers { get => attackers; set => attackers = value; }
@@ -67,20 +83,29 @@ public class Player : Character
     // Start is called before the first frame update
     protected override void Start()
     {
-        skillSet = GetComponent<SkillSet>();
+        skillSet = SkillSet.MyInstance.GetComponent<SkillSet>();
         
         mana.Initialize(initMP, initMP);
         initPos = transform.position;
         base.Start();
+        StartCoroutine(Regen());
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        if (!guider.Isinteracting)
+        if(Guider.MyInstance != null)
+        {
+            if (!Guider.MyInstance.Isinteracting)
+            {
+                GetInput();
+            }
+        }
+        else
         {
             GetInput();
         }
+        
         //ClickToMove();
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
@@ -134,7 +159,7 @@ public class Player : Character
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (inRangeInteract && !guider.Isinteracting)
+            if (inRangeInteract && !Guider.MyInstance.Isinteracting)
             {
                 Interact();
             }
@@ -177,7 +202,7 @@ public class Player : Character
         }
         else
         {
-            GameObject Clone = Instantiate(newSkill.myCastPrefab, transform.position, Quaternion.identity);
+            GameObject Clone = Instantiate(newSkill.myCastPrefab, transform);
             mana.MyCurrentValue -= newSkill.myManaCost;
             if(skillIndex == 1)
             {
@@ -301,7 +326,7 @@ public class Player : Character
     {
         IsAttacking = false;
         MyAnim.SetBool("attack", IsAttacking);
-        enemy.IsHit = false;
+        //enemy.IsHit = false;
         //if (attackCoroutine != null)
         //{
         //    StopCoroutine(attackCoroutine);
@@ -312,7 +337,7 @@ public class Player : Character
     {
         //skillSet.StopCasting(); //Stop the skillset  from casting
         isCasting = false; //Makes sure that we are not attacking
-        enemy.IsHit = false;
+        //enemy.IsHit = false;
         MyAnim.SetBool("cast", isCasting); //Stops the cast animation
         if (attackCoroutine != null)
         {
@@ -326,6 +351,31 @@ public class Player : Character
     //        MyAttackers.Add(enemy);
     //    }
     //}
+
+    private IEnumerator Regen()
+    {
+        while (true)
+        {
+            if (!InCombat)
+            {
+                if (health.MyCurrentValue < health.MyMaxVal)
+                {
+                    int value = Mathf.FloorToInt(health.MyMaxVal * 0.05f); //The value how much we will regen
+                    health.MyCurrentValue += value;
+                    CombatTextManage.MyInstance.CreateText(transform.position, value.ToString(), SCTTYPE.HEAL, false);
+                }
+
+                if (mana.MyCurrentValue < mana.MyMaxVal)
+                {
+                    int value = Mathf.FloorToInt(mana.MyMaxVal * 0.05f); //The value how much we will regen
+                    mana.MyCurrentValue += value;
+                    CombatTextManage.MyInstance.CreateText(transform.position, value.ToString(), SCTTYPE.MANA, false);
+                }
+            }
+            yield return new WaitForSeconds(1.5f); //This is how often we will regen
+        }
+    }
+
     public void Interact()
     {
         if(interactable != null)

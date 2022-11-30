@@ -7,9 +7,9 @@ public class GameManage : MonoBehaviour
 {
     private static GameManage instance;
     [SerializeField]
-    private Player player;
+    public Player player;
 
-    private NPC curTarget;
+    public NPC curTarget;
 
     private HashSet<Vector3Int> blocked = new HashSet<Vector3Int>();
     private int targetIndex = 0;
@@ -91,7 +91,7 @@ public class GameManage : MonoBehaviour
             }
         }
     }
-    private void DeSelectTarget()
+    public void DeSelectTarget()
     {
         if (curTarget != null) //if we have current target
         {

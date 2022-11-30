@@ -399,6 +399,8 @@
 "Assets/Scripts/EnemyState/IdleState.cs"
 "Assets/Scripts/EnemyState/IState.cs"
 "Assets/Scripts/EnemyState/PathState.cs"
+"Assets/Scripts/Entrance.cs"
+"Assets/Scripts/ExitScene.cs"
 "Assets/Scripts/GameManage.cs"
 "Assets/Scripts/Knockback.cs"
 "Assets/Scripts/PathfindingScripts/AStar.cs"

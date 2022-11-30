@@ -4,32 +4,59 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
-    public float thrust;
-    public float knockTime;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private static Knockback instance;
+    public static Knockback MyInstance
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        get
         {
-            Rigidbody2D enemy = collision.GetComponent<Rigidbody2D>();
-            if (enemy != null)
+            if (instance == null)
             {
-                enemy.isKinematic = false;
-                Vector2 difference = enemy.transform.position - transform.position;
-                difference = difference.normalized * thrust;
-                enemy.AddForce(difference, ForceMode2D.Impulse);
-                StartCoroutine(KnockCo(enemy));
+                instance = FindObjectOfType<Knockback>();
+            }
+            return instance;
+        }
+    }
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            if (instance != this)
+            {
+                Destroy(gameObject);
             }
         }
+        DontDestroyOnLoad(gameObject);
     }
+    //public float thrust;
+    //public float knockTime;
 
-    private IEnumerator KnockCo(Rigidbody2D enemy)
-    {
-        if(enemy != null)
-        {
-            yield return new WaitForSeconds(knockTime);
-            enemy.velocity = Vector2.zero;
-            enemy.isKinematic = true;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    {
+    //        Rigidbody2D enemy = collision.GetComponent<Rigidbody2D>();
+    //        if (enemy != null)
+    //        {
+    //            enemy.isKinematic = false;
+    //            Vector2 difference = enemy.transform.position - transform.position;
+    //            difference = difference.normalized * thrust;
+    //            enemy.AddForce(difference, ForceMode2D.Impulse);
+    //            StartCoroutine(KnockCo(enemy));
+    //        }
+    //    }
+    //}
+
+    //private IEnumerator KnockCo(Rigidbody2D enemy)
+    //{
+    //    if(enemy != null)
+    //    {
+    //        yield return new WaitForSeconds(knockTime);
+    //        enemy.velocity = Vector2.zero;
+    //        enemy.isKinematic = true;
+    //    }
+    //}
 }

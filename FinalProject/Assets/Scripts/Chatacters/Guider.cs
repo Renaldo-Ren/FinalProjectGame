@@ -7,6 +7,19 @@ public class Guider : NPC, IInteractable
     [SerializeField]
     private Dialog dialog;
 
+    private static Guider instance;
+    public static Guider MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Guider>();
+            }
+            return instance;
+        }
+    }
+
     public override void Interact()
     {
         base.Interact();
