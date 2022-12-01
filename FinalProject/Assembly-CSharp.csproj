@@ -100,6 +100,9 @@
     <Compile Include="Assets\Scripts\Chatacters\Character.cs" />
     <Compile Include="Assets\Scripts\EnemyState\IdleState.cs" />
     <Compile Include="Assets\Scripts\PathfindingScripts\Node.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\AudioManage.cs" />
+    <Compile Include="Assets\Scripts\AudioSetting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
