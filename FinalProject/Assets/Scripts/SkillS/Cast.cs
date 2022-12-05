@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [Serializable]
-public class Cast
+public class Cast : IDescribable
 {
     [SerializeField]
     private string name;
@@ -52,5 +52,10 @@ public class Cast
     public Color myBarColor { get => barColor; }
     public int myManaCost { get => manaCost; set => manaCost = value; }
     public bool myCheckManaSufficient { get => checkManaSufficient; set => checkManaSufficient = value; }
+
+    public string GetDescription()
+    {
+        return string.Format("{0}", name);
+    }
 }
 

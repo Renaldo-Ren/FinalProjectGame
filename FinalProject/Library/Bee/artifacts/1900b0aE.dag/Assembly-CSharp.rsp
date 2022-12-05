@@ -404,6 +404,7 @@
 "Assets/Scripts/Entrance.cs"
 "Assets/Scripts/ExitScene.cs"
 "Assets/Scripts/GameManage.cs"
+"Assets/Scripts/IDescribable.cs"
 "Assets/Scripts/Knockback.cs"
 "Assets/Scripts/MainMenu.cs"
 "Assets/Scripts/PathfindingScripts/AStar.cs"
@@ -414,12 +415,15 @@
 "Assets/Scripts/SkillS/CastScript.cs"
 "Assets/Scripts/SkillS/CastScriptStay.cs"
 "Assets/Scripts/SkillS/SkillSet.cs"
+"Assets/Scripts/SlotScript.cs"
 "Assets/Scripts/TileScripts/CurrentTileScript.cs"
 "Assets/Scripts/TileScripts/GrassTile.cs"
 "Assets/Scripts/TileScripts/NoDiagonalTile.cs"
 "Assets/Scripts/TileScripts/Obstacle.cs"
 "Assets/Scripts/TileScripts/TreeTile.cs"
 "Assets/Scripts/TileScripts/WaterTile.cs"
+"Assets/Scripts/ToolTip.cs"
+"Assets/Scripts/ToolTipManage.cs"
 "Assets/Scripts/UIManage.cs"
 -langversion:9.0
 

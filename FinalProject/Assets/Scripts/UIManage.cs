@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManage : MonoBehaviour
@@ -37,6 +38,9 @@ public class UIManage : MonoBehaviour
 
     [SerializeField]
     private CanvasGroup pauseMenu;
+
+    [SerializeField]
+    private GameObject tooltip;
     public static bool isPaused = false;
     // Start is called before the first frame update
     void Start()
@@ -93,11 +97,34 @@ public class UIManage : MonoBehaviour
     {
         hpStat.MyCurrentValue = hp;
     }
+
+    public void ShowToolTip(Vector3 position)
+    {
+        tooltip.SetActive(true);
+        tooltip.transform.position = position;
+    }
+    public void HideToolTip()
+    {
+        tooltip.SetActive(false);
+    }
     public void OpenCloseMenu()
     {
         pauseMenu.alpha = pauseMenu.alpha > 0 ? 0 : 1;
         pauseMenu.blocksRaycasts = pauseMenu.blocksRaycasts == true ? false : true;
         Time.timeScale = Time.timeScale > 0 ? 0 : 1;
         isPaused = isPaused == false ? true : false;
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+        Player.MyInstance.ResetPlayer();
+        //CombatTextManage.MyInstance.StopWriteText();
+        OpenCloseMenu();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

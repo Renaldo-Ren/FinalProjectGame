@@ -401,7 +401,13 @@ public class Player : Character
         MySpriteRenderer.enabled = true;
         MyAnim.SetTrigger("respawn");
     }
-
+    public void ResetPlayer()
+    {
+        health.Initialize(initHP, initHP);
+        mana.Initialize(initMP, initMP);
+        transform.position = initPos;
+        Direction += Vector2.down;
+    }
     //private void ClickToMove()
     //{
     //    if (MyPath != null)

@@ -22,9 +22,17 @@ public class PathState : IState
         }
         if(parent.MyPath != null)
         {
+            Debug.Log("BEFORE = " + "current: " + current + ", destination: " + destination);
+            //if((current != null) || (destination != null))
+            //{
+            //    current = parent.MyPath.Pop();
+            //    destination = parent.MyPath.Pop();
+            //}
             current = parent.MyPath.Pop();
             destination = parent.MyPath.Pop();
             //this.goal = parent.myCurrentTile.position;
+            Debug.Log("AFTER = " + "current: " + current + ", destination: " + destination);
+            //Debug.Log(parent.MyPath.Peek());
         }
         else
         {

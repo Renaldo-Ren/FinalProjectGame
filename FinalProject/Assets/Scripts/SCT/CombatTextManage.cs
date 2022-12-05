@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public enum SCTTYPE {DAMAGE,HEAL,XP,TEXT,MANA}
 public class CombatTextManage : MonoBehaviour
 {
+    public Coroutine WriteRoutine;
+    
     private static CombatTextManage instance;
     public static CombatTextManage MyInstance
     {
@@ -26,7 +28,7 @@ public class CombatTextManage : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(WriteText());
+        WriteRoutine = StartCoroutine(WriteText());
     }
     public void CreateText(Vector2 position, string text, SCTTYPE type, bool crit)
     {
@@ -77,12 +79,21 @@ public class CombatTextManage : MonoBehaviour
                     sct.GetComponent<Animator>().SetBool("crit", sctObject.Crit);
                 }
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
-        
-
-        
     }
+
+    //public void StartWriteText()
+    //{
+    //    StartCoroutine(WriteText());
+    //}
+    //public void StopWriteText()
+    //{
+    //    if(WriteRoutine != null)
+    //    {
+    //        StopCoroutine(WriteRoutine);
+    //    }
+    //}
 }
 
 public class SCTObject

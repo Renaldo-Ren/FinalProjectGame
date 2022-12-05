@@ -86,12 +86,16 @@ public abstract class Character : MonoBehaviour
     }
     public void Move()
     {
-        if (MyPath == null)
+        //if (MyPath == null)
+        //{
+        //    if (IsAlive)
+        //    {
+        //        MyRb.velocity = Direction.normalized * Speed;
+        //    }
+        //}
+        if (IsAlive)
         {
-            if (IsAlive)
-            {
-                MyRb.velocity = Direction.normalized * Speed;
-            }
+              MyRb.velocity = Direction.normalized * Speed;
         }
     }
     //private void FixedUpdate()
@@ -200,7 +204,16 @@ public abstract class Character : MonoBehaviour
         MyAnim.SetTrigger("hit");
         StartCoroutine(GetHit());
         health.MyCurrentValue -= dmg;
-        CombatTextManage.MyInstance.CreateText(transform.position, dmg.ToString(), SCTTYPE.DAMAGE, false);
+        if(Random.value < 0.3f) //For crit func
+        {
+            dmg *= 2;
+            CombatTextManage.MyInstance.CreateText(transform.position, dmg.ToString(), SCTTYPE.DAMAGE, true);
+        }
+        else
+        {
+            CombatTextManage.MyInstance.CreateText(transform.position, dmg.ToString(), SCTTYPE.DAMAGE, false);
+        }
+
         if (health.MyCurrentValue <= 0)
         {
             Direction = Vector2.zero;
