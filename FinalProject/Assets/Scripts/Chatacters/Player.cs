@@ -356,7 +356,7 @@ public class Player : Character
     {
         while (true)
         {
-            if (!InCombat)
+            if (!InCombat && IsAlive)
             {
                 if (health.MyCurrentValue < health.MyMaxVal)
                 {
