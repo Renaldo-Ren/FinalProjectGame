@@ -10,7 +10,7 @@ public class Entrance : MonoBehaviour
     {
         if (Player.MyInstance.scenePassword == entrancePassword)
         {
-            Player.MyInstance.transform.position = transform.position;
+            Player.MyInstance.transform.parent.position = transform.position;
 
             UIManage.myInstance.HideTargetFrame();
             GameManage.MyInstance.DeSelectTarget();

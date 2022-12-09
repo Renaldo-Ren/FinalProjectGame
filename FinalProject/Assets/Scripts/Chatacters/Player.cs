@@ -406,6 +406,7 @@ public class Player : Character
         health.Initialize(initHP, initHP);
         mana.Initialize(initMP, initMP);
         transform.position = initPos;
+        UIManage.myInstance.HideTargetFrame();
         Direction += Vector2.down;
     }
     //private void ClickToMove()

@@ -317,11 +317,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b727d827525194c9584cefab637fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1.5
   myAnim: {fileID: 3042294866712048135}
   myRb: {fileID: 0}
   mySprite: {fileID: 3042294866712048134}
-  Hitbox: {fileID: 3042294867135065543}
+  hitbox: {fileID: 3042294867135065543}
   health: {fileID: 3042294866888863175}
   initHP: 30
   name: Evil Plant
@@ -336,7 +336,7 @@ MonoBehaviour:
   detectArea: {fileID: 3042294868054719571}
   attackRange: 5
   initAggroRange: 2
-  projectilePrefab: {fileID: 1825582517786945920, guid: f2932e1e531fe07439832a86c090e3e1, type: 3}
+  projectilePrefab: {fileID: 6747961752345822691, guid: f74fd88abd60df247abb2eb5a0f9f632, type: 3}
   exitPoints:
   - {fileID: 73121501}
   - {fileID: 542927591}
@@ -504,7 +504,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 1565285903
+  m_SortingLayerID: 2071368957
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &3042294867126006050
@@ -691,7 +691,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
 --- !u!1 &3042294868325296972
 GameObject:
   m_ObjectHideFlags: 0

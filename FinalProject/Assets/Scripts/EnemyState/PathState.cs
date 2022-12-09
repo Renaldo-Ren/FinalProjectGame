@@ -18,20 +18,34 @@ public class PathState : IState
         targetPos = Player.MyInstance.myCurrentTile.position; //will be used to keep check player current tile position
         if(targetPos != parent.myCurrentTile.position) //if the player current tile is different with enemy current tile
         {
+            //if(!(parent.curState is EvadeState))
+            //{
+            //    parent.MyPath = parent.EneAstar.Algorithm(parent.myCurrentTile.position, targetPos);
+            //}
+            //else
+            //{
+            //    parent.MyPath = parent.EneAstar.Algorithm(parent.myCurrentTile.position, parent.myStartPos);
+            //}
             parent.MyPath = parent.EneAstar.Algorithm(parent.myCurrentTile.position, targetPos);
         }
         if(parent.MyPath != null)
         {
-            Debug.Log("BEFORE = " + "current: " + current + ", destination: " + destination);
+            //Debug.Log("BEFORE = " + "current: " + current + ", destination: " + destination);
             //if((current != null) || (destination != null))
             //{
             //    current = parent.MyPath.Pop();
             //    destination = parent.MyPath.Pop();
             //}
             current = parent.MyPath.Pop();
-            destination = parent.MyPath.Pop();
+            if(parent.MyPath.Count > 0)
+            {
+                destination = parent.MyPath.Pop();
+            }
+            
+            
+            
             //this.goal = parent.myCurrentTile.position;
-            Debug.Log("AFTER = " + "current: " + current + ", destination: " + destination);
+            //Debug.Log("AFTER = " + "current: " + current + ", destination: " + destination);
             //Debug.Log(parent.MyPath.Peek());
         }
         else
@@ -58,7 +72,7 @@ public class PathState : IState
             Vector3Int dest = parent.EneAstar.MyTilemap.WorldToCell(destination);
             Vector3Int cur = parent.EneAstar.MyTilemap.WorldToCell(current);
             float distance = Vector2.Distance(destination, transform.position);
-            float totalDistance = Vector2.Distance(parent.myTarget.transform.position, parent.transform.position);
+            float totalDistance = Vector2.Distance(parent.myTarget.transform.parent.transform.position, parent.transform.position);
 
             if (cur.x > dest.x)
             {

@@ -15,6 +15,11 @@ public class ToolTip : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        if ((headerField == null) || (contentField == null))
+        {
+            headerField = GetComponent<Text>();
+            contentField = GetComponent<Text>();
+        }
     }
 
     public void SetText(string content, string header = "")

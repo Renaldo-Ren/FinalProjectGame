@@ -313,11 +313,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbd6caa19cb47a45b19bff463c22000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1.5
   myAnim: {fileID: 1102747389705694755}
   myRb: {fileID: 0}
   mySprite: {fileID: 1102747389705694754}
-  Hitbox: {fileID: 1102747389861327331}
+  hitbox: {fileID: 1102747389861327331}
   health: {fileID: 1102747389613027811}
   initHP: 50
   name: Mushroom
@@ -330,6 +330,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   detectArea: {fileID: 1102747391047311479}
+  attackRange: 0.8
   initAggroRange: 2
 --- !u!114 &1684083684
 MonoBehaviour:
@@ -403,7 +404,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 1565285903
+  m_SortingLayerID: 2071368957
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1102747389853314310

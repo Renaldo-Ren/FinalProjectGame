@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Forest02.unity
     guid: 133c757cd5d821f4b9f621af075757af
+  - enabled: 1
+    path: Assets/Scenes/ForestIntro.unity
+    guid: 57605c1a01e67d44f800b533dab1de48
   m_configObjects: {}

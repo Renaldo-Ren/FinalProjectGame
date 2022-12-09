@@ -144,7 +144,7 @@ public class Enemy : NPC
         if (canDoDamage)
         {
             //offset for collision detection changes the direction where the force comes from
-            Vector2 dir = (Vector2)(myTarget.transform.position - transform.position).normalized;
+            Vector2 dir = (Vector2)(myTarget.transform.parent.transform.position - transform.position).normalized;
 
             //knockback is in direction of swordCollider towards collider
             Vector3 knockback = dir * thrust;
@@ -161,14 +161,15 @@ public class Enemy : NPC
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //offset for collision detection changes the direction where the force comes from
-        Vector2 dir = (Vector2)(collision.gameObject.transform.position - transform.position).normalized;
         
-        //knockback is in direction of swordCollider towards collider
-        Vector3 knockback = dir * thrust;
 
         if (collision.collider.tag == "Player")
         {
+            //offset for collision detection changes the direction where the force comes from
+            Vector2 dir = (Vector2)(collision.gameObject.transform.parent.transform.position - transform.position).normalized;
+
+            //knockback is in direction of swordCollider towards collider
+            Vector3 knockback = dir * thrust;
             collision.collider.GetComponentInParent<Player>().TakeDmg(3, this, knockback); //player get 3 dmg from the enemy itself when collide
             //collision.collider.GetComponentInParent<Player>().PlayerTakeForce(knockback);
             collision.collider.GetComponentInParent<Player>().IsHit = false;

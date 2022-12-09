@@ -15,7 +15,7 @@ public class DeathBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timePass += Time.deltaTime;
-        if(timePass >= 5)
+        if(timePass >= 1)
         {
             animator.GetComponent<NPC>().OnCharacterRemoved();
         }

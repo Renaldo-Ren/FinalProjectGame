@@ -144,6 +144,7 @@ public class DialogWindow : MonoBehaviour
         this.currentNode = node;
         Clear();
         index = 0;
+        StopAllCoroutines();
         StartCoroutine(RunDialog(currentNode.Text[0]));
         ShowAnswers();
     }
@@ -151,6 +152,7 @@ public class DialogWindow : MonoBehaviour
     {
         Close();
         Clear();
+        StopAllCoroutines();
         StartCoroutine(WaitToInteract());
     }
     private void Clear()
