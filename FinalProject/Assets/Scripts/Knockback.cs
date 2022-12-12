@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Knockback : MonoBehaviour
 {
@@ -30,6 +31,13 @@ public class Knockback : MonoBehaviour
             }
         }
         DontDestroyOnLoad(gameObject);
+    }
+    private void Update()
+    {
+        if((SceneManager.GetActiveScene().buildIndex == 0) || (SceneManager.GetActiveScene().buildIndex == 5))
+        {
+            Destroy(gameObject);
+        }
     }
     //public float thrust;
     //public float knockTime;

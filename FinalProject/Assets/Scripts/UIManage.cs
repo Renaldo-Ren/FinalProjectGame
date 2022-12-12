@@ -69,7 +69,7 @@ public class UIManage : MonoBehaviour
         {
             ActionButtonClicked(2);
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && !Guider.MyInstance.Isinteracting)
+        if (Input.GetKeyDown(KeyCode.Escape)/* && (!Guider.MyInstance.Isinteracting || Guider.MyInstance == null)*/)
         {
             OpenCloseMenu();
         }

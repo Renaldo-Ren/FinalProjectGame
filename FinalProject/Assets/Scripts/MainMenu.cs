@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        
+        Destroy(GameObject.Find("MainParent"));
         //CombatTextManage.MyInstance.StartWriteText();
     }
 
@@ -16,6 +16,12 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("QUIT");
         Application.Quit();
+    }
+
+    public void WinToMain()
+    {
+        SceneManager.LoadScene("Main Menu");
+        //Player.MyInstance.ResetPlayer();
     }
 
     //public void SetFullScreen (bool isFullScreen)

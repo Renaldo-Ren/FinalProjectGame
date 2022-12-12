@@ -257,7 +257,9 @@ public class AStar : MonoBehaviour
         Vector3Int direct = currentNode.Position - neighbor.Position;
         Vector3Int first = new Vector3Int(current.Position.x + (direct.x * -1), current.Position.y, current.Position.z);
         Vector3Int second = new Vector3Int(current.Position.x, current.Position.y + (direct.y * -1), current.Position.z);
-        if(waterTiles.Contains(first) || waterTiles.Contains(second)) //If the first and second position is water, then it is not walkable path
+        Vector3Int right = new Vector3Int(current.Position.x + (direct.x * 1), current.Position.y, current.Position.z);
+        Vector3Int bottom = new Vector3Int(current.Position.x, current.Position.y + (direct.y * 1), current.Position.z);
+        if (waterTiles.Contains(first) || waterTiles.Contains(second)) //If the first and second position is water, then it is not walkable path
         {
             return false;
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
@@ -85,9 +86,12 @@ public class Player : Character
     {
         skillSet = SkillSet.MyInstance.GetComponent<SkillSet>();
         
+        MyAnim.SetFloat("x", 0);
+        MyAnim.SetFloat("y", 1);
         mana.Initialize(initMP, initMP);
-        initPos = transform.position;
+        initPos = transform.parent.position;
         base.Start();
+        //Guider.MyInstance.Interact();
         StartCoroutine(Regen());
     }
 
@@ -110,10 +114,10 @@ public class Player : Character
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }
-    public void SetDefaultValues()
-    {
-        initPos = transform.position;
-    }
+    //public void SetDefaultValues()
+    //{
+    //    initPos = transform.position;
+    //}
 
     private void GetInput()
     {
@@ -397,7 +401,10 @@ public class Player : Character
         yield return new WaitForSeconds(3f);
         health.Initialize(initHP, initHP);
         mana.Initialize(initMP, initMP);
-        transform.position = initPos;
+        SceneManager.LoadScene("ForestIntro");
+        MyAnim.SetFloat("x", 0);
+        MyAnim.SetFloat("y", -1);
+        transform.parent.position = initPos;
         MySpriteRenderer.enabled = true;
         MyAnim.SetTrigger("respawn");
     }
@@ -405,9 +412,10 @@ public class Player : Character
     {
         health.Initialize(initHP, initHP);
         mana.Initialize(initMP, initMP);
-        transform.position = initPos;
+        transform.parent.position = initPos;
         UIManage.myInstance.HideTargetFrame();
-        Direction += Vector2.down;
+        MyAnim.SetFloat("x", 0);
+        MyAnim.SetFloat("y", 1);
     }
     //private void ClickToMove()
     //{
