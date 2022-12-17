@@ -20,43 +20,49 @@ public class UIManage : MonoBehaviour
     }
     [SerializeField]
     private Button[] actButton;
-
-    //public bool CD1 = false;
-    //public bool CD2 = false;
-    //public bool CD3 = false;
     [SerializeField]
     private SkillSet skillSet;
-
-    private KeyCode skill1, skill2, skill3;
-
     [SerializeField]
     private GameObject targetFrame;
-    private Stat hpStat;
-
     [SerializeField]
     private Text eneName;
-
     [SerializeField]
     private CanvasGroup pauseMenu;
 
-    [SerializeField]
-    private GameObject tooltip;
+    private KeyCode skill1, skill2, skill3;
+    private Stat hpStat;
     public static bool isPaused = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         hpStat = targetFrame.GetComponentInChildren<Stat>();
 
-        //Keybinds
         skill1 = KeyCode.Alpha1;
         skill2 = KeyCode.Alpha2;
         skill3 = KeyCode.Alpha3;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(Guider.MyInstance != null)
+        {
+            if (!Guider.MyInstance.Isinteracting)
+            {
+                GetSkillInput();
+            }
+        }
+        else
+        {
+            GetSkillInput();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OpenCloseMenu();
+        }
+    }
+
+    private void GetSkillInput()
+    {
         if (Input.GetKeyDown(skill1) && skillSet.CD1() == false)
         {
             ActionButtonClicked(0);
@@ -68,10 +74,6 @@ public class UIManage : MonoBehaviour
         if (Input.GetKeyDown(skill3) && skillSet.CD3() == false)
         {
             ActionButtonClicked(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Escape)/* && (!Guider.MyInstance.Isinteracting || Guider.MyInstance == null)*/)
-        {
-            OpenCloseMenu();
         }
     }
 
@@ -97,16 +99,6 @@ public class UIManage : MonoBehaviour
     {
         hpStat.MyCurrentValue = hp;
     }
-
-    public void ShowToolTip(Vector3 position)
-    {
-        tooltip.SetActive(true);
-        tooltip.transform.position = position;
-    }
-    public void HideToolTip()
-    {
-        tooltip.SetActive(false);
-    }
     public void OpenCloseMenu()
     {
         pauseMenu.alpha = pauseMenu.alpha > 0 ? 0 : 1;
@@ -119,7 +111,6 @@ public class UIManage : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
         Player.MyInstance.ResetPlayer();
-        //CombatTextManage.MyInstance.StopWriteText();
         OpenCloseMenu();
     }
 

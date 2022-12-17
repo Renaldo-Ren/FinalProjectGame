@@ -7,38 +7,30 @@ public class Enemy : NPC
     [SerializeField]
     public CanvasGroup HPgroup;
     
-    //private Rigidbody2D EnemyRb;
-    public float thrust = 2000f;
-    public Collider2D collide;
-    private float moveSpeed = 10f;
-
     [SerializeField]
     private AStar astar;
 
     [SerializeField]
     protected int damage;
 
-    private bool canDoDamage = true;
-
     [SerializeField]
     private LayerMask losMask;
 
-    public DetectionArea detectArea;
-
-    //private Transform target;
-    private IState curState;
-
     [SerializeField]
     private float attackRange;
-    //public float EnemyAttRange { get; set; }
-    public float EnemyAttTime { get; set; }
-
-    public Vector3 myStartPos { get; set; }
 
     [SerializeField]
     private float initAggroRange;
-    public float EneAggroRange { get; set; }
 
+    public DetectionArea detectArea;
+    private IState curState;
+    private bool canDoDamage = true;
+    public float thrust = 2000f;
+    public float EnemyAttTime { get; set; }
+    public Vector3 myStartPos { get; set; }
+    public float EneAggroRange { get; set; }
+    public AStar EneAstar { get => astar; }
+    public float EnemyAttRange { get => attackRange; set => attackRange = value; }
     public bool inRange
     {
         get
@@ -47,24 +39,12 @@ public class Enemy : NPC
         }
     }
 
-    public AStar EneAstar { get => astar; }
-    public float EnemyAttRange { get => attackRange; set => attackRange = value; }
-
-    //public Transform Target { get => target; set => target = value; }
-
     protected void Awake()
     {
         myStartPos = transform.position; //so the enemy will know where it reset to
         EneAggroRange = initAggroRange;
-        //EnemyAttRange = 1;
         ChangeState(new IdleState());
     }
-
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    MyAnim.SetFloat("y", -1);
-    //}
 
     protected override void Update()
     {
@@ -85,22 +65,6 @@ public class Enemy : NPC
         base.Update(); //Make sure in outside if alive so the enemy can use handlelayer function to make it death layer when die
     }
 
-    //private void FixedUpdate()
-    //{
-    //    Rigidbody2D EnemyRb = GetComponent<Rigidbody2D>();
-    //    if (detectArea.detectionObj.Count > 0)
-    //    {
-    //        Vector2 dir = (detectArea.detectionObj[0].transform.position - transform.position).normalized;
-
-    //        EnemyRb.AddForce(dir * moveSpeed * Time.deltaTime);
-
-    //        if(EnemyRb.velocity.magnitude > 5f)
-    //        {
-    //            float limitSpeed = Mathf.Lerp(EnemyRb.velocity.magnitude, 5f, 0.9f);
-    //            EnemyRb.velocity = EnemyRb.velocity.normalized * limitSpeed;
-    //        }
-    //    }
-    //}
     public override Character Select()
     {
         HPgroup.alpha = 1;
@@ -111,16 +75,10 @@ public class Enemy : NPC
         HPgroup.alpha = 0;
         base.DeSelect();
     }
-    //public override void TakeDmg(float dmg, Transform source)
-    //{
-    //    base.TakeDmg(dmg, source);
-    //    OnHealthChanged(health.MyCurrentValue);
-    //}
     public override void TakeDmg(float dmg, Character source, Vector2 knockback) 
     {
         if(!(curState is EvadeState)) //if the enemy current state is not in evade state, then it will take damage
         {
-            //Rigidbody2D EnemyRb = GetComponent<Rigidbody2D>();
             if (IsAlive)
             {
                 setTarget(source); //when take damage, set the target based on the source who damage it
@@ -135,8 +93,6 @@ public class Enemy : NPC
             }
             
         }
-        
-        //Debug.Log("Force" + knockback);
     }
 
     public void DoDamage()
@@ -144,13 +100,12 @@ public class Enemy : NPC
         if (canDoDamage)
         {
             //offset for collision detection changes the direction where the force comes from
-            Vector2 dir = (Vector2)(myTarget.transform.parent.transform.position - transform.position).normalized;
+            Vector2 dir = (Vector2)(myTarget.transform.position - transform.position).normalized;
 
             //knockback is in direction of swordCollider towards collider
             Vector3 knockback = dir * thrust;
 
             myTarget.TakeDmg(damage, this, knockback);
-            //Player.MyInstance.TakeDmg(damage, transform, knockback); 
             canDoDamage = false;
         }
     }
@@ -161,18 +116,14 @@ public class Enemy : NPC
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-
         if (collision.collider.tag == "Player")
         {
             //offset for collision detection changes the direction where the force comes from
-            Vector2 dir = (Vector2)(collision.gameObject.transform.parent.transform.position - transform.position).normalized;
+            Vector2 dir = (Vector2)(collision.gameObject.transform.position - transform.position).normalized;
 
             //knockback is in direction of swordCollider towards collider
             Vector3 knockback = dir * thrust;
             collision.collider.GetComponentInParent<Player>().TakeDmg(3, this, knockback); //player get 3 dmg from the enemy itself when collide
-            //collision.collider.GetComponentInParent<Player>().PlayerTakeForce(knockback);
-            collision.collider.GetComponentInParent<Player>().IsHit = false;
         }
     }
     //private void OnTriggerEnter2D(Collider2D collision)
@@ -190,7 +141,6 @@ public class Enemy : NPC
     //    }
     //}
 
-    
     public void ChangeState(IState newState)
     {
         if(curState != null) //Make sure have a state before call exit
@@ -208,6 +158,7 @@ public class Enemy : NPC
             EneAggroRange = initAggroRange; //this to make sure we set it to start/reset it so when it added by the distance later, it will not get too far
             EneAggroRange += distance;
             myTarget = target;
+            Debug.Log(myTarget);
             target.AddAttacker(this);
         }
     }
@@ -219,15 +170,6 @@ public class Enemy : NPC
         this.MyHealth.MyCurrentValue = this.MyHealth.MyMaxVal;
         OnHealthChanged(health.MyCurrentValue); //need also to reset the health frame so it will always keep track/same with the actual health value
     }
-    //public override void Interact()
-    //{
-    //   // base.Interact();
-    //}
-    //public override void StopInteract()
-    //{
-    //    //base.StopInteract();
-
-    //}
     public bool CanSeePlayer()
     {
         Vector3 targetDirection = (myTarget.transform.position - transform.position).normalized;

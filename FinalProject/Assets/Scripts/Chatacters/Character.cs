@@ -12,35 +12,33 @@ public abstract class Character : MonoBehaviour
     private Rigidbody2D myRb;
     [SerializeField]
     private SpriteRenderer mySprite;
-
-    private Vector2 direction;
-    
-    public bool IsAttacking { get; set; }
-    protected bool isCasting = false;
-    public bool IsHit { get; set; }
-    //protected bool isHit = false;
-    protected Coroutine attackCoroutine;
-
     [SerializeField]
     private Transform hitbox;
-
     [SerializeField]
     protected Stat health;
+    [SerializeField]
+    protected float initHP;
 
-    //public Transform myTarget { get; set; }
+    private Vector2 direction;
+    protected bool isCasting = false;
+    protected Coroutine attackCoroutine;
+
+    public bool IsAttacking { get; set; }
     public Character myTarget { get; set; }
     public Stack<Vector3> MyPath { get; set; }
-
-    public Transform myCurrentTile { get; set; } //this is a tile that the player currently standing
-
+    public Transform myCurrentTile { get; set; } 
     public List<Character> Attackers { get; set; } = new List<Character>();
+    public Vector2 Direction { get => direction; set => direction = value; }
+    public float Speed { get => speed; set => speed = value; }
+    public Rigidbody2D MyRb { get => myRb; }
+    public Animator MyAnim { get => myAnim; }
+    public SpriteRenderer MySpriteRenderer { get => mySprite; }
+    public Transform MyHitbox { get => hitbox; set => hitbox = value; }
     public Stat MyHealth
     {
         get { return health; }
     }
-
-    [SerializeField]
-    protected float initHP;
+    
     public bool isMoving
     {
         get
@@ -49,8 +47,6 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public Vector2 Direction { get => direction; set => direction = value; }
-    public float Speed { get => speed; set => speed = value; }
     public bool IsAlive
     {
         get
@@ -59,20 +55,11 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public Rigidbody2D MyRb { get => myRb; }
-    public Animator MyAnim { get => myAnim; }
-    public SpriteRenderer MySpriteRenderer { get => mySprite; }
-    public Transform MyHitbox { get => hitbox; set => hitbox = value; }
-
-    // Start is called before the first frame update
     protected virtual void Start()
     {
-        //MyAnim = GetComponent<Animator>();
-        //MyRb = GetComponent<Rigidbody2D>();
         health.Initialize(initHP, initHP);
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
         if(MyAnim != null)
@@ -86,85 +73,47 @@ public abstract class Character : MonoBehaviour
     }
     public void Move()
     {
-        //if (MyPath == null)
-        //{
-        //    if (IsAlive)
-        //    {
-        //        MyRb.velocity = Direction.normalized * Speed;
-        //    }
-        //}
-        if (IsAlive)
+        if (MyPath == null)
         {
-              MyRb.velocity = Direction.normalized * Speed;
+            if (IsAlive)
+            {
+                MyRb.velocity = Direction.normalized * Speed;
+            }
         }
     }
-    //private void FixedUpdate()
-    //{
-    //    Move();
-    //}
-
-    //public void Move()
-    //{
-    //    if (IsAlive)
-    //    {
-    //        //Frame Rate Independent
-    //        MyRb.velocity = Direction.normalized * Speed;
-
-    //        //Frame Rate Dependent
-    //        //transform.Translate(direction * speed * Time.deltaTime);
-    //    }
-
-    //}
 
     public void HandleLayers()
     {
         if (IsAlive)
         {
-            //If player is attacking while moving, then animate player attack and move
             if (isMoving && IsAttacking)
             {
                 ActivateLayers("Attack_Layer");
-
-                //Sets the animation parameter so that he faces the correct direction
                 MyAnim.SetFloat("x", Direction.x);
                 MyAnim.SetFloat("y", Direction.y);
             }
-            //If player is attacking while moving, then animate player attack and move
             else if (isMoving && isCasting)
             {
                 ActivateLayers("Cast_Layer");
-
-                //Sets the animation parameter so that he faces the correct direction
                 MyAnim.SetFloat("x", Direction.x);
                 MyAnim.SetFloat("y", Direction.y);
             }
-            //else if (IsHit)
-            //{
-            //    ActivateLayers("Hit_Layer");
-            //}
-            //If player is moving, then animate player movement
             else if (isMoving)
             {
                 ActivateLayers("Walk_Layer");
-
-                //Sets the animation parameter so that he faces the correct direction
                 MyAnim.SetFloat("x", Direction.x);
                 MyAnim.SetFloat("y", Direction.y);
             }
-            //If player is attacking, then animate player attack
             else if (IsAttacking)
             {
                 ActivateLayers("Attack_Layer");
             }
-            //If player is attacking, then animate player attack
             else if (isCasting)
             {
                 ActivateLayers("Cast_Layer");
             }
-            
             else
             {
-                //Else, back to idle animation
                 ActivateLayers("Idle_Layer");
             }
         }
@@ -182,29 +131,12 @@ public abstract class Character : MonoBehaviour
         }
         MyAnim.SetLayerWeight(MyAnim.GetLayerIndex(layername), 1);
     }
-
-    //public void StopAttack()
-    //{
-    //    isAttacking = false;
-    //    anim.SetBool("attack", isAttacking);
-    //    //if (attackCoroutine != null)
-    //    //{
-    //    //    StopCoroutine(attackCoroutine);
-
-    //    //}
-    //}
    
     public virtual void TakeDmg(float dmg, Character source, Vector2 knockback)
     {
-        //if(myTarget == null)
-        //{
-        //    myTarget = source;
-        //}
-        IsHit = true;
-        MyAnim.SetTrigger("hit");
         StartCoroutine(GetHit());
-        health.MyCurrentValue -= dmg;
-        if(Random.value < 0.3f) //For crit func
+        
+        if(Random.value < 0.3f)
         {
             dmg *= 2;
             CombatTextManage.MyInstance.CreateText(transform.position, dmg.ToString(), SCTTYPE.DAMAGE, true);
@@ -213,21 +145,14 @@ public abstract class Character : MonoBehaviour
         {
             CombatTextManage.MyInstance.CreateText(transform.position, dmg.ToString(), SCTTYPE.DAMAGE, false);
         }
+        health.MyCurrentValue -= dmg;
 
         if (health.MyCurrentValue <= 0)
         {
             Direction = Vector2.zero;
             MyRb.velocity = Direction;
-            //GameManage.MyInstance.OnKillConfirmed(this);
             MyAnim.SetTrigger("die");
         }
-        //isHit = false;
-    }
-
-    public void GetHealth(int health)
-    {
-        MyHealth.MyCurrentValue += health;
-        CombatTextManage.MyInstance.CreateText(transform.position, health.ToString(), SCTTYPE.HEAL, false);
     }
 
     public IEnumerator GetHit()
@@ -235,7 +160,6 @@ public abstract class Character : MonoBehaviour
         MySpriteRenderer.color = new Color(1f, 0.3056604f, 0.3056604f, 1f);
         yield return new WaitForSeconds(.3f);
         MySpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-        //Debug.Log("character: "+ mySprite +", color: "+ MySpriteRenderer.color);
     }
     public virtual void AddAttacker(Character attacker)
     {

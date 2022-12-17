@@ -18,7 +18,7 @@ public class PathState : IState
         targetPos = Player.MyInstance.myCurrentTile.position; //will be used to keep check player current tile position
         if(targetPos != parent.myCurrentTile.position) //if the player current tile is different with enemy current tile
         {
-            //if(!(parent.curState is EvadeState))
+            //if (!(parent.curState is EvadeState))
             //{
             //    parent.MyPath = parent.EneAstar.Algorithm(parent.myCurrentTile.position, targetPos);
             //}
@@ -72,7 +72,9 @@ public class PathState : IState
             Vector3Int dest = parent.EneAstar.MyTilemap.WorldToCell(destination);
             Vector3Int cur = parent.EneAstar.MyTilemap.WorldToCell(current);
             float distance = Vector2.Distance(destination, transform.position);
-            float totalDistance = Vector2.Distance(parent.myTarget.transform.parent.transform.position, parent.transform.position);
+            //Debug.Log(parent.myTarget);
+            float totalDistance = Vector2.Distance(parent.myTarget.transform.position, parent.transform.position);
+            
 
             if (cur.x > dest.x)
             {

@@ -1,53 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
-    //[SerializeField]
-    //private Stat health;
-
     [SerializeField]
-    private Stat mana;
-    public string scenePassword; //store one name when the player leave for another scene
+    public Stat mana;
     [SerializeField]
     private float initMP = 50;
-    private Vector2 initPos;
-
-    //[SerializeField]
-    //private GameObject[] castPrefab;
-    //[SerializeField]
-    //private Enemy enemy;
-
-    //[SerializeField]
-    //private Guider guider;
-
     [SerializeField]
     private Block[] blocks;
-
     [SerializeField]
     private Transform[] exitPoints;
 
+    public string scenePassword;
+    public GameObject btnInteract;
+    private Vector2 initPos;
     private int exitIndex =2;
-
     private IInteractable interactable;
     private bool inRangeInteract = false;
-
     private bool isInvulnerable = false;
-
     private SkillSet skillSet;
-
-    //private Stack<Vector3> path;
-    private Vector3 destination;
-    private Vector3 goal;
-    [SerializeField]
-    private AStar astar;
-
     private Vector3 min, max;
 
-    //public Transform myTarget { get; set; }
-    //public bool isCoolDown = false;
     public bool InCombat { get; set; } = false;
     private static Player instance;
     public static Player MyInstance
@@ -61,27 +38,6 @@ public class Player : Character
             return instance;
         }
     }
-    //private void Awake()
-    //{
-    //    skillSet = SkillSet.MyInstance.GetComponent<SkillSet>();
-    //    if (instance == null)
-    //    {
-    //        instance = this;
-    //    }
-    //    else
-    //    {
-    //        if(instance != this)
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //    DontDestroyOnLoad(gameObject);
-    //}
-    //private List<Enemy> attackers = new List<Enemy>();
-
-    //public List<Enemy> MyAttackers { get => attackers; set => attackers = value; }
-
-    // Start is called before the first frame update
     protected override void Start()
     {
         skillSet = SkillSet.MyInstance.GetComponent<SkillSet>();
@@ -91,11 +47,9 @@ public class Player : Character
         mana.Initialize(initMP, initMP);
         initPos = transform.parent.position;
         base.Start();
-        //Guider.MyInstance.Interact();
         StartCoroutine(Regen());
     }
 
-    // Update is called once per frame
     protected override void Update()
     {
         if(Guider.MyInstance != null)
@@ -104,20 +58,23 @@ public class Player : Character
             {
                 GetInput();
             }
+            if (!Guider.MyInstance.Isinteracting && inRangeInteract)
+            {
+                btnInteract.gameObject.SetActive(true);
+            }
+            else
+            {
+                btnInteract.gameObject.SetActive(false);
+            }
         }
         else
         {
             GetInput();
         }
         
-        //ClickToMove();
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }
-    //public void SetDefaultValues()
-    //{
-    //    initPos = transform.position;
-    //}
 
     private void GetInput()
     {
@@ -153,13 +110,12 @@ public class Player : Character
             exitIndex = 1;
             Direction += Vector2.right;
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (!IsAttacking && !isMoving && !UIManage.isPaused)
+            if (!IsAttacking && !UIManage.isPaused)
             {
                 StartCoroutine(Attack());
             }
-            //attackCoroutine = StartCoroutine(Attack());
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -167,11 +123,6 @@ public class Player : Character
             {
                 Interact();
             }
-        }
-        if (isMoving)
-        {
-            StopAttack();
-            StopCast();
         }
     }
 
@@ -184,7 +135,7 @@ public class Player : Character
     private IEnumerator Attack()
     {
         IsAttacking = true;
-        MyAnim.SetBool("attack", IsAttacking); //Start attack animation
+        MyAnim.SetBool("attack", IsAttacking);
         yield return new WaitForSeconds(0.2f);
         StopAttack();
     }
@@ -192,8 +143,7 @@ public class Player : Character
     {
         Cast newSkill = skillSet.castSkill(skillIndex);
         isCasting = true;
-        MyAnim.SetBool("cast", isCasting); //Start cast animation
-        //yield return new WaitForSeconds(0.2f);
+        MyAnim.SetBool("cast", isCasting); 
         yield return new WaitForSeconds(newSkill.myCastTime);
         if (skillIndex == 0)
         {
@@ -240,25 +190,23 @@ public class Player : Character
     {
         Cast manaCost = skillSet.castSkill(skillIndex);
         Block();
-        if(manaCost.myManaCost <= mana.MyCurrentValue)
+        if(manaCost.myManaCost <= mana.MyCurrentValue && !manaCost.myCheckCD)
         {
             manaCost.myCheckManaSufficient = true;
             if(skillIndex == 0)
             {
-                if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !isCasting && InLineofSight() && !isMoving && IsAlive && !UIManage.isPaused)
+                if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !manaCost.myCheckCD && !isCasting && InLineofSight() && IsAlive && !UIManage.isPaused)
                 {
                     attackCoroutine = StartCoroutine(Cast(skillIndex));
                 }
             }
             else
             {
-                if (!isCasting && !isMoving && IsAlive && !UIManage.isPaused)
+                if (!isCasting && !manaCost.myCheckCD && IsAlive && !UIManage.isPaused)
                 {
                     attackCoroutine = StartCoroutine(Cast(skillIndex));
                 }
             }
-            
-            //attackCoroutine = StartCoroutine(Cast());
         }
         else
         {
@@ -271,7 +219,6 @@ public class Player : Character
         {
             Vector3 targetDir = (myTarget.transform.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDir, Vector2.Distance(transform.position, myTarget.transform.position), 128);
-            //If raycast didn't hit blocks then it's true in sight
             if (hit.collider == null)
             {
                 return true;
@@ -296,7 +243,6 @@ public class Player : Character
         }
         else
         {
-            //Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();
             if (IsAlive)
             {
                 base.TakeDmg(dmg, source, knockback);
@@ -309,52 +255,20 @@ public class Player : Character
         }
     }
 
-    //public void PlayerTakeForce(Vector2 knockback)
-    //{
-    //    Rigidbody2D PlayerRb = GetComponent<Rigidbody2D>();
-    //    //base.TakeDmg(dmg);
-    //    //OnHealthChanged(health.MyCurrentValue);
-    //    if (health.MyCurrentValue <= 0)
-    //    {
-    //        knockback = Vector2.zero;
-    //    }
-    //    PlayerRb.AddForce(knockback);
-    //    //Debug.Log("Force" + knockback);
-    //}
-    //public override void StopCast()
-    //{
-    //    skillSet.StopCasting();
-    //    base.StopCast();
-    //}
     public void StopAttack()
     {
         IsAttacking = false;
         MyAnim.SetBool("attack", IsAttacking);
-        //enemy.IsHit = false;
-        //if (attackCoroutine != null)
-        //{
-        //    StopCoroutine(attackCoroutine);
-
-        //}
     }
     public void StopCast()
     {
-        //skillSet.StopCasting(); //Stop the skillset  from casting
-        isCasting = false; //Makes sure that we are not attacking
-        //enemy.IsHit = false;
-        MyAnim.SetBool("cast", isCasting); //Stops the cast animation
+        isCasting = false;
+        MyAnim.SetBool("cast", isCasting);
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
         }
     }
-    //public void AddAttacker(Enemy enemy)
-    //{
-    //    if (!MyAttackers.Contains(enemy))
-    //    {
-    //        MyAttackers.Add(enemy);
-    //    }
-    //}
 
     private IEnumerator Regen()
     {
@@ -388,13 +302,6 @@ public class Player : Character
         }
     }
 
-    public void GetPath(Vector3 goal)
-    {
-        MyPath = astar.Algorithm(transform.position, goal);
-        destination = MyPath.Pop();
-        this.goal = goal;
-    }
-
     public IEnumerator Respawn()
     {
         MySpriteRenderer.enabled = false;
@@ -417,25 +324,6 @@ public class Player : Character
         MyAnim.SetFloat("x", 0);
         MyAnim.SetFloat("y", 1);
     }
-    //private void ClickToMove()
-    //{
-    //    if (MyPath != null)
-    //    {
-    //        transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, Speed * Time.deltaTime);
-    //        float distance = Vector2.Distance(destination, transform.parent.position);
-    //        if(distance <= 0f)
-    //        {
-    //            if(MyPath.Count > 0)
-    //            {
-    //                destination = MyPath.Pop();
-    //            }
-    //            else
-    //            {
-    //                MyPath = null;
-    //            }
-    //        }
-    //    }
-    //}
 
     public override void AddAttacker(Character attacker)
     {
@@ -462,22 +350,25 @@ public class Player : Character
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy" || collision.tag =="Interactable")
+        if(collision.tag =="Interactable")
         {
             interactable = collision.GetComponent<IInteractable>();
             inRangeInteract = true;
+            btnInteract.gameObject.SetActive(true);
         }
     }
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy" || collision.tag == "Interactable")
+        if (collision.tag == "Interactable")
         {
             if(interactable != null)
             {
                 interactable.StopInteract();
                 interactable = null;
                 inRangeInteract = false;
+                
             }
+            btnInteract.gameObject.SetActive(false);
         }
     }
 
