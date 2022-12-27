@@ -34,17 +34,6 @@ public class SkillSet : MonoBehaviour
             return instance;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public Cast castSkill(int index)
     {
@@ -52,10 +41,9 @@ public class SkillSet : MonoBehaviour
         {
             if (player.myTarget != null)
             {
-                if (skills[index].myCheckManaSufficient /*&& !player.isMoving*/ && player.myTarget.IsAlive)
+                if (skills[index].myCheckManaSufficient && player.myTarget.IsAlive)
                 {
                     skillIcon[index].fillAmount = 0;
-                    //skillIcon[index].color = skills[index].myBarColor;
                     skillRoutine = StartCoroutine(Progress(index));
                 }
                 else if (skills[index].myManaCost > Player.MyInstance.mana.MyCurrentValue)
@@ -66,10 +54,9 @@ public class SkillSet : MonoBehaviour
         }
         else
         {
-            if (skills[index].myCheckManaSufficient /*&& !player.isMoving*/)
+            if (skills[index].myCheckManaSufficient && player.IsAlive)
             {
                 skillIcon[index].fillAmount = 0;
-                //skillIcon[index].color = skills[index].myBarColor;
                 skillRoutine = StartCoroutine(Progress(index));
             }
             else if (skills[index].myManaCost > Player.MyInstance.mana.MyCurrentValue)
@@ -77,7 +64,6 @@ public class SkillSet : MonoBehaviour
                 CombatTextManage.MyInstance.CreateText(player.transform.position, "Out of MP", SCTTYPE.TEXT, false);
             }
         }
-        
         return skills[index];
     }
     private IEnumerator Progress(int index)
@@ -88,7 +74,6 @@ public class SkillSet : MonoBehaviour
         while(progress<= 1.0)
         {
             skills[index].myCheckCD = true;
-            //player.isCoolDown = true;
             skillIcon[index].fillAmount = Mathf.Lerp(0, 1,progress);
             progress += rate * Time.deltaTime;
 
@@ -98,12 +83,9 @@ public class SkillSet : MonoBehaviour
             {
                 txtCastCD[index].text = "";
                 skills[index].myCheckCD = false;
-                //player.isCoolDown = false;
             }
             yield return null;
         }
-        //skillIcon[index].color = initSkillIcon;
-        //StopCasting();
     }
     public bool CD1()
     {
@@ -117,17 +99,7 @@ public class SkillSet : MonoBehaviour
     {
         return skills[2].myCheckCD;
     }
-    //public bool checkCastCD(int index)
-    //{
-    //    if (Progress(index) != null)
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
+
     public void StopCasting()
     {
         if (skillRoutine != null)

@@ -23,17 +23,17 @@ public class AttackState : IState
 
     void IState.Update()
     {
-        if (parent.EnemyAttTime >= attackCD && !parent.IsAttacking) //make sure that enemy only attack when off cooldown and not in attacking
+        if (parent.EnemyAttTime >= attackCD && !parent.IsAttacking) 
         {
-            parent.EnemyAttTime = 0; //reset the attack timer
-            parent.StartCoroutine(Attack()); //start the attack
+            parent.EnemyAttTime = 0; 
+            parent.StartCoroutine(Attack()); 
         }
 
-        if(parent.myTarget != null) //If have the target then check if can attack or if need to follow it
+        if(parent.myTarget != null) 
         {
-            //calculates the distance between the target and the enemy
+            
             float distance = Vector2.Distance(parent.myTarget.transform.parent.position, parent.transform.parent.position);
-            if(distance >= parent.EnemyAttRange+extraRange && !parent.IsAttacking) //if the distance is larger than the attackrange, then need to move
+            if(distance >= parent.EnemyAttRange+extraRange && !parent.IsAttacking) 
             {
                 if(parent is RangedEnemy)
                 {
@@ -43,11 +43,9 @@ public class AttackState : IState
                 {
                     parent.ChangeState(new FollowState());
                 }
-                //Follow the target
-                
             }
         }
-        else //if lost the target, then back to idle
+        else 
         {
             parent.ChangeState(new IdleState());
         }
@@ -56,9 +54,6 @@ public class AttackState : IState
     {
         parent.IsAttacking = true;
         parent.MyAnim.SetTrigger("attack");
-        //Vector3 dir = parent.myTarget.position - parent.transform.position;
-        //parent.MyRb.velocity = dir.normalized * 0.5f;
-        //parent.transform.parent.position = Vector2.MoveTowards(parent.transform.parent.position, dir, 2f * Time.deltaTime);
         yield return new WaitForSeconds(parent.MyAnim.GetCurrentAnimatorStateInfo(2).length);
         parent.IsAttacking = false;
     }

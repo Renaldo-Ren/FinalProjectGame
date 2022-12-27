@@ -37,13 +37,6 @@ public class GameManage : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Player.MyInstance.SetDefaultValues();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         ClickTarget();
@@ -54,19 +47,14 @@ public class GameManage : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
         {
-            //Makes a raycast from the mouse position into the game world
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 256);
 
-            if(hit.collider != null && hit.collider.tag == "Enemy") //if we hit something
+            if(hit.collider != null && hit.collider.tag == "Enemy")
             {
                 DeSelectTarget();
                 SelectTarget(hit.collider.GetComponent<Enemy>());
-                //if(hit.collider.tag == "Enemy")
-                //{
-                //    player.myTarget = hit.transform.GetChild(0);
-                //}
             }
-            else //deselect the target
+            else 
             {
                 UIManage.myInstance.HideTargetFrame();
                 DeSelectTarget();
@@ -93,19 +81,15 @@ public class GameManage : MonoBehaviour
     }
     public void DeSelectTarget()
     {
-        if (curTarget != null) //if we have current target
+        if (curTarget != null)
         {
-            curTarget.DeSelect(); //deselect the current target
+            curTarget.DeSelect();
         }
     }
     private void SelectTarget(Enemy enemy)
     {
-        curTarget = enemy; //selects the new target
-        player.myTarget = curTarget.Select(); //gives the player the new target
+        curTarget = enemy; 
+        player.myTarget = curTarget.Select(); 
         UIManage.myInstance.ShowTargetFrame(curTarget);
-    }
-    public void OnKillConfirmed(Character character)
-    {
-        Destroy(character.transform.GetChild(0).gameObject);
     }
 }

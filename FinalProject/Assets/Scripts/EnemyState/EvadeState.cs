@@ -5,6 +5,7 @@ using UnityEngine;
 public class EvadeState : IState
 {
     private Enemy parent;
+    private Coroutine ResetBack;
     public void Enter(Enemy parent)
     {
         this.parent = parent;
@@ -22,14 +23,13 @@ public class EvadeState : IState
 
     public void Update()
     {
-        parent.Direction = (parent.myStartPos - parent.transform.position).normalized;
-        //parent.transform.position = Vector2.MoveTowards(parent.transform.position, parent.myStartPos, parent.Speed*Time.deltaTime);
+        parent.Direction = (parent.myStartPos - parent.transform.parent.position).normalized;
         float distance = Vector2.Distance(parent.myStartPos, parent.transform.parent.position);
-        parent.StartCoroutine(RevertBack());
+        ResetBack = parent.StartCoroutine(RevertBack());
         if (distance <= 0.1f)
         {
             parent.ChangeState(new IdleState());
-            parent.StopAllCoroutines();
+            parent.StopCoroutine(ResetBack);
         }
         
     }

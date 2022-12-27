@@ -16,11 +16,10 @@ public class Entrance : MonoBehaviour
             GameManage.MyInstance.DeSelectTarget();
             GameManage.MyInstance.curTarget = null;
             GameManage.MyInstance.player.myTarget = null;
-            Debug.Log("ENTER");
         }
-        else
-        {
-            Debug.Log("Wrong PW");
-        }
+        //else
+        //{
+        //    Debug.Log("Wrong PW");
+        //}
     }
 }

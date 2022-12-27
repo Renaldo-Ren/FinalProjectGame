@@ -57,7 +57,7 @@ public class CastScript : MonoBehaviour
             //collision.GetComponentInParent<Enemy>().TakeDmg(damage, source, knockback);
             GetComponent<Animator>().SetTrigger("impact");
             Rb.velocity = Vector2.zero;
-            myTarget = null;
+            //myTarget = null;
         }
     }
 }

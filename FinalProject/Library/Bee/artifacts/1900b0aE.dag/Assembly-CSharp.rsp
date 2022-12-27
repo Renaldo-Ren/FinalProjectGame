@@ -405,7 +405,7 @@
 "Assets/Scripts/ExitScene.cs"
 "Assets/Scripts/GameManage.cs"
 "Assets/Scripts/IDescribable.cs"
-"Assets/Scripts/Knockback.cs"
+"Assets/Scripts/MainComp.cs"
 "Assets/Scripts/MainMenu.cs"
 "Assets/Scripts/PathfindingScripts/AStar.cs"
 "Assets/Scripts/PathfindingScripts/Node.cs"

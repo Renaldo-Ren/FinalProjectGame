@@ -59,7 +59,7 @@
     <Compile Include="Assets\Scripts\CharacterRelated\LayerCollide.cs" />
     <Compile Include="Assets\Scripts\ExitScene.cs" />
     <Compile Include="Assets\Scripts\CharacterRelated\RangedEnemy.cs" />
-    <Compile Include="Assets\Scripts\Knockback.cs" />
+    <Compile Include="Assets\Scripts\MainComp.cs" />
     <Compile Include="Assets\Scripts\EnemyState\FollowState.cs" />
     <Compile Include="Assets\Behaviour\DeathBehaviour.cs" />
     <Compile Include="Assets\Scripts\Entrance.cs" />

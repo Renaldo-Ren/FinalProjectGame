@@ -71,7 +71,7 @@ public class Player : Character
         {
             GetInput();
         }
-        
+        Debug.Log(Attackers.Count);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }
@@ -173,7 +173,7 @@ public class Player : Character
     private IEnumerator Shield(GameObject shieldPrefab)
     {
         isInvulnerable = true;
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(5f);
         isInvulnerable = false;
         Destroy(shieldPrefab);
     }
@@ -192,18 +192,28 @@ public class Player : Character
         Block();
         if(manaCost.myManaCost <= mana.MyCurrentValue && !manaCost.myCheckCD)
         {
-            manaCost.myCheckManaSufficient = true;
+            
             if(skillIndex == 0)
             {
                 if (myTarget != null && myTarget.GetComponentInParent<Character>().IsAlive && !manaCost.myCheckCD && !isCasting && InLineofSight() && IsAlive && !UIManage.isPaused)
                 {
+                    manaCost.myCheckManaSufficient = true;
                     attackCoroutine = StartCoroutine(Cast(skillIndex));
+                }
+                else if(myTarget == null)
+                {
+                    CombatTextManage.MyInstance.CreateText(transform.position, "No Target", SCTTYPE.TEXT, false);
+                }
+                else if (!InLineofSight())
+                {
+                    CombatTextManage.MyInstance.CreateText(transform.position, "No In Line of Sight", SCTTYPE.TEXT, false);
                 }
             }
             else
             {
                 if (!isCasting && !manaCost.myCheckCD && IsAlive && !UIManage.isPaused)
                 {
+                    manaCost.myCheckManaSufficient = true;
                     attackCoroutine = StartCoroutine(Cast(skillIndex));
                 }
             }
@@ -306,12 +316,8 @@ public class Player : Character
     {
         MySpriteRenderer.enabled = false;
         yield return new WaitForSeconds(3f);
-        health.Initialize(initHP, initHP);
-        mana.Initialize(initMP, initMP);
+        ResetPlayer();
         SceneManager.LoadScene("ForestIntro");
-        MyAnim.SetFloat("x", 0);
-        MyAnim.SetFloat("y", -1);
-        transform.parent.position = initPos;
         MySpriteRenderer.enabled = true;
         MyAnim.SetTrigger("respawn");
     }
@@ -332,7 +338,6 @@ public class Player : Character
         if(count == 0)
         {
             InCombat = true;
-            Debug.Log("In Combat");
             CombatTextManage.MyInstance.CreateText(transform.position, "IN COMBAT", SCTTYPE.TEXT, false);
         }
 
@@ -343,7 +348,6 @@ public class Player : Character
         if(Attackers.Count == 0)
         {
             InCombat = false;
-            Debug.Log("Not In Combat");
             CombatTextManage.MyInstance.CreateText(transform.position, "OUT OF COMBAT", SCTTYPE.TEXT, false);
         }
     }
