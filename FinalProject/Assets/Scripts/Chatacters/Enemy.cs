@@ -52,10 +52,10 @@ public class Enemy : NPC
 
             curState.Update();
 
-            //if(myTarget != null && !Player.MyInstance.IsAlive)
-            //{
-            //    ChangeState(new EvadeState());
-            //}
+            if (myTarget != null && !Player.MyInstance.IsAlive)
+            {
+                ChangeState(new EvadeState());
+            }
         }
         Debug.Log(myTarget);
         base.Update();
