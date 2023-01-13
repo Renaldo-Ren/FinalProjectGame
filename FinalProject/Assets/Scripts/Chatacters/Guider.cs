@@ -23,7 +23,6 @@ public class Guider : NPC, IInteractable
     public override void Interact()
     {
         base.Interact();
-        //Debug.Log("interactable");
         Isinteracting = true;
         DialogWindow.MyInstance.SetDialog(dialog);
     }
@@ -32,6 +31,5 @@ public class Guider : NPC, IInteractable
     {
         base.StopInteract();
         Isinteracting = false;
-        //Debug.Log("Stop interactable");
     }
 }

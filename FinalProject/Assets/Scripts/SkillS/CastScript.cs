@@ -14,7 +14,7 @@ public class CastScript : MonoBehaviour
 
     private int damage;
     public float thrust = 50f;
-    // Start is called before the first frame update
+
     void Start()
     {
         Rb = GetComponent<Rigidbody2D>();
@@ -25,7 +25,7 @@ public class CastScript : MonoBehaviour
         this.damage = damage;
         this.source = source;
     }
-    // Update is called once per frame
+
     void Update()
     {
         //Vector2 dir = target.position - transform.position;
@@ -54,7 +54,6 @@ public class CastScript : MonoBehaviour
             Character c = collision.GetComponentInParent<Character>();
             speed = 0;
             c.TakeDmg(damage, source, knockback);
-            //collision.GetComponentInParent<Enemy>().TakeDmg(damage, source, knockback);
             GetComponent<Animator>().SetTrigger("impact");
             Rb.velocity = Vector2.zero;
             myTarget = null;

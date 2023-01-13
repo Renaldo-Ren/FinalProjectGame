@@ -9,32 +9,22 @@ public class DialogWindow : MonoBehaviour
     private static DialogWindow instance;
     [SerializeField]
     private CanvasGroup canvasGroup;
-
     [SerializeField]
     private TextMeshProUGUI text;
-
     [SerializeField]
     private float speed;
-
     [SerializeField]
     private GameObject btnAnswerPrefab;
-
     [SerializeField]
     private Transform ansTransform;
 
-    //[SerializeField]
-    //private Guider guider;
-
     private int index;
     private bool isAnswering = false;
-    //public bool isFinishDialog = true;
-
     private Dialog dialog;
     private DialogNode currentNode;
     private List<DialogNode> answers = new List<DialogNode>();
     private List<GameObject> buttons = new List<GameObject>();
 
-    
     public static DialogWindow MyInstance
     {
         get
@@ -78,10 +68,9 @@ public class DialogWindow : MonoBehaviour
     {
         for (int i = 0; i < dialog.Length; i++)
         {
-            text.text += dialog[i]; //This is for the text appear one by one
+            text.text += dialog[i];
             yield return new WaitForSeconds(speed);
         }
-        //ShowAnswers();
     }
     private void ShowAnswers()
     {
@@ -120,7 +109,6 @@ public class DialogWindow : MonoBehaviour
         if(index < currentNode.Text.Length - 1)
         {
             index++;
-            //Debug.Log("currentNode.Text : " + currentNode.Text.Length + "Index : " + index);
             text.text = string.Empty;
             StartCoroutine(RunDialog(currentNode.Text[index]));
             ShowAnswers();
@@ -130,7 +118,6 @@ public class DialogWindow : MonoBehaviour
             if (!isAnswering)
             {
                 CloseDialog();
-                
             }
         }
     }
@@ -170,6 +157,5 @@ public class DialogWindow : MonoBehaviour
     {
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
-        //guider.Isinteracting = false;
     }
 }

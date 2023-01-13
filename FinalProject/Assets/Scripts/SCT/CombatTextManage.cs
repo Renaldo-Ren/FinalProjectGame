@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SCTTYPE {DAMAGE,HEAL,XP,TEXT,MANA}
+public enum SCTTYPE {DAMAGE,HEAL,TEXT,MANA}
 public class CombatTextManage : MonoBehaviour
 {
     public Coroutine WriteRoutine;
@@ -64,11 +64,6 @@ public class CombatTextManage : MonoBehaviour
                         before = "+";
                         sct.color = Color.blue;
                         break;
-                    case SCTTYPE.XP:
-                        before = "+";
-                        after = "XP";
-                        sct.color = Color.yellow;
-                        break;
                     case SCTTYPE.TEXT:
                         sct.color = Color.white;
                         break;
@@ -82,18 +77,6 @@ public class CombatTextManage : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         }
     }
-
-    //public void StartWriteText()
-    //{
-    //    StartCoroutine(WriteText());
-    //}
-    //public void StopWriteText()
-    //{
-    //    if(WriteRoutine != null)
-    //    {
-    //        StopCoroutine(WriteRoutine);
-    //    }
-    //}
 }
 
 public class SCTObject
