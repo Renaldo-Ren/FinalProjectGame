@@ -115,20 +115,6 @@ public class Enemy : NPC
             collision.collider.GetComponentInParent<Player>().TakeDmg(3, this, knockback);
         }
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-
-    //    Vector3 parentPos = gameObject.GetComponentInParent<Transform>().position;
-    //    Vector2 dir = (Vector2)(collision.gameObject.transform.position - transform.position).normalized;
-    //    Vector3 knockback = dir * thrust;
-
-    //    if (collision.tag == "Player")
-    //    {
-    //        collision.GetComponentInParent<Player>().TakeDmg(3);
-    //        //collision.GetComponentInParent<Player>().HPgroup.alpha = 1;
-    //        collision.GetComponentInParent<Player>().PlayerTakeForce(knockback);
-    //    }
-    //}
 
     public void ChangeState(IState newState)
     {

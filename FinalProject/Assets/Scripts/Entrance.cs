@@ -16,10 +16,11 @@ public class Entrance : MonoBehaviour
             GameManage.MyInstance.DeSelectTarget();
             GameManage.MyInstance.curTarget = null;
             GameManage.MyInstance.player.myTarget = null;
+            if (Player.MyInstance.Attackers.Count > 0)
+            {
+                Player.MyInstance.Attackers.Clear();
+                Player.MyInstance.InCombat = false;
+            }
         }
-        //else
-        //{
-        //    Debug.Log("Wrong PW");
-        //}
     }
 }

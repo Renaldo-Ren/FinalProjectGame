@@ -71,7 +71,6 @@ public class Player : Character
         {
             GetInput();
         }
-        Debug.Log(Attackers.Count);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         base.Update();
     }

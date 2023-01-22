@@ -76,17 +76,13 @@ public class AStar : MonoBehaviour
         for(int i = 0; i< neighbors.Count; i++)
         {
             Node neighbor = neighbors[i];
-            //if (!ConnectedDiagonally(current,neighbor))
-            //{
-            //    continue;
-            //}
-            int gScore = DetermineGScore(neighbors[i].Position, current.Position); 
-            
-            //if(gScore == 14 && noDiagonalTiles.Contains(neighbor.Position) && noDiagonalTiles.Contains(current.Position))
-            //{
-            //    continue;
-            //}
-            
+            int gScore = DetermineGScore(neighbors[i].Position, current.Position);
+
+            if (gScore == 14 && noDiagonalTiles.Contains(neighbor.Position) && noDiagonalTiles.Contains(current.Position))
+            {
+                continue;
+            }
+
             if (openlist.Contains(neighbor))
             { 
                 if (current.G + gScore < neighbor.G) 
@@ -146,22 +142,6 @@ public class AStar : MonoBehaviour
         }
     }
     
-    private bool ConnectedDiagonally(Node currentNode, Node neighbor)
-    {
-        Vector3Int direct = currentNode.Position - neighbor.Position;
-        Vector3Int left = new Vector3Int(current.Position.x + (direct.x * -1), current.Position.y, current.Position.z);
-        Vector3Int top = new Vector3Int(current.Position.x, current.Position.y + (direct.y * -1), current.Position.z);
-        Vector3Int right = new Vector3Int(current.Position.x + (direct.x * 1), current.Position.y, current.Position.z);
-        Vector3Int bottom = new Vector3Int(current.Position.x, current.Position.y + (direct.y * 1), current.Position.z);
-        if ((waterTiles.Contains(left) && waterTiles.Contains(top)) || 
-            (waterTiles.Contains(left) && waterTiles.Contains(bottom)) || 
-            (waterTiles.Contains(right) && waterTiles.Contains(bottom)) || 
-            (waterTiles.Contains(right) && waterTiles.Contains(top)))
-        {
-            return false;
-        }
-        return true;
-    }
     private Stack<Vector3> GeneratePath(Node current)
     {
         if(current.Position == goalPos)

@@ -13,6 +13,7 @@ public class ExitScene : MonoBehaviour
         if(collision.tag == "Player")
         {
             Player.MyInstance.scenePassword = newScenePassword;
+            //Player.MyInstance.InCombat = false;
             SceneManager.LoadScene(sceneName);
         }
     }

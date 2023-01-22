@@ -17,7 +17,6 @@ public class PathState : IState
         if(targetPos != parent.myCurrentTile.position)
         {
             parent.MyPath = parent.EneAstar.Algorithm(parent.myCurrentTile.position, targetPos);
-            //Debug.Log("Target Pos: " + targetPos + ", destination: " + destination + ", current: " + current + ", transform: " + transform + ", parent: " + parent);
         }
         if(parent.MyPath != null)
         {
@@ -44,7 +43,7 @@ public class PathState : IState
 
     public void Update()
     {
-        Debug.Log("Target Pos: " + targetPos + ", destination: " + destination + ", current: " + current + ", transform: " + transform + ", parent: " + parent + ", parent path: " + parent.MyPath);
+        //Debug.Log("Target Pos: " + targetPos + ", destination: " + destination + ", current: " + current + ", transform: " + transform + ", parent: " + parent + ", parent path: " + parent.MyPath);
         if (parent.MyPath != null)
         {
             transform.position = Vector2.MoveTowards(transform.position, destination, 2 * Time.deltaTime);

@@ -34,7 +34,7 @@ public class MainComp : MonoBehaviour
     }
     private void Update()
     {
-        if((SceneManager.GetActiveScene().buildIndex == 0) || (SceneManager.GetActiveScene().buildIndex == 5))
+        if((SceneManager.GetActiveScene().buildIndex == 0) || (SceneManager.GetActiveScene().buildIndex == 6))
         {
             Destroy(gameObject);
         }
